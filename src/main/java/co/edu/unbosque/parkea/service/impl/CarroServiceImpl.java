@@ -1,18 +1,21 @@
 package co.edu.unbosque.parkea.service.impl;
 
 import co.edu.unbosque.parkea.commons.GenericServiceImpl;
+import co.edu.unbosque.parkea.model.Carro;
 import co.edu.unbosque.parkea.model.Parqueadero;
+import co.edu.unbosque.parkea.repository.CarroRepository;
 import co.edu.unbosque.parkea.repository.ParqueaderoRepository;
+import co.edu.unbosque.parkea.service.CarroServiceAPI;
 import co.edu.unbosque.parkea.service.ParqueaderoServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
-public class ParqueaderoServiceImpl extends GenericServiceImpl<Parqueadero, Integer> implements ParqueaderoServiceAPI {
+public class CarroServiceImpl extends GenericServiceImpl<Carro, Integer> implements CarroServiceAPI {
 
     @Autowired
-    private ParqueaderoRepository parqueaderoDtoApi;
+    private CarroRepository carroDtoApi;
     @Override
-    public CrudRepository<Parqueadero, Integer> getDto() {
-        return parqueaderoDtoApi;
+    public CrudRepository<Carro, Integer> getDto() {
+        return carroDtoApi;
     }
 }
