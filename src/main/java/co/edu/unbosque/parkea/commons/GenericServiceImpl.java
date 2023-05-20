@@ -11,17 +11,17 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
 
     @Override
     public T save(T entity){
-        return getDao().save(entity);
+        return getDto().save(entity);
     }
 
     @Override
     public void delete(ID id){
-        getDao().deleteById(id);
+        getDto().deleteById(id);
     }
 
     @Override
     public T get(ID id){
-        Optional<T> obj = getDao().findById(id);
+        Optional<T> obj = getDto().findById(id);
         if(obj.isPresent()){
             return obj.get();
         }
@@ -31,10 +31,10 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
     @Override
     public List<T> getAll(){
         List<T> resultList = new ArrayList<>();
-        getDao().findAll().forEach(obj -> resultList.add(obj));
+        getDto().findAll().forEach(obj -> resultList.add(obj));
         return resultList;
     }
 
-    public abstract CrudRepository<T, ID> getDao();
+    public abstract CrudRepository<T, ID> getDto();
 
 }

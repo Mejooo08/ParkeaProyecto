@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuditoriaServiceImpl extends GenericServiceImpl<Auditoria, Integer> implements AuditoriaServiceAPI {
     @Autowired
-    private AuditoriaRepository auditoriaDaoAPI;
+    private AuditoriaRepository auditoriaDtoAPI;
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public CrudRepository<Auditoria, Integer> getDao(){
-        return auditoriaDaoAPI;
+    public CrudRepository<Auditoria, Integer> getDto(){
+        return auditoriaDtoAPI;
     }
 
 }

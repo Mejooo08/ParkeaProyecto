@@ -18,15 +18,15 @@ import java.util.List;
 public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> implements UsuarioServiceAPI {
 
     @Autowired
-    private UsuarioRepository usuarioDaoAPI;
+    private UsuarioRepository usuarioDtoAPI;
 
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public CrudRepository<Usuario, Integer> getDao(){
-        return usuarioDaoAPI;
+    public CrudRepository<Usuario, Integer> getDto(){
+        return usuarioDtoAPI;
     }
     @Override
     public Usuario login(String correo, String clave){
