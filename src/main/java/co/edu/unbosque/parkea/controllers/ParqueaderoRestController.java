@@ -34,7 +34,7 @@ public class ParqueaderoRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveParqueadero/{idParqueadero}")
+    @PostMapping(value = "/saveParq/{idParqueadero}")
     public HttpStatus save(@RequestBody Parqueadero parq, @PathVariable(value = "idUsuario") int idUsuario){
         parq.setEstado("A");
         parqueaderoServiceAPI.save(parq);
@@ -58,13 +58,24 @@ public class ParqueaderoRestController {
             objeto.setCuposOcupados(parq.getCuposOcupados());
             objeto.setEstado(parq.getEstado());
             parqueaderoServiceAPI.save(objeto);
-            audi.saveAuditoria("Actualizar", "Carro",idUsuario);
+            audi.saveAuditoria("Actualizar", "Parqueadero",idUsuario);
         }else{
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return HttpStatus.OK;
     }
 
-
+    @GetMapping(value = "/deleteParq/{id}/{idUsuario}")
+    public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
+        Parqueadero parqueadero = parqueaderoServiceAPI.get(id);
+        if (parqueadero != null){
+            parqueadero.setEstado("D");
+            parqueaderoServiceAPI.save(parqueadero);
+            audi.saveAuditoria("Eliminar", "Parqueadero",idUsuario);
+        }else{
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
+    }
 
 }
