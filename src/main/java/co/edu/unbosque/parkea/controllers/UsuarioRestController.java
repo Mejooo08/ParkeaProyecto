@@ -43,7 +43,7 @@ public class UsuarioRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveUsuario/{idIdentificacion}/{idCuadrilla}/{idRol}/{idUsuario}")
+    @PostMapping(value = "/saveUsuario/{idIdentificacion}/{idRol}/{idUsuario}")
     public HttpStatus save(@RequestBody Usuario usuario,
                            @PathVariable(value = "idIdentificacion") int idIdentificacion,
                            @PathVariable(value = "idRol") int idRol,
@@ -81,11 +81,10 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idCuadrilla}/{idRol}/{idUsuario}")
+    @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idRol}/{idUsuario}")
     public HttpStatus update(@RequestBody Usuario usuario,
                                           @PathVariable(value = "id") int id,
                                           @PathVariable(value = "idIdentificacion") int idIdentificacion,
-                                          @PathVariable(value = "idCuadrilla") int idCuadrilla,
                                           @PathVariable(value = "idRol") int idRol,
                                           @PathVariable(value = "idUsuario") int idUsuario){
 
@@ -97,7 +96,7 @@ public class UsuarioRestController {
             objeto.setLogin(usuario.getLogin());
             objeto.setClave(usuarioServiceAPI.hashearContra(usuario.getClave()));
             objeto.setDireccion(usuario.getDireccion());
-            //objeto.setIdentificacion(usuario.getIdentificacion());
+            objeto.setNumeroDoc(usuario.getNumeroDoc());
             objeto.setIdDocumento(identificacion);
             objeto.setIntentos(usuario.getIntentos());
             objeto.setEstado(usuario.getEstado());
