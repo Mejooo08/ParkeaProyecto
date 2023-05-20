@@ -35,6 +35,9 @@ public class ReservaCupo implements Serializable {
     @Getter @Setter @JoinColumn(name="id_parqueadero")
     private Parqueadero idParqueadero;
 
+    @Getter @Setter @Column(name="placa_carro")
+    private String placaCarro;
+
     public ReservaCupo() {
     }
 }

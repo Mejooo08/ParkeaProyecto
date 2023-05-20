@@ -62,6 +62,11 @@ public class Usuario implements Serializable {
     @Getter @Setter
     private List<Auditoria> auditorias;
 
+    //bi-directional many-to-one association to Telefono
+    @OneToMany(mappedBy="usuario")
+    @Getter @Setter
+    private List<Carro> carros;
+
     public Usuario() {
     }
 }
