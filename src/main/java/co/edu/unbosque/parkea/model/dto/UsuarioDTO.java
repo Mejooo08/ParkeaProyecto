@@ -1,5 +1,6 @@
 package co.edu.unbosque.parkea.model.dto;
 
+import co.edu.unbosque.parkea.model.Rol;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ public class UsuarioDTO {
     private int idUsuario;
 
     @Getter @Setter
-    private String rol;
+    private Rol rol;
 
     @Getter @Setter
     private String login;
@@ -21,18 +22,18 @@ public class UsuarioDTO {
     private String idDocumento;
 
     @Getter @Setter
-    private String puntosFidelizacion;
+    private int puntosFidelizacion;
 
     @Getter @Setter
     private String tarjetaCredito;
 
     @Getter @Setter
-    private String intentos;
+    private int intentos;
 
     @Getter @Setter
     private String estado;
 
-    public UsuarioDTO(int idUsuario, String rol, String login, String direccion, String idDocumento, String puntosFidelizacion, String tarjetaCredito, String intentos, String estado) {
+    public UsuarioDTO(int idUsuario, Rol rol, String login, String direccion, String idDocumento, int puntosFidelizacion, String tarjetaCredito, int intentos, String estado) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.login = login;

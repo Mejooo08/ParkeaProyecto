@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class EnvioCorreoImpl {
-/**
-    @Autowired
+
+ 
     private JavaMailSender mailSender;
 
     public void enviarCorreo(String destino, String asunto, String contenido) {
@@ -26,5 +26,4 @@ public class EnvioCorreoImpl {
 
         System.out.println("Correo enviado exitosamente...");
     }
-    **/
 }
