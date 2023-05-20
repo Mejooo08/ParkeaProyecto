@@ -60,7 +60,7 @@ public class UsuarioRestController {
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Guardar", "Usuario",idUsuario);
         correoService.enviarCorreo(usuario.getLogin()+"", "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                "por un administrador de la empresa de Electri-Bogota, asignado a la cuadrilla: "+usuario.getCuadrilla()+", su clave de accesso es: " +contra);
+                ", su clave de accesso es: " +contra);
         return HttpStatus.OK;
     }
 

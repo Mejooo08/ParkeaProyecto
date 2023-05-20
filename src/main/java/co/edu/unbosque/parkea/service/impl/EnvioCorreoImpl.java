@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 public class EnvioCorreoImpl {
 
- 
+
     private JavaMailSender mailSender;
 
     public void enviarCorreo(String destino, String asunto, String contenido) {
