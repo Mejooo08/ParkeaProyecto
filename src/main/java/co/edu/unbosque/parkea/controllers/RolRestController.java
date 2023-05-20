@@ -15,9 +15,6 @@ public class RolRestController {
 
     private RolServiceAPI rolServiceAPI;
 
-
-    private AuditoriaRestController audi;
-
     @GetMapping(value = "/getAll")
     public List<RolDTO> getAll(){
         List<Rol> getall = rolServiceAPI.getAll();

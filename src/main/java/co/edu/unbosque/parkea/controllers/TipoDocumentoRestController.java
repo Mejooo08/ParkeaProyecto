@@ -15,8 +15,6 @@ public class TipoDocumentoRestController {
 
     private TipoDocumentoServiceAPI tipoDocumentoServiceAPI;
 
-    private AuditoriaRestController audi;
-
     @GetMapping(value = "/getAll")
     public List<TipoDocumentoDTO> getAll(){
         List<TipoDocumento> getall = tipoDocumentoServiceAPI.getAll();
