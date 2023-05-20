@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaCupoRestController {
-    private ReservaCupoServiceAPI reservaCupoServiceAPI
+    private ReservaCupoServiceAPI reservaCupoServiceAPI;
 
     private ParqueaderoServiceAPI parqueaderoServiceAPI;
 
