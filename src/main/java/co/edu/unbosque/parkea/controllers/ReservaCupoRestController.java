@@ -64,19 +64,5 @@ public class ReservaCupoRestController {
         }
         return HttpStatus.OK;
     }
-
-    @GetMapping(value = "/deleteCupo/{id}/{idUsuario}")
-    public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
-        Parqueadero parqueadero = parqueaderoServiceAPI.get(id);
-        if (parqueadero != null){
-            parqueadero.setEstado("D");
-            parqueaderoServiceAPI.save(parqueadero);
-            audi.saveAuditoria("Eliminar", "Parqueadero",idUsuario);
-        }else{
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.OK;
-    }
-
-
+    
 }
