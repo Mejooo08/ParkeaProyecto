@@ -17,10 +17,14 @@ public class CarroDTO {
     @Getter @Setter
     private String modelo;
 
-    public CarroDTO(int idCarro, String usuario, String placa, String modelo) {
+    @Getter @Setter
+    private String estado;
+
+    public CarroDTO(int idCarro, String usuario, String placa, String modelo, String estado) {
         this.idCarro = idCarro;
         this.usuario = usuario;
         this.placa = placa;
         this.modelo = modelo;
+        this.estado = estado;
     }
 }

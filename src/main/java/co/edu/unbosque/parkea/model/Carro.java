@@ -29,6 +29,9 @@ public class Carro implements Serializable {
     @Getter @Setter @Column(name = "modelo")
     private String  modelo;
 
+    @Getter @Setter @Column(name = "estado")
+    private String  estado;
+
     public Carro(){
     }
 }
