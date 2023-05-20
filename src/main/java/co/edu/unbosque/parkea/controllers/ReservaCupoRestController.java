@@ -1,6 +1,6 @@
 package co.edu.unbosque.parkea.controllers;
 
-import co.edu.unbosque.parkea.model.Parqueadero;
+import co.edu.unbosque.parkea.model.*;
 import co.edu.unbosque.parkea.model.ReservaCupo;
 import co.edu.unbosque.parkea.model.TipoParqueadero;
 import co.edu.unbosque.parkea.model.dto.ParqueaderoDTO;
@@ -37,34 +37,46 @@ public class ReservaCupoRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveParqueadero/{idParqueadero}")
-    public HttpStatus save(@RequestBody Parqueadero parq, @PathVariable(value = "idUsuario") int idUsuario){
-        parq.setEstado("A");
-        parqueaderoServiceAPI.save(parq);
-        audi.saveAuditoria("Guardar", "Parqueadero",idUsuario);
+    @PostMapping(value = "/saveCupo/{idReservaCupo}")
+    public HttpStatus save(@RequestBody ReservaCupo cupo, @PathVariable(value = "idUsuario") int idUsuario){
+        reservaCupoServiceAPI.save(cupo);
+        audi.saveAuditoria("Guardar", "Reserva Cupo",idUsuario);
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/updateParq/{id}/{idUsuario}")
-    public HttpStatus update(@RequestBody Parqueadero parq, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
+    @PutMapping(value = "/updateCupo/{id}/{idUsuario}")
+    public HttpStatus update(@RequestBody ReservaCupo cupo, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
 
-        Parqueadero objeto = parqueaderoServiceAPI.get(id);
-        ReservaCupo reservaCupo =reservaCupoServiceAPI.get(id);
-        if (reservaCupo != null){
-            reservaCupo.setIdParqueadero(objeto);
-            reservaCupo.setUsuario(reservaCupo.getUsuario());
-            reservaCupo.setHoraFinal(reservaCupo.getHoraFinal());
-            reservaCupo.setPlacaCarro(reservaCupo.getPlacaCarro());
-            reservaCupo.setIdFactura(reservaCupo.getIdFactura());
-            reservaCupo.setHoraInicio(reservaCupo.getHoraInicio());
-            reservaCupoServiceAPI.save(reservaCupo);
-            audi.saveAuditoria("Actualizar", "Carro",idUsuario);
+        ReservaCupo objeto =reservaCupoServiceAPI.get(id);
+        Parqueadero parq = parqueaderoServiceAPI.get(id);
+        Usuario usuario = usuarioServiceAPI.get(id);
+        if (objeto != null){
+            objeto.setUsuario(usuario);
+            objeto.setHoraInicio(cupo.getHoraInicio());
+            objeto.setHoraFinal(cupo.getHoraFinal());
+            objeto.setPlacaCarro(cupo.getPlacaCarro());
+            objeto.setIdFactura(cupo.getIdFactura());
+            objeto.setIdParqueadero(parq);
+            reservaCupoServiceAPI.save(objeto);
+            audi.saveAuditoria("Actualizar", "Reserva Cupo",idUsuario);
         }else{
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return HttpStatus.OK;
     }
 
+    @GetMapping(value = "/deleteCupo/{id}/{idUsuario}")
+    public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
+        Parqueadero parqueadero = parqueaderoServiceAPI.get(id);
+        if (parqueadero != null){
+            parqueadero.setEstado("D");
+            parqueaderoServiceAPI.save(parqueadero);
+            audi.saveAuditoria("Eliminar", "Parqueadero",idUsuario);
+        }else{
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
+    }
 
 
 }
