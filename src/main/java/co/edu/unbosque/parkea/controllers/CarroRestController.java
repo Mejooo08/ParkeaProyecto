@@ -7,7 +7,8 @@ import co.edu.unbosque.parkea.model.dto.CarroDTO;
 import co.edu.unbosque.parkea.service.AuditoriaServiceAPI;
 import co.edu.unbosque.parkea.service.CarroServiceAPI;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class CarroRestController {
 
     private CarroServiceAPI carroServiceAPI;
 
-    private AuditoriaServiceAPI audi;
+    private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")
     public List<CarroDTO> getAll(){
@@ -27,5 +28,42 @@ public class CarroRestController {
             listaN.add(objeto);
         }
         return listaN;
+    }
+
+    @PostMapping(value = "/saveCarro/{idCarro}")
+    public HttpStatus save(@RequestBody Carro carro, @PathVariable(value = "idUsuario") int idUsuario){
+        carro.setEstado("A");
+        carroServiceAPI.save(carro);
+        audi.saveAuditoria("Guardar", "Carro",idUsuario);
+        return HttpStatus.OK;
+    }
+
+    @PutMapping(value = "/updateCarro/{id}/{idUsuario}")
+    public HttpStatus update(@RequestBody Carro carro, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
+
+        Carro objeto = carroServiceAPI.get(id);
+        if (objeto != null){
+            objeto.setPlaca(carro.getPlaca());
+            objeto.setModelo(carro.getModelo());
+            objeto.setEstado(carro.getEstado());
+            carroServiceAPI.save(objeto);
+            audi.saveAuditoria("Actualizar", "Carro",idUsuario);
+        }else{
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/deleteCarro/{id}/{idUsuario}")
+    public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
+        Carro carro = carroServiceAPI.get(id);
+        if (carro != null){
+            carro.setEstado("D");
+            carroServiceAPI.save(carro);
+            audi.saveAuditoria("Eliminar", "Carro",idUsuario);
+        }else{
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
     }
 }

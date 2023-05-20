@@ -41,4 +41,7 @@ public class AuditoriaRestController {
         auditoria.setTabla(tabla);
         auditoria.setIpUsuario("ipprueba");
     }
+
+
+
 }

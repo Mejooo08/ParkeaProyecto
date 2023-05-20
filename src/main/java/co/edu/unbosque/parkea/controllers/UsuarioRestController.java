@@ -36,7 +36,7 @@ public class UsuarioRestController {
 
         for (Usuario u:getall){
             if(u.getEstado().equals("A")){
-                    UsuarioDTO objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
+                    UsuarioDTO objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
                     listaF.add(objeto);
                 }
             }

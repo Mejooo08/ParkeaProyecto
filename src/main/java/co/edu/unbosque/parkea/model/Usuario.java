@@ -35,6 +35,9 @@ public class Usuario implements Serializable {
     @Getter @Setter @JoinColumn(name = "id_documento")
     private TipoDocumento idDocumento;
 
+    @Getter @Setter @Column(name = "numero_doc")
+    private String numeroDoc;
+
     @Getter @Setter @Column(name = "puntos_fidelizacion")
     private int puntosFidelizacion;
 

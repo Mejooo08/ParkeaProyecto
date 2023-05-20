@@ -22,6 +22,9 @@ public class UsuarioDTO {
     private String idDocumento;
 
     @Getter @Setter
+    private String numeroDoc;
+
+    @Getter @Setter
     private int puntosFidelizacion;
 
     @Getter @Setter
@@ -33,12 +36,13 @@ public class UsuarioDTO {
     @Getter @Setter
     private String estado;
 
-    public UsuarioDTO(int idUsuario, Rol rol, String login, String direccion, String idDocumento, int puntosFidelizacion, String tarjetaCredito, int intentos, String estado) {
+    public UsuarioDTO(int idUsuario, Rol rol, String login, String direccion, String idDocumento, String numeroDoc, int puntosFidelizacion, String tarjetaCredito, int intentos, String estado) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.login = login;
         this.direccion = direccion;
         this.idDocumento = idDocumento;
+        this.numeroDoc = numeroDoc;
         this.puntosFidelizacion = puntosFidelizacion;
         this.tarjetaCredito = tarjetaCredito;
         this.intentos = intentos;
