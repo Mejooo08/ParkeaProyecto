@@ -16,6 +16,7 @@ public class Auditoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     @Column(name="id_informe")
+
     private int idInforme;
 
     //bi-directional many-to-one association to Usuario
