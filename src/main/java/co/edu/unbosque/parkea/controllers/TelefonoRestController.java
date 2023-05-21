@@ -39,11 +39,14 @@ public class TelefonoRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveTelefono/{idTelefono}")
-    public HttpStatus save(@RequestBody Telefono telefono, @PathVariable(value = "idUsuario") int idUsuario){
+    @PostMapping(value = "/saveTelefono/{idTelefono}/{idUsuario}")
+    public HttpStatus save(@RequestBody Telefono telefono,
+                           @PathVariable(value = "idUsuario") int idUsuario){
+        Usuario user = usuarioServiceAPI.get(idUsuario);
+        telefono.setUsuario(user);
         telefono.setEstado("A");
         telefonoServiceAPI.save(telefono);
-        audi.saveAuditoria("Guardar", "Parqueadero",idUsuario);
+        audi.saveAuditoria("Guardar", "Telefono",idUsuario);
         return HttpStatus.OK;
     }
 
@@ -52,11 +55,8 @@ public class TelefonoRestController {
 
         Telefono objeto = telefonoServiceAPI.get(id);
         if (objeto != null){
-            objeto.setIdTelefono(telefono.getIdTelefono());
             objeto.setNumTelefono(telefono.getNumTelefono());
             objeto.setEstado(telefono.getEstado());
-            Usuario user = usuarioServiceAPI.get(idUsuario);
-            objeto.setUsuario(user);
             telefonoServiceAPI.save(objeto);
             audi.saveAuditoria("Actualizar", "Telefono",idUsuario);
         }else{

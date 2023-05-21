@@ -20,10 +20,10 @@ public class ReservaCupo implements Serializable {
     private int idFactura;
 
     @Getter @Setter @Column(name="hora_inicio")
-    private java.sql.Date horaInicio;
+    private String horaInicio;
 
     @Getter @Setter @Column(name="hora_final")
-    private java.sql.Date horaFinal;
+    private String horaFinal;
 
     //bi-directional many-to-one association to Usuario
     @ManyToOne
