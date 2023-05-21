@@ -64,6 +64,7 @@ public class TelefonoRestController {
         }
         return HttpStatus.OK;
     }
+    
     @GetMapping(value = "/deleteTelefono/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         Telefono telefono = telefonoServiceAPI.get(id);
