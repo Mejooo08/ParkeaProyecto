@@ -5,19 +5,25 @@ import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.model.dto.AuditoriaDTO;
 import co.edu.unbosque.parkea.service.AuditoriaServiceAPI;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@RestController
+@RequestMapping(value = "/api/Auditoria")
 public class AuditoriaRestController {
 
     public AuditoriaRestController(){
     }
 
+    @Autowired
     private AuditoriaServiceAPI auditoriaServiceAPI;
 
+    @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
 
     @GetMapping(value = "/getAll")

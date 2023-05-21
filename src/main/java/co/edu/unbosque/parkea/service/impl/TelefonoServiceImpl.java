@@ -6,7 +6,9 @@ import co.edu.unbosque.parkea.repository.TelefonoRepository;
 import co.edu.unbosque.parkea.service.TelefonoServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TelefonoServiceImpl extends GenericServiceImpl<Telefono, Integer> implements TelefonoServiceAPI {
     @Autowired
     private TelefonoRepository telefonoDtoApi;

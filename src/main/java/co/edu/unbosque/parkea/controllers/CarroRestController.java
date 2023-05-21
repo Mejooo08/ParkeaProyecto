@@ -1,22 +1,22 @@
 package co.edu.unbosque.parkea.controllers;
 
-import co.edu.unbosque.parkea.model.Auditoria;
 import co.edu.unbosque.parkea.model.Carro;
-import co.edu.unbosque.parkea.model.dto.AuditoriaDTO;
 import co.edu.unbosque.parkea.model.dto.CarroDTO;
-import co.edu.unbosque.parkea.service.AuditoriaServiceAPI;
 import co.edu.unbosque.parkea.service.CarroServiceAPI;
-import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping(value = "/api/Carro")
 public class CarroRestController {
 
+    @Autowired
     private CarroServiceAPI carroServiceAPI;
 
+    @Autowired
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")

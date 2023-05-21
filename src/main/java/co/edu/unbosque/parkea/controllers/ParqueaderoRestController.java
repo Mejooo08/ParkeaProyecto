@@ -6,17 +6,24 @@ import co.edu.unbosque.parkea.model.TipoParqueadero;
 import co.edu.unbosque.parkea.model.dto.ParqueaderoDTO;
 import co.edu.unbosque.parkea.service.ParqueaderoServiceAPI;
 import co.edu.unbosque.parkea.service.TipoParqueaderoServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping(value = "/api/Parqueadero")
 public class ParqueaderoRestController {
 
+    @Autowired
     private ParqueaderoServiceAPI parqueaderoServiceAPI;
 
+    @Autowired
     private TipoParqueaderoServiceAPI tipoParqueaderoServiceAPI;
+
+    @Autowired
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")

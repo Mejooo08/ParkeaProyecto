@@ -6,7 +6,9 @@ import co.edu.unbosque.parkea.repository.TipoParqueaderoRepository;
 import co.edu.unbosque.parkea.service.TipoParqueaderoServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TipoParqueaderoServiceImpl extends GenericServiceImpl<TipoParqueadero, Integer> implements TipoParqueaderoServiceAPI {
     @Autowired
     private TipoParqueaderoRepository tipoParqueaderoDtoApi;

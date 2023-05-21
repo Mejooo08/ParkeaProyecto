@@ -9,18 +9,27 @@ import co.edu.unbosque.parkea.service.ParqueaderoServiceAPI;
 import co.edu.unbosque.parkea.service.ReservaCupoServiceAPI;
 import co.edu.unbosque.parkea.service.TipoParqueaderoServiceAPI;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping(value = "/api/ReservaCupo")
 public class ReservaCupoRestController {
+
+    @Autowired
     private ReservaCupoServiceAPI reservaCupoServiceAPI;
 
+    @Autowired
     private ParqueaderoServiceAPI parqueaderoServiceAPI;
 
+    @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
+
+    @Autowired
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")

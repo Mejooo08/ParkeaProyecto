@@ -8,6 +8,7 @@ import co.edu.unbosque.parkea.service.RolServiceAPI;
 import co.edu.unbosque.parkea.service.TipoDocumentoServiceAPI;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
 import co.edu.unbosque.parkea.service.impl.EnvioCorreoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,17 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/Usuario")
 public class UsuarioRestController {
 
+    @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
 
+    @Autowired
     private TipoDocumentoServiceAPI tipoDocumentoServiceAPI;
 
+    @Autowired
     private RolServiceAPI rolServiceAPI;
 
+    @Autowired
     private EnvioCorreoImpl correoService;
 
+    @Autowired
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")

@@ -4,18 +4,24 @@ import co.edu.unbosque.parkea.model.*;
 import co.edu.unbosque.parkea.model.dto.TelefonoDTO;
 import co.edu.unbosque.parkea.service.TelefonoServiceAPI;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping(value = "/api/Telefono")
 public class TelefonoRestController {
 
+    @Autowired
     private TelefonoServiceAPI telefonoServiceAPI;
 
+    @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
 
+    @Autowired
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")

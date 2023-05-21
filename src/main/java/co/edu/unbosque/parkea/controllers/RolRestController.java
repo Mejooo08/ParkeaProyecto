@@ -3,6 +3,7 @@ package co.edu.unbosque.parkea.controllers;
 import co.edu.unbosque.parkea.model.Rol;
 import co.edu.unbosque.parkea.model.dto.RolDTO;
 import co.edu.unbosque.parkea.service.RolServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/Rol")
+@RequestMapping(value = "/api/Rol")
 public class RolRestController {
 
+    @Autowired
     private RolServiceAPI rolServiceAPI;
 
     @GetMapping(value = "/getAll")

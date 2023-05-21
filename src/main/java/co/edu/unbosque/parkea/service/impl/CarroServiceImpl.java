@@ -6,7 +6,9 @@ import co.edu.unbosque.parkea.repository.CarroRepository;
 import co.edu.unbosque.parkea.service.CarroServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CarroServiceImpl extends GenericServiceImpl<Carro, Integer> implements CarroServiceAPI {
 
     @Autowired

@@ -6,7 +6,9 @@ import co.edu.unbosque.parkea.repository.RolRepository;
 import co.edu.unbosque.parkea.service.RolServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RolServiceImpl extends GenericServiceImpl<Rol, Integer> implements RolServiceAPI {
     @Autowired
     private RolRepository rolDtoApi;

@@ -3,13 +3,19 @@ package co.edu.unbosque.parkea.controllers;
 import co.edu.unbosque.parkea.model.TipoParqueadero;
 import co.edu.unbosque.parkea.model.dto.TipoParqueaderoDTO;
 import co.edu.unbosque.parkea.service.TipoParqueaderoServiceAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping(value = "/api/TipoParqueadero")
 public class TipoParqueaderoRestController {
 
+    @Autowired
      private TipoParqueaderoServiceAPI tipoParqueaderoServiceAPI;
 
     @GetMapping(value = "/getAll")
