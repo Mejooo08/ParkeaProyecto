@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 @RestController
 @RequestMapping(value = "/api/Auditoria")
@@ -40,9 +41,11 @@ public class AuditoriaRestController {
     public void saveAuditoria(String evento, String tabla, int idUsuario){
         Auditoria auditoria = new Auditoria();
 
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Date fechaSql = new Date(timestamp.getTime());
         Usuario usuario = usuarioServiceAPI.get(idUsuario);
         auditoria.setUsuario(usuario);
-        auditoria.setFechaHora((java.sql.Date) new Date());
+        auditoria.setFechaHora(fechaSql);
         auditoria.setEvento(evento);
         auditoria.setTabla(tabla);
         auditoria.setIpUsuario("ipprueba");

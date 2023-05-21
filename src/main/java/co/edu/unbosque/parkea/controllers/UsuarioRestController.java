@@ -19,6 +19,9 @@ import java.util.List;
 @RequestMapping(value = "/api/Usuario")
 public class UsuarioRestController {
 
+    public UsuarioRestController(){
+
+    }
     @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
 
@@ -65,8 +68,8 @@ public class UsuarioRestController {
         usuario.setEstado("A");
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Guardar", "Usuario",idUsuario);
-        correoService.enviarCorreo(usuario.getLogin()+"", "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                ", su clave de accesso es: " +contra);
+        /** correoService.enviarCorreo(usuario.getLogin()+"", "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
+                ", su clave de accesso es: " +contra); **/
         return HttpStatus.OK;
     }
 
