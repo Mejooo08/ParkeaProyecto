@@ -91,7 +91,7 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
     public String hashearContra(String contra){
         MessageDigest md = null;
         try {
-            md = MessageDigest.getInstance("SHA-256");
+            md = MessageDigest.getInstance("SHA-1");
         }
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
