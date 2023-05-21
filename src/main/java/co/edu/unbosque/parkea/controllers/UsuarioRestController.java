@@ -64,7 +64,9 @@ public class UsuarioRestController {
         usuario.setRol(rol);
         String contra = usuario.getClave();
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
+        usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
+        usuario.setTajetaCredito(usuario.getTajetaCredito());
         usuario.setEstado("A");
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Guardar", "Usuario",idUsuario);
