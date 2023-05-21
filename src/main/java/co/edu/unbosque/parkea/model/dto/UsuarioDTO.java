@@ -10,7 +10,7 @@ public class UsuarioDTO {
     private int idUsuario;
 
     @Getter @Setter
-    private Rol rol;
+    private String rol;
 
     @Getter @Setter
     private String login;
@@ -36,7 +36,7 @@ public class UsuarioDTO {
     @Getter @Setter
     private String estado;
 
-    public UsuarioDTO(int idUsuario, Rol rol, String login, String direccion, String idDocumento, String numeroDoc, int puntosFidelizacion, String tarjetaCredito, int intentos, String estado) {
+    public UsuarioDTO(int idUsuario, String rol, String login, String direccion, String idDocumento, String numeroDoc, int puntosFidelizacion, String tarjetaCredito, int intentos, String estado) {
         this.idUsuario = idUsuario;
         this.rol = rol;
         this.login = login;

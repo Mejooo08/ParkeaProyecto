@@ -6,10 +6,8 @@ import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -24,13 +22,13 @@ public class AuthController {
         System.out.println("----- Iniciado");
     }
 
-    @GetMapping(value = "/validarLogin/{correo}/{clave}")
+    @PostMapping(value = "/validarLogin/{correo}/{clave}")
     public UsuarioDTO login(@PathVariable(value = "correo") String correo,
                             @PathVariable(value = "clave") String clave){
        Usuario u =  usuarioServiceAPI.login(correo, clave);
        UsuarioDTO objeto = new UsuarioDTO();
        if(u != null){
-           objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
+           objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
        }
        int val = comprobacion(u);
         switch(val) {
