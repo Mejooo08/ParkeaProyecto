@@ -1,8 +1,10 @@
 package co.edu.unbosque.parkea.controllers;
 
 import co.edu.unbosque.parkea.model.Carro;
+import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.model.dto.CarroDTO;
 import co.edu.unbosque.parkea.service.CarroServiceAPI;
+import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class CarroRestController {
 
     @Autowired
     private CarroServiceAPI carroServiceAPI;
+
+    @Autowired
+    private UsuarioServiceAPI usuarioServiceAPI;
 
     @Autowired
     private AuditoriaRestController audi;
@@ -30,8 +35,10 @@ public class CarroRestController {
         return listaN;
     }
 
-    @PostMapping(value = "/saveCarro/{idCarro}")
+    @PostMapping(value = "/saveCarro/{idCarro}/{idUsuario}")
     public HttpStatus save(@RequestBody Carro carro, @PathVariable(value = "idUsuario") int idUsuario){
+        Usuario user = usuarioServiceAPI.get(idUsuario);
+        carro.setUsuario(user);
         carro.setEstado("A");
         carroServiceAPI.save(carro);
         audi.saveAuditoria("Guardar", "Carro",idUsuario);

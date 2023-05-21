@@ -3,9 +3,11 @@ package co.edu.unbosque.parkea.controllers;
 import co.edu.unbosque.parkea.model.Carro;
 import co.edu.unbosque.parkea.model.Parqueadero;
 import co.edu.unbosque.parkea.model.TipoParqueadero;
+import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.model.dto.ParqueaderoDTO;
 import co.edu.unbosque.parkea.service.ParqueaderoServiceAPI;
 import co.edu.unbosque.parkea.service.TipoParqueaderoServiceAPI;
+import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ public class ParqueaderoRestController {
 
     @Autowired
     private TipoParqueaderoServiceAPI tipoParqueaderoServiceAPI;
+
+    @Autowired
+    private UsuarioServiceAPI usuarioServiceAPI;
 
     @Autowired
     private AuditoriaRestController audi;
@@ -41,19 +46,25 @@ public class ParqueaderoRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveParq/{idParqueadero}")
-    public HttpStatus save(@RequestBody Parqueadero parq, @PathVariable(value = "idUsuario") int idUsuario){
+    @PostMapping(value = "/saveParq/{idParqueadero}/{idTipoParq}/{idUsuario}")
+    public HttpStatus save(@RequestBody Parqueadero parq,
+                           @PathVariable(value = "idTipoParq") int idTipoParq,
+                           @PathVariable(value = "idUsuario") int idUsuario){
+        TipoParqueadero tipo = tipoParqueaderoServiceAPI.get(idTipoParq);
         parq.setEstado("A");
+        parq.setIdTipoParq(tipo);
         parqueaderoServiceAPI.save(parq);
         audi.saveAuditoria("Guardar", "Parqueadero",idUsuario);
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/updateParq/{id}/{idUsuario}")
-    public HttpStatus update(@RequestBody Parqueadero parq, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
+    @PutMapping(value = "/updateParq/{id}/{idTipoParq}/{idUsuario}")
+    public HttpStatus update(@RequestBody Parqueadero parq,
+                             @PathVariable(value = "idTipoParq") int idTipoParq,
+                             @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
 
         Parqueadero objeto = parqueaderoServiceAPI.get(id);
-        TipoParqueadero tipoParqueadero =tipoParqueaderoServiceAPI.get(id);
+        TipoParqueadero tipoParqueadero =tipoParqueaderoServiceAPI.get(idTipoParq);
         if (objeto != null){
             objeto.setIdTipoParq(tipoParqueadero);
             objeto.setUbicacion(parq.getUbicacion());
