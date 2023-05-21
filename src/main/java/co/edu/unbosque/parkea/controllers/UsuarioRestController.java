@@ -73,23 +73,6 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
-    @PostMapping(value = "/saveUsuario/{idIdentificacion}")
-    public HttpStatus saveLogin(@RequestBody Usuario usuario,
-                           @PathVariable(value = "idIdentificacion") int idIdentificacion){
-
-        TipoDocumento identificacion = tipoDocumentoServiceAPI.get(idIdentificacion);
-        Rol rol = rolServiceAPI.get(1);
-        usuario.setIdDocumento(identificacion);
-        usuario.setRol(rol);
-        usuario.setClave(usuarioServiceAPI.hashearContra(usuario.getClave()));
-        usuario.setEstado("A");
-        usuario.setIntentos(0);
-        usuarioServiceAPI.save(usuario);
-        correoService.enviarCorreo(usuario.getLogin()+"", "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nHa quedado" +
-                "registrado en nuestra sistema como un nuevo usuario, ya puede iniciar sesión");
-        return HttpStatus.OK;
-    }
-
     @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idRol}/{idUsuario}")
     public HttpStatus update(@RequestBody Usuario usuario,
                                           @PathVariable(value = "id") int id,
@@ -119,8 +102,12 @@ public class UsuarioRestController {
 
     @PutMapping(value = "/cambiarContrasenia/{id}/{contra}")
     public HttpStatus cambiarContra(@RequestBody Usuario usuario,
+                                                 @PathVariable(value = "id") int id,
                                                  @PathVariable(value = "contra") String contra){
+        usuario = usuarioServiceAPI.get(id);
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
+        usuarioServiceAPI.save(usuario);
+        audi.saveAuditoria("Cambio Contrasenia", "Usuario",usuario.getIdUsuario());
         return HttpStatus.OK;
     }
 

@@ -32,23 +32,24 @@ public class AuditoriaRestController {
         List<Auditoria> getall = auditoriaServiceAPI.getAll();
         List<AuditoriaDTO> listaN = new ArrayList<>();
         for (Auditoria a:getall){
-            AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().toString(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), a.getIpUsuario());
+            AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().getLogin(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), a.getIpUsuario());
             listaN.add(objeto);
         }
         return listaN;
     }
 
+
     public void saveAuditoria(String evento, String tabla, int idUsuario){
         Auditoria auditoria = new Auditoria();
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        Date fechaSql = new Date(timestamp.getTime());
         Usuario usuario = usuarioServiceAPI.get(idUsuario);
         auditoria.setUsuario(usuario);
-        auditoria.setFechaHora(fechaSql);
+        auditoria.setFechaHora(timestamp+"");
         auditoria.setEvento(evento);
         auditoria.setTabla(tabla);
         auditoria.setIpUsuario("ipprueba");
+        auditoriaServiceAPI.save(auditoria);
     }
 
 

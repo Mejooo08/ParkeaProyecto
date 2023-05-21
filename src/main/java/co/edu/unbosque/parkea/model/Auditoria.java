@@ -25,7 +25,7 @@ public class Auditoria implements Serializable {
     private Usuario usuario;
 
     @Getter @Setter @Column(name = "fecha_hora")
-    private java.sql.Date fechaHora;
+    private String fechaHora;
 
     @Getter @Setter @Column(name = "evento")
     private String  evento;
