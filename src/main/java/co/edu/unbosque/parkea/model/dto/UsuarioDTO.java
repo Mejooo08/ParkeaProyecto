@@ -48,4 +48,8 @@ public class UsuarioDTO {
         this.intentos = intentos;
         this.estado = estado;
     }
+
+    public UsuarioDTO(){
+
+    }
 }
