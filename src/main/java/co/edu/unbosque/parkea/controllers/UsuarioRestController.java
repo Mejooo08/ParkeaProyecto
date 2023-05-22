@@ -69,8 +69,8 @@ public class UsuarioRestController {
         usuario.setEstado("A");
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Guardar", "Usuario",idUsuario);
-        /** correoService.enviarCorreo(usuario.getLogin()+"", "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                ", su clave de accesso es: " +contra); **/
+        correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
+                ", su clave de accesso es: " +contra);
         return HttpStatus.OK;
     }
 
@@ -111,7 +111,7 @@ public class UsuarioRestController {
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Cambio Contrasenia", "Usuario",usuario.getIdUsuario());
-        correoService.enviarCorreo("danielfmr88@gmail.com", "Asunto","Hola probando,cambio contraseña");
+        correoService.enviarCorreo(usuario.getLogin(), "Cambio de contrasenia","Has cambiado la contraseña exitosamente");
         return HttpStatus.OK;
     }
 

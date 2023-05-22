@@ -36,33 +36,29 @@ public class AuthController {
         switch(val) {
             case 0:
                 System.out.println("Usuario bloqueado");
+                correoService.enviarCorreo(u.getLogin(),"Usuario Bloqueado", "Su usuario esta bloqueado," +
+                        "contacte a un administrador para poder acceder a ParkeaColombia");
+                correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
+                        "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
                 return null;
             case 1:
-                System.out.println("Sesion iniciada con exito");
+                correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Has iniciado sesion " +
+                        "correctamente en tu cuenta de ParkeaColombia");
                 return objeto;
-            case 2:
-                System.out.println("La contrasenia debe ser cambiada");
-                return objeto;
-            case 3:
-                System.out.println("Login fallido");
-                return null;
             default:
                 System.out.println("Se peto");
                 return null;
         }
     }
     public int comprobacion(Usuario u){
-        if(u != null){
+        int valor = -1;
             if(!usuarioServiceAPI.validarEstado(u)){
-                return 0;
-                // "Estado inactivo"
+                valor = 0;
+                // "Estado inactivo" o login fallido
             }else{
-                return 1;
+                valor = 1;
                 //"Sesión iniciada con exito"
             }
-        }else{
-            return 3;
-            //"Login fallido"
-        }
+            return valor;
     }
 }

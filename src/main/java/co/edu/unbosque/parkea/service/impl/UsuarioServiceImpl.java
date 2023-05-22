@@ -43,7 +43,7 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
                 System.out.println("Clave incorrecta");
                 int intentos = encontrado.getIntentos() +1;
                 encontrado.setIntentos(intentos);
-                return null;
+                return lista.get(0);
             }
         }else{
             System.out.println("Dio null");
