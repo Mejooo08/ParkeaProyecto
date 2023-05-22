@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ReservaCupoRestController {
         List<ReservaCupoDTO> listaF = new ArrayList<>();
 
         for (ReservaCupo c:getall){
-            ReservaCupoDTO objeto = new ReservaCupoDTO(c.getIdFactura(), c.getHoraInicio().toString(), c.getHoraFinal().toString(), c.getUsuario().getLogin(), c.getIdParqueadero().getUbicacion(), c.getPlacaCarro(), c.getEstado());
+            ReservaCupoDTO objeto = new ReservaCupoDTO(c.getIdFactura(), c.getMomentoReserva().toString(), c.getHoraIngreso().toString(),c.getHoraSalida().toString(), c.getUsuario().getLogin(), c.getIdParqueadero().getUbicacion(), c.getPlacaCarro(), c.getEstado());
                 listaF.add(objeto);
 
         }
@@ -55,6 +56,8 @@ public class ReservaCupoRestController {
         Carro carro = user.getCarros().get(0);
         cupo.setIdParqueadero(parq);
         cupo.setPlacaCarro(carro.getPlaca());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        cupo.setMomentoReserva(timestamp+"");
         cupo.setUsuario(user);
         reservaCupoServiceAPI.save(cupo);
         audi.saveAuditoria("Guardar", "Reserva Cupo",idUsuario);
@@ -71,8 +74,10 @@ public class ReservaCupoRestController {
         ReservaCupo objeto =reservaCupoServiceAPI.get(id);
         if (objeto != null){
             objeto.setUsuario(usuario);
-            objeto.setHoraInicio(cupo.getHoraInicio());
-            objeto.setHoraFinal(cupo.getHoraFinal());
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            objeto.setMomentoReserva(timestamp+"");
+            objeto.setHoraIngreso(cupo.getHoraIngreso());
+            objeto.setHoraSalida(cupo.getHoraSalida());
             objeto.setPlacaCarro(cupo.getPlacaCarro());
             objeto.setIdParqueadero(parq);
             reservaCupoServiceAPI.save(objeto);

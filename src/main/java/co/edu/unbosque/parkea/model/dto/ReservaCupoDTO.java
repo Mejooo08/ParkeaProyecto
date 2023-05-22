@@ -9,10 +9,13 @@ public class ReservaCupoDTO {
     private int idFactura;
 
     @Getter @Setter
-    private String horaInicio;
+    private String momentoReserva;
 
     @Getter @Setter
-    private String horaFinal;
+    private String horaIngreso;
+
+    @Getter @Setter
+    private String horaSalida;
 
     @Getter @Setter
     private String usuario;
@@ -26,10 +29,11 @@ public class ReservaCupoDTO {
     @Getter @Setter
     private String estado;
 
-    public ReservaCupoDTO(int idFactura, String horaInicio, String horaFinal, String usuario, String idParqueadero, String placaCarro, String estado) {
+    public ReservaCupoDTO(int idFactura, String momentoReserva, String horaIngreso, String horaSalida, String usuario, String idParqueadero, String placaCarro, String estado) {
         this.idFactura = idFactura;
-        this.horaInicio = horaInicio;
-        this.horaFinal = horaFinal;
+        this.momentoReserva = momentoReserva;
+        this.horaIngreso = horaIngreso;
+        this.horaSalida = horaSalida;
         this.usuario = usuario;
         this.idParqueadero = idParqueadero;
         this.placaCarro = placaCarro;

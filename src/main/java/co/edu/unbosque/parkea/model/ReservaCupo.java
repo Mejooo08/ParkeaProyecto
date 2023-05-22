@@ -19,11 +19,14 @@ public class ReservaCupo implements Serializable {
     @Column(name="id_factura")
     private int idFactura;
 
-    @Getter @Setter @Column(name="hora_inicio")
-    private String horaInicio;
+    @Getter @Setter @Column(name="momento_reserva")
+    private String momentoReserva;
 
-    @Getter @Setter @Column(name="hora_final")
-    private String horaFinal;
+    @Getter @Setter @Column(name="hora_ingreso")
+    private String horaIngreso;
+
+    @Getter @Setter @Column(name="hora_salida")
+    private String horaSalida;
 
     //bi-directional many-to-one association to Usuario
     @ManyToOne
