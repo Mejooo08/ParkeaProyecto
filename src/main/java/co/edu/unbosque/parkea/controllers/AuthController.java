@@ -3,6 +3,7 @@ package co.edu.unbosque.parkea.controllers;
 import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.model.dto.UsuarioDTO;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import co.edu.unbosque.parkea.service.impl.EnvioCorreoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -16,7 +17,8 @@ public class AuthController {
 
     @Autowired
     private UsuarioServiceAPI usuarioServiceAPI;
-
+    @Autowired
+    private EnvioCorreoImpl correoService;
     @EventListener(ApplicationReadyEvent.class)
     public void envioCorreo() {
         System.out.println("----- Iniciado");

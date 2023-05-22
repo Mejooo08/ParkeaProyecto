@@ -111,6 +111,7 @@ public class UsuarioRestController {
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Cambio Contrasenia", "Usuario",usuario.getIdUsuario());
+        correoService.enviarCorreo("danielfmr88@gmail.com", "Asunto","Hola probando,cambio contraseña");
         return HttpStatus.OK;
     }
 
