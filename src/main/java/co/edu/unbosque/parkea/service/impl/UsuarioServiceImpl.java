@@ -78,7 +78,7 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
     }
 
     public void validarIntentos(Usuario u){
-        if(u.getIntentos() > 3){
+        if(u.getIntentos() >= 3){
             System.out.println("Usuario con mas de tres intentos bloquear");
             u.setEstado("D");
             save(u);

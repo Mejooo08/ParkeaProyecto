@@ -28,7 +28,7 @@ public class AuthController {
        Usuario u =  usuarioServiceAPI.login(correo, clave);
        UsuarioDTO objeto = new UsuarioDTO();
        if(u != null){
-           objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
+           objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
        }
        int val = comprobacion(u);
         switch(val) {

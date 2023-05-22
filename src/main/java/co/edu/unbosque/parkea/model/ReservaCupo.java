@@ -38,6 +38,9 @@ public class ReservaCupo implements Serializable {
     @Getter @Setter @Column(name="placa_carro")
     private String placaCarro;
 
+    @Getter @Setter @Column(name = "estado")
+    private String  estado;
+
     public ReservaCupo() {
     }
 }

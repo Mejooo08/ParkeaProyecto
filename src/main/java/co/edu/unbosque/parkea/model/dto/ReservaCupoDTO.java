@@ -23,12 +23,16 @@ public class ReservaCupoDTO {
     @Getter @Setter
     private String placaCarro;
 
-    public ReservaCupoDTO(int idFactura, String horaInicio, String horaFinal, String usuario, String idParqueadero, String placaCarro) {
+    @Getter @Setter
+    private String estado;
+
+    public ReservaCupoDTO(int idFactura, String horaInicio, String horaFinal, String usuario, String idParqueadero, String placaCarro, String estado) {
         this.idFactura = idFactura;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.usuario = usuario;
         this.idParqueadero = idParqueadero;
         this.placaCarro = placaCarro;
+        this.estado = estado;
     }
 }

@@ -41,8 +41,8 @@ public class Usuario implements Serializable {
     @Getter @Setter @Column(name = "puntos_fidelizacion")
     private int puntosFidelizacion;
 
-    @Getter @Setter @Column(name = "tajeta_credito")
-    private String tajetaCredito;
+    @Getter @Setter @Column(name = "tarjeta_credito")
+    private String tarjetaCredito;
 
     @Getter @Setter @Column(name = "intentos")
     private int intentos;

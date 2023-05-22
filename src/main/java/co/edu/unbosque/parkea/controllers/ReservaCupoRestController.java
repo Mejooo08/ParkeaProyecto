@@ -39,7 +39,7 @@ public class ReservaCupoRestController {
         List<ReservaCupoDTO> listaF = new ArrayList<>();
 
         for (ReservaCupo c:getall){
-            ReservaCupoDTO objeto = new ReservaCupoDTO(c.getIdFactura(), c.getHoraInicio().toString(), c.getHoraFinal().toString(), c.getUsuario().getLogin(), c.getIdParqueadero().getUbicacion(), c.getPlacaCarro());
+            ReservaCupoDTO objeto = new ReservaCupoDTO(c.getIdFactura(), c.getHoraInicio().toString(), c.getHoraFinal().toString(), c.getUsuario().getLogin(), c.getIdParqueadero().getUbicacion(), c.getPlacaCarro(), c.getEstado());
                 listaF.add(objeto);
 
         }
@@ -77,6 +77,19 @@ public class ReservaCupoRestController {
             objeto.setIdParqueadero(parq);
             reservaCupoServiceAPI.save(objeto);
             audi.saveAuditoria("Actualizar", "Reserva Cupo",idUsuario);
+        }else{
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/deleteCupo/{id}/{idUsuario}")
+    public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
+        ReservaCupo cupo = reservaCupoServiceAPI.get(id);
+        if (cupo != null){
+            cupo.setEstado("D");
+            reservaCupoServiceAPI.save(cupo);
+            audi.saveAuditoria("Eliminar", "Reserva Cupo",idUsuario);
         }else{
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }

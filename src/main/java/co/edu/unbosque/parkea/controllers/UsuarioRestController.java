@@ -45,7 +45,7 @@ public class UsuarioRestController {
 
         for (Usuario u:getall){
             if(u.getEstado().equals("A")){
-                    UsuarioDTO objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol() ,u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTajetaCredito(), u.getIntentos(),u.getEstado());
+                    UsuarioDTO objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol() ,u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
                     listaF.add(objeto);
                 }
             }
@@ -66,7 +66,6 @@ public class UsuarioRestController {
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
-        usuario.setTajetaCredito(usuario.getTajetaCredito());
         usuario.setEstado("A");
         usuarioServiceAPI.save(usuario);
         audi.saveAuditoria("Guardar", "Usuario",idUsuario);
@@ -93,6 +92,8 @@ public class UsuarioRestController {
             objeto.setNumeroDoc(usuario.getNumeroDoc());
             objeto.setIdDocumento(identificacion);
             objeto.setIntentos(usuario.getIntentos());
+            objeto.setTarjetaCredito(usuario.getTarjetaCredito());
+            objeto.setPuntosFidelizacion(usuario.getPuntosFidelizacion());
             objeto.setEstado(usuario.getEstado());
             usuarioServiceAPI.save(objeto);
             audi.saveAuditoria("Actualizar", "Usuario",idUsuario);
