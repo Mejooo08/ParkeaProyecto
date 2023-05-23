@@ -127,4 +127,15 @@ public class UsuarioRestController {
         }
         return HttpStatus.OK;
     }
+
+    @PostMapping(value = "https://production.wompi.co/v1/tokens/cards")
+    public HttpStatus pasarela(@PathVariable(value = "correo") String correo,
+                               @PathVariable(value = "clave") String clave){
+        Usuario u =  usuarioServiceAPI.login(correo,clave);
+        correoService.enviarCorreo(u.getLogin(),"Compra Realizada", "Su compra se ha realizado" +
+                "exitosamente");
+        correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Compra Realizada", "El usuario: "+u.getIdUsuario()+" ha realizado " +
+                "una compra de manera exitosa");
+        return HttpStatus.OK;
+    }
 }
