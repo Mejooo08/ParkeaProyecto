@@ -54,14 +54,8 @@ public class AuditoriaRestController {
         auditoria.setFechaHora(timestamp+"");
         auditoria.setEvento(evento);
         auditoria.setTabla(tabla);
-        auditoria.setIpUsuario(obtenerDireccionIP2());
+        auditoria.setIpUsuario("IP");
         auditoriaServiceAPI.save(auditoria);
-    }
-
-    public static String obtenerDireccionIP() {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        return request.getRemoteAddr();
     }
 
     public static String obtenerDireccionIP2() {

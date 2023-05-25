@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping(value = "/api/ReservaCupo/Factura")
 public class FacturaReservaRestController {
@@ -36,7 +38,9 @@ public class FacturaReservaRestController {
         Usuario usuario = usuarioServiceAPI.get(idUsuario);
         ReservaCupo cupo = reservaCupoServiceAPI.get(idReservaCupo);
         Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
-        int puntos = reservaCupoServiceAPI.facturacion(parq.getTarifa(), cupo.getHoraIngreso(), cupo.getHoraSalida(), parq.getFidelizacion());
+        ArrayList<Integer> valores = reservaCupoServiceAPI.facturacion(parq.getTarifa(), cupo.getHoraIngreso(), cupo.getHoraSalida(), parq.getFidelizacion());
+        int puntos = valores.get(0);
+        int precio = valores.get(1);
         usuario.setPuntosFidelizacion(usuario.getPuntosFidelizacion()+puntos);
         audi.saveAuditoria("Pago Reserva", "Reserva Cupo", idUsuario);
         return HttpStatus.OK;

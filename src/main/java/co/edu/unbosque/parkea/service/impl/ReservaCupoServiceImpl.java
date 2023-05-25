@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +32,9 @@ public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Inte
     EntityManager entityManager;
 
     @Override
-    public int facturacion(int tarifa, String horaIngreso, String horaSalida, String fidelizacion){
-        int puntos  = 0;
+    public ArrayList<Integer> facturacion(int tarifa, String horaIngreso, String horaSalida, String fidelizacion){
+        ArrayList<Integer> numeros = new ArrayList<>();
+        int puntos = 0;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try{
             Date fecha1 = dateFormat.parse(horaIngreso);
@@ -42,11 +45,12 @@ public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Inte
             if(fidelizacion.equals("S")){
                 puntos = precio /1000;
             }
-            System.out.println(diferencia_m);
-            System.out.println(precio);
+
+            numeros.add(precio);
+            numeros.add(puntos);
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return puntos;
+        return numeros;
     }
 }
