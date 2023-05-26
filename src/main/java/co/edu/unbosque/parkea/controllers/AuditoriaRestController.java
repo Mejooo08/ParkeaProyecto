@@ -34,12 +34,18 @@ public class AuditoriaRestController {
     private UsuarioServiceAPI usuarioServiceAPI;
 
     @GetMapping(value = "/getAll")
-    public List<AuditoriaDTO> getAll(){
-        List<Auditoria> getall = auditoriaServiceAPI.getAll();
+    public List<AuditoriaDTO> getAll() {
+        List<Auditoria> getAll = auditoriaServiceAPI.getAll();
         List<AuditoriaDTO> listaN = new ArrayList<>();
-        for (Auditoria a:getall){
-            AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().getLogin(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), a.getIpUsuario());
-            listaN.add(objeto);
+        try {
+            String ipAddress = InetAddress.getLocalHost().getHostAddress();
+            for (Auditoria a : getAll) {
+                AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().getLogin(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), ipAddress);
+                listaN.add(objeto);
+            }
+        } catch (UnknownHostException e) {
+            // Manejar la excepción en caso de que no se pueda obtener la dirección IP
+            e.printStackTrace();
         }
         return listaN;
     }
