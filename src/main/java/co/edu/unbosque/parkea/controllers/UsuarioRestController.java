@@ -67,10 +67,14 @@ public class UsuarioRestController {
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
         usuario.setEstado("A");
-        usuarioServiceAPI.save(usuario);
-        audi.saveAuditoria("Guardar", "Usuario",idUsuario);
-        correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                ", su clave de accesso es: " +contra);
+        try{
+            correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
+                    ", su clave de accesso es: " +contra);
+            audi.saveAuditoria("Guardar", "Usuario",idUsuario);
+            usuarioServiceAPI.save(usuario);
+        }catch (Exception e){
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
         return HttpStatus.OK;
     }
 
