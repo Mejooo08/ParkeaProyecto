@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -34,18 +39,12 @@ public class AuditoriaRestController {
     private UsuarioServiceAPI usuarioServiceAPI;
 
     @GetMapping(value = "/getAll")
-    public List<AuditoriaDTO> getAll() {
-        List<Auditoria> getAll = auditoriaServiceAPI.getAll();
+    public List<AuditoriaDTO> getAll(){
+        List<Auditoria> getall = auditoriaServiceAPI.getAll();
         List<AuditoriaDTO> listaN = new ArrayList<>();
-        try {
-            String ipAddress = InetAddress.getLocalHost().getHostAddress();
-            for (Auditoria a : getAll) {
-                AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().getLogin(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), ipAddress);
-                listaN.add(objeto);
-            }
-        } catch (UnknownHostException e) {
-            // Manejar la excepción en caso de que no se pueda obtener la dirección IP
-            e.printStackTrace();
+        for (Auditoria a:getall){
+            AuditoriaDTO objeto = new AuditoriaDTO(a.getIdInforme(), a.getUsuario().getLogin(), a.getFechaHora().toString(), a.getEvento(), a.getTabla(), a.getIpUsuario());
+            listaN.add(objeto);
         }
         return listaN;
     }
@@ -60,22 +59,28 @@ public class AuditoriaRestController {
         auditoria.setFechaHora(timestamp+"");
         auditoria.setEvento(evento);
         auditoria.setTabla(tabla);
-        auditoria.setIpUsuario("IP");
+        auditoria.setIpUsuario(obtenerDireccionIPPublica());
         auditoriaServiceAPI.save(auditoria);
     }
 
-    public static String obtenerDireccionIP2() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (requestAttributes instanceof ServletRequestAttributes) {
-            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-            try {
-                InetAddress inetAddress = InetAddress.getByName(servletRequestAttributes.getRequest().getRemoteAddr());
-                return inetAddress.getHostAddress();
-            } catch (UnknownHostException e) {
-                System.out.println("No se pudo objeter IP");
-                return "Host Desconocido";
+    public static String obtenerDireccionIPPublica() {
+        String ip = null;
+        try {
+            URL url = new URL("https://ifconfig.me/ip");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000); // Tiempo de conexión máximo en milisegundos
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                ip = reader.readLine();
+                reader.close();
             }
+            connection.disconnect();
+        } catch (IOException e) {
+            System.out.println("Error al obtener la IP pública: " + e.getMessage());
         }
-        return null;
+        return ip;
     }
 }
