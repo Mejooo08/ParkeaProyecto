@@ -25,12 +25,14 @@ public class AuthController {
     }
 
     @PostMapping(value = "/validarLogin/{correo}/{clave}")
-    public UsuarioDTO login(@PathVariable(value = "correo") String correo,
+    public String login(@PathVariable(value = "correo") String correo,
                             @PathVariable(value = "clave") String clave){
        Usuario u =  usuarioServiceAPI.login(correo, clave);
        UsuarioDTO objeto = new UsuarioDTO();
        if(u != null){
            objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
+       }else{
+           return  "Usuario No valido o contrasena invalida";
        }
        int val = comprobacion(u);
         switch(val) {
@@ -40,11 +42,13 @@ public class AuthController {
                         "contacte a un administrador para poder acceder a ParkeaColombia");
                 correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
                         "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
-                return null;
+                return "Usuario Bloqueado";
             case 1:
-                correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Has iniciado sesion " +
-                        "correctamente en tu cuenta de ParkeaColombia");
-                return objeto;
+                return objeto.toString();
+            case 2:
+                correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Para iniciar sesión es necesario" +
+                        " que cambies la contraseña proporcionada por default");
+                return "Necesario Cambio Contrasena";
             default:
                 System.out.println("Se peto");
                 return null;
@@ -52,12 +56,15 @@ public class AuthController {
     }
     public int comprobacion(Usuario u){
         int valor = -1;
-            if(!usuarioServiceAPI.validarEstado(u)){
-                valor = 0;
-                // "Estado inactivo" o login fallido
-            }else{
+            if(usuarioServiceAPI.validarEstado(u) == 1){
                 valor = 1;
-                //"Sesión iniciada con exito"
+                // "Login correcto"
+            }else if(usuarioServiceAPI.validarEstado(u) == 2){
+                valor = 2;
+                //"Necesario cambio contraseña"
+            }else{
+                valor = 0;
+                //"Sesion fallida"
             }
             return valor;
     }

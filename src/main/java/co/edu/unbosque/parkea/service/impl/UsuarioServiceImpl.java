@@ -9,6 +9,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
+import java.util.Random;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,9 +33,9 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
     public Usuario login(String correo, String clave){
         String query = "FROM Usuario WHERE login = :login";
         List<Usuario> lista = entityManager.createQuery(query).setParameter("login", correo).getResultList();
-        Usuario encontrado = lista.get(0);
 
-        if(encontrado != null){
+        if(!lista.isEmpty()){
+            Usuario encontrado = lista.get(0);
             System.out.println("entro a no null");
             if(validarContra(clave, encontrado)){
                 System.out.println("Clave correcta");
@@ -43,7 +44,7 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
                 System.out.println("Clave incorrecta");
                 int intentos = encontrado.getIntentos() +1;
                 encontrado.setIntentos(intentos);
-                return lista.get(0);
+                return null;
             }
         }else{
             System.out.println("Dio null");
@@ -67,13 +68,17 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         return false;
     }
     @Override
-    public boolean validarEstado(Usuario u){
+    public int validarEstado(Usuario u){
         if(u.getEstado().equals("A")){
             System.out.println("Estado activo");
-            return true;
+            return 1;
+
+        }else if(u.getEstado().equals("N")) {
+            System.out.println("Necesario cambio contraseña");
+            return 2;
         }else{
             System.out.println("Estado desactivado");
-            return false;
+            return 0;
         }
     }
 
@@ -106,6 +111,19 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         }
 
         return sb.toString();
+    }
+
+    public String generarContrasena(int longitud) {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*-#";
+        Random random = new Random();
+        StringBuilder contraseña = new StringBuilder();
+
+        for (int i = 0; i < longitud; i++) {
+            int indice = random.nextInt(caracteres.length());
+            contraseña.append(caracteres.charAt(indice));
+        }
+
+        return contraseña.toString();
     }
 }
 

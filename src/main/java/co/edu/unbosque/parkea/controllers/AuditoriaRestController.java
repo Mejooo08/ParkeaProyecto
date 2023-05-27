@@ -52,7 +52,6 @@ public class AuditoriaRestController {
 
     public void saveAuditoria(String evento, String tabla, int idUsuario){
         Auditoria auditoria = new Auditoria();
-
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Usuario usuario = usuarioServiceAPI.get(idUsuario);
         auditoria.setUsuario(usuario);

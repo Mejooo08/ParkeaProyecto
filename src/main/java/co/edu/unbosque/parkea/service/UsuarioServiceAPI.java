@@ -6,7 +6,9 @@ import co.edu.unbosque.parkea.model.Usuario;
 public interface UsuarioServiceAPI extends GenericServiceAPI<Usuario,Integer> {
     Usuario login(String correo, String clave);
 
-    boolean validarEstado(Usuario u);
+    int validarEstado(Usuario u);
 
     String hashearContra(String contra);
+
+    String generarContrasena(int longitud);
 }

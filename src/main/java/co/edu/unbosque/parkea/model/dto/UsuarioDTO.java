@@ -52,4 +52,20 @@ public class UsuarioDTO {
     public UsuarioDTO(){
 
     }
+
+    @Override
+    public String toString() {
+        return  "{" + '\n' +
+                "   idUsuario=" + idUsuario + '\n' +
+                "   rol=" + rol + '\n' +
+                "   login=" + login + '\n' +
+                "   direccion=" + direccion + '\n' +
+                "   idDocumento=" + idDocumento + '\n' +
+                "   numeroDoc=" + numeroDoc + '\n' +
+                "   puntosFidelizacion=" + puntosFidelizacion + '\n' +
+                "   tarjetaCredito=" + tarjetaCredito + '\n' +
+                "   intentos=" + intentos + '\n' +
+                "   estado=" + estado+ '\n' +
+                '}';
+    }
 }

@@ -44,7 +44,7 @@ public class UsuarioRestController {
         List<UsuarioDTO> listaF = new ArrayList<>();
 
         for (Usuario u:getall){
-            if(u.getEstado().equals("A")){
+            if(u.getEstado().equals("A") || u.getEstado().equals("N")){
                     UsuarioDTO objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol() ,u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
                     listaF.add(objeto);
                 }
@@ -62,16 +62,17 @@ public class UsuarioRestController {
         Rol rol = rolServiceAPI.get(idRol);
         usuario.setIdDocumento(identificacion);
         usuario.setRol(rol);
-        String contra = usuario.getClave();
+        String contra = usuarioServiceAPI.generarContrasena(8);
+        System.out.println("Contrasena: " + contra);
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
-        usuario.setEstado("A");
+        usuario.setEstado("N");
         try{
             correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
                     ", su clave de accesso es: " +contra);
-            audi.saveAuditoria("Guardar", "Usuario",idUsuario);
             usuarioServiceAPI.save(usuario);
+            audi.saveAuditoria("Guardar", "Usuario",idUsuario);
         }catch (Exception e){
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
@@ -107,17 +108,29 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/cambiarContrasenia/{id}/{contra}")
-    public HttpStatus cambiarContra(@RequestBody Usuario usuario,
-                                                 @PathVariable(value = "id") int id,
-                                                 @PathVariable(value = "contra") String contra){
-        usuario = usuarioServiceAPI.get(id);
-        usuario.setClave(usuarioServiceAPI.hashearContra(contra));
-        usuarioServiceAPI.save(usuario);
-        audi.saveAuditoria("Cambio Contrasenia", "Usuario",usuario.getIdUsuario());
-        correoService.enviarCorreo(usuario.getLogin(), "Cambio de contrasenia","Has cambiado la contraseña exitosamente");
-        return HttpStatus.OK;
+    @PutMapping(value = "/cambiarContrasenia/{correo}/{contraVieja}/{contraNueva}")
+    public HttpStatus cambiarContra(
+                                    @PathVariable(value = "correo") String correo,
+                                    @PathVariable(value = "contraVieja") String contraVieja,
+                                    @PathVariable(value = "contraNueva") String contraNueva){
+        Usuario u = usuarioServiceAPI.login(correo, contraVieja);
+        if(u != null){
+            int id = u.getIdUsuario();
+            Usuario usuario = usuarioServiceAPI.get(id);
+            usuario.setClave(usuarioServiceAPI.hashearContra(contraNueva));
+            usuarioServiceAPI.save(usuario);
+            audi.saveAuditoria("Cambio Contrasenia", "Usuario",usuario.getIdUsuario());
+            correoService.enviarCorreo(usuario.getLogin(), "Cambio de contrasenia","Has cambiado la contraseña exitosamente");
+            if(usuario.getEstado().equals("N")){
+                usuario.setEstado("A");
+                usuarioServiceAPI.save(usuario);
+            }
+            return HttpStatus.OK;
+        }else{
+            return  HttpStatus.INTERNAL_SERVER_ERROR;
+        }
     }
+
 
     @GetMapping(value = "/deleteUsuario/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
