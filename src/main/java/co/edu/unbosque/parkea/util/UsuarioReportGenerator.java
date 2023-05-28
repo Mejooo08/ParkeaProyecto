@@ -21,6 +21,7 @@ public class UsuarioReportGenerator {
         return JasperExportManager.exportReportToPdf(getReport(list));
     }
 
+
     public byte[] exportToXls(List<Usuario> list) throws JRException, FileNotFoundException {
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         SimpleOutputStreamExporterOutput output = new SimpleOutputStreamExporterOutput(byteArray);
