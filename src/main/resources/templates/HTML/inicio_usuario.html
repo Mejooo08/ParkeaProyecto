@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/CSS/inicio_usuario.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/tablas.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/grafico.css">
+    <title>Sesión de Usuario</title>
+</head>
+<body class="fondo_admin" style=" background-color: rgba(255,255,255,1);">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <aside id="sidebar">
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu" class="icon-menu" style="cursor: pointer;">☰</label>
+            </div>
+        </div>
+    </header>
+    <div class="capa">
+        <input type="checkbox" id="btn-menu">
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav class="navbar">
+                    <img src="/Images/fondo-user.png" style="width: 50%; height: 50%; margin-left: 20%;"/>
+                    <br><br>
+                    <a onclick="carros()">TUS VEHICULOS</a>
+                    <a onclick="reserva()">RESERVA TU CUPO</a>
+                    <a href="">TELEFONOS</a>
+                    <a href="">TUS DATOS</a>
+                    <a href="/HTML/Inicio.html" class="ultimo-elemento">CERRAR SESIÓN</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
+    </div>
+</aside>
+<main id="content">
+    <div class="grafica" id="grafica">
+        <div class="box">
+            <canvas id="barras"></canvas>
+        </div>
+        <div class="box">
+            <canvas id="dispersion"></canvas>
+        </div>
+        <div class="box">
+            <canvas id="torta"></canvas>
+        </div>
+        <div class="box">
+            <h2></h2>
+        </div>
+    </div>
+    <div id="tipo_parqueadero" style="display: none;">
+    <main class="table_parqueadero" >
+        <section class="table_header">
+            <h1>Informacion de tipo de Parqueadero</h1>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_TipoParqueadero</th>
+                        <th>Descripcion</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Cubierto</td>
+                        <td><strong>A</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+    <div id="tipo_Documento" style="display: none">
+    <main class="table_parqueadero" >
+        <section class="table_header">
+            <h1>Informacion de tipo de Documento</h1>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_Documento</th>
+                        <th>Descripcion</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Cedula</td>
+                        <td><strong>A</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+    <div id="carros" style="display: none">
+    <main class="table_parqueadero" >
+        <section class="table_header">
+            <h1>Informacion de los vehiculos</h1>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID_Documento</th>
+                        <th>Usuario</th>
+                        <th>Placa</th>
+                        <th>Modelo</th>
+                        <th>Estado</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>danielfmr88@gmail.com</td>
+                        <td>123BND</td>
+                        <td>2016</td>
+                        <td><strong>A</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+    <div id="Auditoria" style="display: none">
+    <main class="table_parqueadero" >
+        <section class="table_header">
+            <h1>Informacionde la auditoria</h1>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Informe</th>
+                        <th>Usuario</th>
+                        <th>Fecha y Hora</th>
+                        <th>Evento</th>
+                        <th>Tabla</th>
+                        <th>Ip del Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>danielfmr88@gmail.com</td>
+                        <td>2023-05-22 18:48:14</td>
+                        <td>Guardar</td>
+                        <td>Usuario</td>
+                        <td><strong>IPprueba</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</div>
+    <div id="Reserva" style="display: none">
+    <main class="table_parqueadero" >
+        <section class="table_header">
+            <h1>Informacion de reservas</h1>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Factura</th>
+                        <th>Momento Reserva</th>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Usuario</th>
+                        <th>Ip del Parqueadero</th>
+                        <th>Placa del vehiculo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2023-05-22 18:46:34</td>
+                        <td>2021-04-20 22:31:51</td>
+                        <td>2021-04-20 22:31:51</td>
+                        <td>danielfmr88@gmail.com</td>
+                        <td>Calle 45</td>
+                        <td>123BND</td>
+                        <td><strong>A</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</main>
+<script src="/JS/funcion_admin.js"></script>
+<script src="/JS/graficas.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+.logo{
+    background-color: #002991;
+    background: url(/Images/logonegro.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
+
+.card-body{
+    margin: -6%;
+}
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 160vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
+
+    .decorative-button {
+        background-color: #fff200; /* Color de fondo */
+        border: none; /* Elimina el borde */
+        color: rgb(0, 0, 0); /* Color del texto */
+        padding: 10px 20px; /* Espacio interno */
+        text-align: center; /* Alineación del texto */
+        text-decoration: none; /* Elimina la decoración del texto */
+        display: inline-block; /* Muestra el botón en línea */
+        font-size: 16px; /* Tamaño del texto */
+        margin: 4px 2px; /* Márgenes exteriores */
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        border-radius: 8px; /* Borde redondeado */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
+      }
+      
+      .decorative-button:hover {
+        background-color: #fff200; /* Cambia el color de fondo al pasar el cursor */
+      }
+
+      .decorative-button-register {
+        background-color: #fff200; /* Color de fondo */
+        border: none; /* Elimina el borde */
+        color: rgb(0, 0, 0); /* Color del texto */
+        padding: 10px 20px; /* Espacio interno */
+        text-align: right; /* Alineación del texto */
+        text-decoration: none; /* Elimina la decoración del texto */
+        display: inline-block; /* Muestra el botón en línea */
+        font-size: 16px; /* Tamaño del texto */
+        margin: 4px 2px; /* Márgenes exteriores */
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        border-radius: 8px; /* Borde redondeado */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
+      }
+      
+      .decorative-button-register {
+        background-color: #fff200; /* Cambia el color de fondo al pasar el cursor */
+      }
+
+      .logo a {
+        font-size: 0px;
+        font-weight: bold;
+        line-height: 5px;
+        float: right;
+
+   }
