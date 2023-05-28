@@ -4,6 +4,7 @@ import co.edu.unbosque.parkea.commons.GenericServiceImpl;
 import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.repository.UsuarioRepository;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
+import co.edu.unbosque.parkea.util.UsuarioReportGenerator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,18 @@ import java.util.Random;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import net.sf.jasperreports.engine.JRException;
+import java.io.FileNotFoundException;
+
 
 @Service
 public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> implements UsuarioServiceAPI {
 
     @Autowired
     private UsuarioRepository usuarioDtoAPI;
+
+    @Autowired
+    private UsuarioReportGenerator usuarioReportGenerator;
 
 
     @PersistenceContext
@@ -124,6 +131,16 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         }
 
         return contraseña.toString();
+    }
+
+    @Override
+    public byte[] exportPdf() throws JRException, FileNotFoundException {
+        return usuarioReportGenerator.exportToPdf((List<Usuario>) usuarioDtoAPI.findAll());
+    }
+
+    @Override
+    public byte[] exportXls() throws JRException, FileNotFoundException {
+        return usuarioReportGenerator.exportToXls((List<Usuario>) usuarioDtoAPI.findAll());
     }
 }
 

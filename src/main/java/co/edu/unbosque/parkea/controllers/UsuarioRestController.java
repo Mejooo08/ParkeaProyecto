@@ -11,9 +11,12 @@ import co.edu.unbosque.parkea.service.impl.EnvioCorreoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.http.*;
+import java.io.FileNotFoundException;
 
 @RestController
 @RequestMapping(value = "/api/Usuario")
@@ -154,5 +157,28 @@ public class UsuarioRestController {
         correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Compra Realizada", "El usuario: "+u.getIdUsuario()+" ha realizado " +
                 "una compra de manera exitosa");
         return HttpStatus.OK;
+    }
+
+
+
+
+    @GetMapping("/export-pdf")
+    public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("usuarioReport", "usuarioReport.pdf");
+        return ResponseEntity.ok().headers(headers).body(usuarioServiceAPI.exportPdf());
+    }
+
+    @GetMapping("/export-xls")
+    public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8");
+        var contentDisposition = ContentDisposition.builder("attachment")
+                .filename("usuarioReport" + ".xls").build();
+        headers.setContentDisposition(contentDisposition);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(usuarioServiceAPI.exportXls());
     }
 }
