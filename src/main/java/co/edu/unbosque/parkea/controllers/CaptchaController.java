@@ -1,15 +1,14 @@
 package co.edu.unbosque.parkea.controllers;
 
+import cn.apiclub.captcha.Captcha;
 import co.edu.unbosque.parkea.captcha.CaptchaGenerator;
 import co.edu.unbosque.parkea.captcha.CaptchaSettings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import cn.apiclub.captcha.Captcha;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/app")

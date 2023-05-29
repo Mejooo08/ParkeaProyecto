@@ -371,7 +371,7 @@ header a img{
 /** banner section **/
 
 .banner_main {
-     background: url(../images/fondo-bandera.jpg);
+     background: url(../Images/fondo-bandera.jpg);
      background-repeat: no-repeat;
      min-height: 700px;
      display: flex;
@@ -522,7 +522,7 @@ header a img{
 
 .bestCar {
      margin-top: 90px;
-     background: url(../images/banner.jpg);
+     background: url(../Images/banner.jpg);
      background-repeat: no-repeat;
      background-size: 100% 100%;
      padding: 100px 0
@@ -939,7 +939,7 @@ header a img{
           padding-top: 6px;
      }
      .navigation.navbar-dark .navbar-toggler-icon {
-          background: url(../images/menu_icon.png);
+          background: url(../Images/menu_icon.png);
           background-repeat: no-repeat;
      }
      .carousel-control-next-icon,
@@ -1023,7 +1023,7 @@ header a img{
           padding: 0px 19px 40px 20px;
      }
      .navigation.navbar-dark .navbar-toggler-icon {
-          background: url(../images/menu_icon.png);
+          background: url(../Images/menu_icon.png);
           background-repeat: no-repeat;
      }
      .carousel-control-next-icon,
