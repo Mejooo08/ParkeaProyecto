@@ -66,7 +66,7 @@ public class UsuarioRestController {
         usuario.setIdDocumento(identificacion);
         usuario.setRol(rol);
         String contra = usuarioServiceAPI.generarContrasena(8);
-        System.out.println("Contrasena: " + contra);
+        System.out.println("Contrasena:" + contra);
         usuario.setClave(usuarioServiceAPI.hashearContra(contra));
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
