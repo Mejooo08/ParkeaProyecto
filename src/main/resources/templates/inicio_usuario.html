@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/CSS/inicio_admin.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/inicio_usuario.css">
     <link rel="stylesheet" type="text/css" href="/CSS/tablas.css">
     <link rel="stylesheet" type="text/css" href="/CSS/grafico.css">
-    <title>Administrador</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+    <title>Sesión de Usuario</title>
 </head>
 <body class="fondo_admin" style=" background-color: rgba(255,255,255,1);">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
@@ -24,16 +26,13 @@
         <div class="container-menu">
             <div class="cont-menu">
                 <nav class="navbar">
-                    <img src="/Images/logo-parkea.png" style="width: 50%; height: 50%; margin-left: 20%;"/>
+                    <img src="/Images/fondo-user.png" style="width: 50%; height: 50%; margin-left: 20%;"/>
                     <br><br>
-                    <a onclick="tipo_de_parqueadero()" style="cursor: pointer;">Informacion de parqueadero</a>
-                    <a onclick="tipo_de_documento()" style="cursor: pointer;">Tipo de Documentos</a>
-                    <a onclick="carros()">Informacion del vehiculo</a>
-                    <a onclick="auditoria()">Auditoria</a>
-                    <a onclick="reserva()">Reserva de cupo</a>
-                    <a href="">Telefonos</a>
-                    <a href="">Informacion de los usuarios</a>
-                    <a href="/HTML/Inicio.html" class="ultimo-elemento">Cerrar Sesion</a>
+                    <a onclick="carros()">TUS VEHICULOS</a>
+                    <a onclick="reserva()">RESERVA TU CUPO</a>
+                    <a href="">TELEFONOS</a>
+                    <a href="">TUS DATOS</a>
+                    <a href="/HTML/Inicio.html" class="ultimo-elemento">CERRAR SESIÓN</a>
                 </nav>
                 <label for="btn-menu">✖️</label>
             </div>
@@ -184,6 +183,7 @@
                         <th>Ip del Parqueadero</th>
                         <th>Placa del vehiculo</th>
                         <th>Estado</th>
+                        <th>Reservar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -196,6 +196,7 @@
                         <td>Calle 45</td>
                         <td>123BND</td>
                         <td><strong>A</strong></td>
+                        <td><button>Reservar</button></td>
                     </tr>
                 </tbody>
             </table>

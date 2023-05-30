@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/app")
-public class CaptchaController {
-    @GetMapping("/verify")
+@RequestMapping("/pagina_principal")
+public class inicioController {
+    @GetMapping("/inicio_principal")
     public String register(Model model) {
         model.addAttribute("captcha", genCaptcha());
-        return "verifyCaptcha";
+        return "inicio_principal";
     }
     @PostMapping("/verify")
     public String verify(@ModelAttribute CaptchaSettings captchaSettings, Model model) {
@@ -28,7 +28,7 @@ public class CaptchaController {
             model.addAttribute("message","Invalid Captcha");
             model.addAttribute("captcha",genCaptcha());
         }
-        return "verifyCaptcha";
+        return "inicio_principal";
     }
     private CaptchaSettings genCaptcha() {
         CaptchaSettings captchaSettings = new CaptchaSettings();
@@ -38,4 +38,5 @@ public class CaptchaController {
         captchaSettings.setRealCaptcha(CaptchaGenerator.encodeCaptchatoBinary(captcha));
         return captchaSettings;
     }
+
 }
