@@ -87,13 +87,12 @@ public class AuthController {
             case 1:
                 String tipo_u = objeto.getRol();
                 if(tipo_u.equals("Cliente")){
-                    session.setAttribute("username", objeto.getLogin());
-                    session.setAttribute("id", objeto.getIdUsuario());
+                    redirectAttributes.addAttribute("correo", objeto.getLogin()+"");
+                    redirectAttributes.addAttribute("id", objeto.getIdUsuario());
                     return new RedirectView("/usuario/inicio_usuario");
                 }else{
-                    session.setAttribute("username", objeto.getLogin());
-                    session.setAttribute("id", objeto.getIdUsuario());
-                    redirectAttributes.addAttribute("dato1", objeto.getLogin());
+                    redirectAttributes.addAttribute("correo", objeto.getLogin()+"");
+                    redirectAttributes.addAttribute("id", objeto.getIdUsuario());
                     return new RedirectView("/Administrador/inicio_administrador");
                 }
             case 2:
