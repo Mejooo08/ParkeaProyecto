@@ -5,6 +5,7 @@ import co.edu.unbosque.parkea.model.dto.UsuarioDTO;
 import co.edu.unbosque.parkea.repository.UsuarioRepository;
 import co.edu.unbosque.parkea.service.UsuarioServiceAPI;
 import co.edu.unbosque.parkea.service.impl.EnvioCorreoImpl;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -62,7 +63,7 @@ public class AuthController {
 
     @PostMapping(value = "/validarLogin")
     public String loginPRUEBA(@RequestParam("email") String correo,
-                              @RequestParam("password") String clave, Model model){
+                              @RequestParam("password") String clave, Model model, HttpSession session){
         Usuario u =  usuarioServiceAPI.login(correo, clave);
         UsuarioDTO objeto = new UsuarioDTO();
         if(u != null){
@@ -80,18 +81,23 @@ public class AuthController {
                         "contacte a un administrador para poder acceder a ParkeaColombia");
                 correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
                         "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
-
+                model.addAttribute("error", "Credenciales inválidas");
                 return "redirect:/pagina_principal/inicio_principal";
             case 1:
                 String tipo_u = objeto.getRol();
                 if(tipo_u.equals("Cliente")){
+                    session.setAttribute("username", objeto.getLogin());
+                    session.setAttribute("id", objeto.getIdUsuario());
                     return "redirect:/usuario/inicio_usuario";
                 }else{
+                    session.setAttribute("username", objeto.getLogin());
+                    session.setAttribute("id", objeto.getIdUsuario());
                     return "redirect:/usuario/inicio_administrador";
                 }
             case 2:
                 correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Para iniciar sesión es necesario" +
                         " que cambies la contraseña proporcionada por default");
+                model.addAttribute("error", "Credenciales inválidas");
                 return "redirect:/pagina_principal/inicio_principal";
             default:
                 System.out.println("Se peto");
