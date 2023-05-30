@@ -119,11 +119,11 @@
                   <h2>Log in</h2>
                   <div class="form-element">
                      <label for="email">Correo Electronico</label>
-                     <input type="text" id="email" placeholder="Email">
+                     <input type="text" id="email" placeholder="Email" name="email">
                   </div>
                   <div class="form-element">
                      <label for="Contraseña">Contraseña</label>
-                     <input type="password" id="Contraseña" placeholder="Contraseña">
+                     <input type="password" id="Contraseña" placeholder="Contraseña" name="password">
                   </div>
                   <div>
                      <label for="image"> CAPTCHA</label>
@@ -133,7 +133,7 @@
                      <input type="text" id="captchatext" th:field="*{captcha}"/>
                   </div>
                   <div class="form-element">
-                     <input type="submit" value="Verify" class="decorative-button">
+                     <input type="submit" value="validarLogin" class="decorative-button">
                   </div>
                   <div th:if="${message!=null}">
                      <span style="color:red;" th:text="${message}"></span>

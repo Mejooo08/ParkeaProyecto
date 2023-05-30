@@ -61,8 +61,8 @@ public class AuthController {
     }
 
     @PostMapping(value = "/validarLogin")
-    public String loginPRUEBA(@RequestParam("correo") String correo,
-                              @RequestParam("clave") String clave, Model model){
+    public String loginPRUEBA(@RequestParam("email") String correo,
+                              @RequestParam("password") String clave, Model model){
         Usuario u =  usuarioServiceAPI.login(correo, clave);
         UsuarioDTO objeto = new UsuarioDTO();
         if(u != null){
