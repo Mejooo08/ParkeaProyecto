@@ -70,7 +70,8 @@ public class AuthController {
             objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
         }else{
             System.out.println("Usuario Correo o contraseña mal");
-            return  null;
+            model.addAttribute("error", "Credenciales inválidas");
+            return "redirect:/pagina_principal/inicio_principal.html";
         }
         int val = comprobacion(u);
         String r = "";
@@ -82,23 +83,23 @@ public class AuthController {
                 correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
                         "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
                 model.addAttribute("error", "Credenciales inválidas");
-                return "redirect:/pagina_principal/inicio_principal";
+                return "redirect:/pagina_principal/inicio_principal.html";
             case 1:
                 String tipo_u = objeto.getRol();
                 if(tipo_u.equals("Cliente")){
                     session.setAttribute("username", objeto.getLogin());
                     session.setAttribute("id", objeto.getIdUsuario());
-                    return "redirect:/usuario/inicio_usuario";
+                    return "redirect:/usuario/inicio_usuario.html";
                 }else{
                     session.setAttribute("username", objeto.getLogin());
                     session.setAttribute("id", objeto.getIdUsuario());
-                    return "redirect:/usuario/inicio_administrador";
+                    return "redirect:/usuario/inicio_administrador.html";
                 }
             case 2:
                 correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Para iniciar sesión es necesario" +
                         " que cambies la contraseña proporcionada por default");
                 model.addAttribute("error", "Credenciales inválidas");
-                return "redirect:/pagina_principal/inicio_principal";
+                return "redirect:/pagina_principal/inicio_principal.html";
             default:
                 System.out.println("Se peto");
                 return r;
