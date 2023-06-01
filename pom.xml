@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>co.edu.unbosque</groupId>
-	<artifactId>parkea</artifactId>
+	<artifactId>parkea-azure</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>parkea</name>
