@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'parkea-azure'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E964869A77194E38A100B50353FFD2DF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0A21D8545454FFEBDD480F3ED69CD16 }}
           package: '*.jar'
