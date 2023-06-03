@@ -1,18 +1,18 @@
 package co.edu.unbosque.parkea.service.impl;
 
 import co.edu.unbosque.parkea.commons.GenericServiceImpl;
-import co.edu.unbosque.parkea.model.Parqueadero;
 import co.edu.unbosque.parkea.model.ReservaCupo;
-import co.edu.unbosque.parkea.model.Usuario;
 import co.edu.unbosque.parkea.repository.ReservaCupoRepository;
 import co.edu.unbosque.parkea.service.ReservaCupoServiceAPI;
+import co.edu.unbosque.parkea.util.ReservaReportGenerator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import java.util.List;
 public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Integer> implements ReservaCupoServiceAPI {
     @Autowired
     private ReservaCupoRepository reservaDtoApi;
+    @Autowired
+    private ReservaReportGenerator reservaReportGenerator;
     @Override
     public CrudRepository<ReservaCupo, Integer> getDto() {
         return reservaDtoApi;
@@ -52,5 +54,14 @@ public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Inte
             e.printStackTrace();
         }
         return numeros;
+    }
+    @Override
+    public byte[] exportPdf() throws JRException, FileNotFoundException {
+        return reservaReportGenerator.exportToPdf((List<ReservaCupo>) reservaDtoApi.findAll());
+    }
+
+    @Override
+    public byte[] exportXls() throws JRException, FileNotFoundException {
+        return reservaReportGenerator.exportToXls((List<ReservaCupo>) reservaDtoApi.findAll());
     }
 }

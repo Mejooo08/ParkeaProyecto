@@ -24,7 +24,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Upload artifact for desployment job
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'parkea-azure'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0A21D8545454FFEBDD480F3ED69CD16 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B7DF47D881824491B29FC2FF451840AB }}
           package: '*.jar'
