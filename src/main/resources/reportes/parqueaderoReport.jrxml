@@ -41,7 +41,7 @@
 		<field name="cuposTotales" class="java.lang.Integer"/>
 		<field name="cuposOcupados" class="java.lang.Integer"/>
 		<field name="estado" class="java.lang.String"/>
-		<sortField name="id"/>
+		<sortField name="idParqueadero"/>
 	</subDataset>
 	<parameter name="parqueaderoData" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<title>
