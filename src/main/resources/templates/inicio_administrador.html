@@ -20,8 +20,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/JS/funciones_tablas.js"></script>
 <script src="/JS/reportes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-    <aside id="sidebar">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<aside id="sidebar">
     <header class="header">
         <div class="container">
             <div class="btn-menu">
@@ -47,6 +47,7 @@
                     <a onclick="reserva()">Reserva de cupo</a>
                     <a onclick="telefono()">Telefonos</a>
                     <a onclick="usuario()">Informacion de los usuarios</a>
+                    <a onclick="auditoria()">Informacion de Auditoria</a>
                     <br><br><br><br><br>
                     <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
                         <input type="submit" value="Cerrar Sesion" class="decorative-button">
@@ -83,24 +84,24 @@
                     <div class="form">
                         <div class="contenedor-botones">
                             <h3>Por favor selecciona el informe en excel que deseas</h3>
-                            <form method="GET" th:action="@{/api/Usuario/export-xls}">
-                            <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
+                            <form method="GET" th:action="@{/pagina_principal/api/Usuario/export-xls}">
+                                <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
                             </form>
                             <form method="GET" th:action="@{/api/Parqueadero/export-xls}">
-                            <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
+                                <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
                             </form>
                             <form method="GET" th:action="@{/api/Auditoria/export-xls}">
-                            <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
+                                <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
                             </form>
                             <form method="GET" th:action="@{/api/ReservaCupo/export-xls}">
-                            <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
+                                <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
                             </form>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     <!--Espacio de PDF-->
     <div id="PDF" style="display: none !important;">
         <div id="cerrarpdf" style="cursor: pointer;">
@@ -109,7 +110,7 @@
                 <div class="form">
                     <div class="contenedor-botones">
                         <h3>Por favor selecciona el informe en PDF que deseas</h3>
-                        <form method="GET" th:action="@{/api/Usuario/export-pdf}">
+                        <form method="GET" th:action="@{/pagina_principal/api/Usuario/export-pdf}">
                             <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
                         </form>
                         <form method="GET" th:action="@{/api/Parqueadero/export-pdf}">
@@ -153,13 +154,13 @@
         });
     </script>
     <div id="tipo_parqueadero" style="display: none;">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Informacion de tipo de Parqueadero</h1>
-        </section>
-        <section class="table_body">
-            <table id="tabla_parqueadero">
-                <thead>
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1 style="margin-top: -1.2%">Informacion de tipo de Parqueadero</h1>
+            </section>
+            <section class="table_body">
+                <table id="tabla_parqueadero">
+                    <thead thead style="width: 100%;">
                     <tr>
                         <th>ID_Parqueadero</th>
                         <th>Tipo_parqueadero</th>
@@ -172,17 +173,16 @@
                         <th>Cupos Ocupados</th>
                         <th>Estado</th>
                     </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-    </main>
-</div>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
     <script>
         $(document).ready(function() {
-            $.get("/pagina_principal/api/Carro/getAll", function(data) {
+            $.get("/api/Carro/getAll", function(data) {
                 var tabla = $("#tabla_carro tbody");
-
                 data.forEach(function(carros) {
                     var fila = "<tr>" +
                         "<td>" + carros.idCarro + "</td>" +
@@ -196,14 +196,14 @@
             });
         });
     </script>
-    <div id="carros" style="display: none">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Informacion de los vehiculos</h1>
-        </section>
-        <section class="table_body">
-            <table id="tabla_carro">
-                <thead>
+    <div id="carros" style="display: none;">
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1 style="margin-top: -1.2%">Informacion de los vehiculos</h1>
+            </section>
+            <section class="table_body">
+                <table id="tabla_carro">
+                    <thead style="width: 100%;">
                     <tr>
                         <th>ID de vehiculo</th>
                         <th>Usuario</th>
@@ -211,39 +211,12 @@
                         <th>Modelo</th>
                         <th>Estado</th>
                     </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-    </main>
-</div>
-<<<<<<< HEAD
-    <div id="Auditoria" style="display: none">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Información de la auditoria</h1>
-        </section>
-        <section class="table_body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID Informe</th>
-                        <th>Usuario</th>
-                        <th>Fecha y Hora</th>
-                        <th>Evento</th>
-                        <th>Tabla</th>
-                        <th>Ip del Usuario</th>
-                    </tr>
-                </thead>
-                <tbody id = "tablaAuditoria">
-                </tbody>
-
-            </table>
-        </section>
-    </main>
-</div>
-</div>
-=======
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
     <script>
         $(document).ready(function() {
             $.get("/api/ReservaCupo/getAll", function(data) {
@@ -265,15 +238,15 @@
             });
         });
     </script>
->>>>>>> 221686293cb0ea4d4fffabcbe01dcca1b9b17a5a
+
     <div id="Reserva" style="display: none">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Informacion de reservas</h1>
-        </section>
-        <section class="table_body">
-            <table id="tabla_reserva">
-                <thead>
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1 style="margin-top: -1.2%">Informacion de reservas</h1>
+            </section>
+            <section class="table_body">
+                <table id="tabla_reserva">
+                    <thead style="width: 100%;">
                     <tr>
                         <th>ID Factura</th>
                         <th>Momento reserva</th>
@@ -284,12 +257,12 @@
                         <th>Placa del vehiculo</th>
                         <th>Estado</th>
                     </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-    </main>
-</div>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
     <script>
         $(document).ready(function() {
             $.get("/api/Telefono/getAll", function(data) {
@@ -307,14 +280,14 @@
             });
         });
     </script>
-    <div id="Telefono" style="display: none">
+    <div id="Telefono" style="display: none;">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>Informacion de Telefonos</h1>
+                <h1 style="margin-top: -1.2%">Informacion de Telefonos</h1>
             </section>
             <section class="table_body">
                 <table id="tablaTelefonos">
-                    <thead>
+                    <thead style="width: 100%;">
                     <tr>
                         <th>ID</th>
                         <th>Número de Teléfono</th>
@@ -329,7 +302,7 @@
     </div>
     <script>
         $(document).ready(function() {
-            $.get("/api/Usuario/getAll", function(data) {
+            $.get("/pagina_principal/api/Usuario/getAll", function(data) {
                 var tabla = $("#tablausuarios tbody");
 
                 data.forEach(function(usuario) {
@@ -350,14 +323,14 @@
             });
         });
     </script>
-    <div id="usuarios" style="display: none">
+    <div id="usuarios" style="display: none;">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>Informacion de Usuarios</h1>
+                <h1 style="margin-top: -1.2%">Informacion de Usuarios</h1>
             </section>
             <section class="table_body">
                 <table id="tablausuarios">
-                    <thead>
+                    <thead style="width: 100%;">
                     <tr>
                         <th>ID de usuario</th>
                         <th>Rol</th>
@@ -369,6 +342,47 @@
                         <th>Tarjeta de Credito</th>
                         <th>Intentos</th>
                         <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Auditoria/getAll", function(data) {
+                var tabla = $("#tablaauditoria tbody");
+                data.forEach(function(auditoria) {
+                    var fila = "<tr>" +
+                        "<td>" + auditoria.id_informe + "</td>" +
+                        "<td>" + auditoria.id_usuario + "</td>" +
+                        "<td>" + auditoria.fecha_hora + "</td>" +
+                        "<td>" + auditoria.evento + "</td>" +
+                        "<td>" + auditoria.tabla + "</td>" +
+                        "<td>" + auditoria.ip_usuario + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
+    <div id="auditoria" style="display: none;">
+        <main class="table_parqueadero">
+            <section class="table_header">
+                <h1 style="margin-top: -1.2%">Informacion de Auditoria</h1>
+            </section>
+            <section class="table_body">
+                <table id="tablaauditoria">
+                    <thead style="width: 100%;">
+                    <tr>
+                        <th>ID de informe</th>
+                        <th>ID de usuarios</th>
+                        <th>Fecha y Hora</th>
+                        <th>Evento</th>
+                        <th>ID del documento</th>
+                        <th>Evento</th>
+                        <th>IP de Usuario</th>
                     </tr>
                     </thead>
                     <tbody></tbody>

@@ -22,8 +22,6 @@ import java.io.FileNotFoundException;
 
 @RestController
 @RequestMapping(value = "/pagina_principal/api/Usuario")
-/*pagina_principal/api/Usuario
-* Si no llega a cargar como intento*/
 public class UsuarioRestController {
 
     public UsuarioRestController(){
@@ -49,6 +47,7 @@ public class UsuarioRestController {
      * @return
      */
     @GetMapping(value = "/getAll")
+    @ResponseBody
     public List<UsuarioDTO> getAll(){
 
         List<Usuario> getall = usuarioServiceAPI.getAll();
