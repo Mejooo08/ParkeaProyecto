@@ -72,6 +72,9 @@ public class  Usuario implements Serializable {
     @Getter @Setter
     private List<Carro> carros;
 
+    /**
+     * Este método se usa como constrcutor de la clase
+     */
     public Usuario() {
     }
 }

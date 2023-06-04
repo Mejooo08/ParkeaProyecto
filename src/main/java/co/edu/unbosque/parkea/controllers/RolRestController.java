@@ -17,6 +17,10 @@ public class RolRestController {
     @Autowired
     private RolServiceAPI rolServiceAPI;
 
+    /**
+     * Este método se usa para listar todos los elementos de rol
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<RolDTO> getAll(){
         List<Rol> getall = rolServiceAPI.getAll();

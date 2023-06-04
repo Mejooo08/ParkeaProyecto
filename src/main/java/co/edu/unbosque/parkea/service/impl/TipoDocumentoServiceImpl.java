@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumento, Integer> implements TipoDocumentoServiceAPI {
     @Autowired
     private TipoDocumentoRepository tipoDocumentoDtoApi;
+
+    /**
+     * Este método se usa para generar el crud de tipo de documento
+     * @return
+     */
     @Override
     public CrudRepository<TipoDocumento, Integer> getDto() {
         return tipoDocumentoDtoApi;

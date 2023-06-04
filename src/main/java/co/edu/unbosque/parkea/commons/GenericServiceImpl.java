@@ -8,17 +8,30 @@ import java.util.*;
 
 @Service
 public abstract class GenericServiceImpl<T, ID extends Serializable> implements GenericServiceAPI<T, ID>{
-
+    /**
+     * Este método se usa para guardar una entidad
+     * @param entity
+     * @return
+     */
     @Override
     public T save(T entity){
         return getDto().save(entity);
     }
 
+    /**
+     * Este método se usa para eliminar una entidad
+     * @param id
+     */
     @Override
     public void delete(ID id){
         getDto().deleteById(id);
     }
 
+    /**
+     * Este método se usa para traer una entidad
+     * @param id
+     * @return
+     */
     @Override
     public T get(ID id){
         Optional<T> obj = getDto().findById(id);
@@ -28,6 +41,10 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
         return null;
     }
 
+    /**
+     * Este método se usa para listar todos los objetos dentro de una entidad
+     * @return
+     */
     @Override
     public List<T> getAll(){
         List<T> resultList = new ArrayList<>();
@@ -35,6 +52,10 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
         return resultList;
     }
 
+    /**
+     * Este método se usa para realizar el crud de una entidad
+     * @return
+     */
     public abstract CrudRepository<T, ID> getDto();
 
 }

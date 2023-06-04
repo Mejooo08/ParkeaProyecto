@@ -44,6 +44,10 @@ public class UsuarioRestController {
     @Autowired
     private AuditoriaRestController audi;
 
+    /**
+     * Este método se usa para listar todos los elementos de un usuario
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<UsuarioDTO> getAll(){
 
@@ -59,6 +63,15 @@ public class UsuarioRestController {
         return listaF;
     }
 
+    /**
+     * Este método se usa para guardar los datos de un usuario
+     * @param correo
+     * @param direccion
+     * @param tarjeta
+     * @param tipoDoc
+     * @param numDoc
+     * @return
+     */
     @PostMapping(value = "/saveUsuario")
     public RedirectView save2(@RequestParam("correo") String correo,
                               @RequestParam("direccion") String direccion,
@@ -94,6 +107,15 @@ public class UsuarioRestController {
         return new RedirectView("/pagina_principal/inicio_principal");
     }
 
+    /**
+     * Este método se usa para actualizar los datos de un usuario
+     * @param usuario
+     * @param id
+     * @param idIdentificacion
+     * @param idRol
+     * @param idUsuario
+     * @return
+     */
     @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idRol}/{idUsuario}")
     public HttpStatus update(@RequestBody Usuario usuario,
                                           @PathVariable(value = "id") int id,
@@ -123,6 +145,13 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para cambiar la contraseña de un usuario
+     * @param correo
+     * @param contraVieja
+     * @param contraNueva
+     * @return
+     */
     @PostMapping(value = "/cambiarContra")
     public RedirectView cambiarContra(
             @RequestParam("correo") String correo,
@@ -150,7 +179,12 @@ public class UsuarioRestController {
         }
     }
 
-
+    /**
+     * Este método se usa para eliminar un usuario
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/deleteUsuario/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         Usuario usuario = usuarioServiceAPI.get(id);
@@ -164,6 +198,12 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para la pasarela de pagos
+     * @param correo
+     * @param clave
+     * @return
+     */
     @PostMapping(value = "https://production.wompi.co/v1/tokens/cards")
     public HttpStatus pasarela(@PathVariable(value = "correo") String correo,
                                @PathVariable(value = "clave") String clave){
@@ -176,8 +216,12 @@ public class UsuarioRestController {
     }
 
 
-
-
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-pdf")
     public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();
@@ -186,6 +230,12 @@ public class UsuarioRestController {
         return ResponseEntity.ok().headers(headers).body(usuarioServiceAPI.exportPdf());
     }
 
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-xls")
     public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();

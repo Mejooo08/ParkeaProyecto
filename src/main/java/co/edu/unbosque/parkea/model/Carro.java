@@ -19,6 +19,7 @@ public class Carro implements Serializable {
     private int idCarro;
 
     //bi-directional many-to-one association to Usuario
+
     @ManyToOne
     @Getter @Setter @JoinColumn(name="id_usuario")
     private Usuario usuario;
@@ -32,6 +33,9 @@ public class Carro implements Serializable {
     @Getter @Setter @Column(name = "estado")
     private String  estado;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public Carro(){
     }
 }

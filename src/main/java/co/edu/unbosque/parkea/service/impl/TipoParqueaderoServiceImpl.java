@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 public class TipoParqueaderoServiceImpl extends GenericServiceImpl<TipoParqueadero, Integer> implements TipoParqueaderoServiceAPI {
     @Autowired
     private TipoParqueaderoRepository tipoParqueaderoDtoApi;
+
+    /**
+     * Este método se usa para generar el crud de tipo de parqueadero
+     *
+     * @return
+     */
     @Override
     public CrudRepository<TipoParqueadero, Integer> getDto() {
         return tipoParqueaderoDtoApi;

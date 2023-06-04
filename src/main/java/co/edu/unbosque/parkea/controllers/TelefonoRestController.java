@@ -24,6 +24,10 @@ public class TelefonoRestController {
     @Autowired
     private AuditoriaRestController audi;
 
+    /**
+     * Este método se usa para listar todos los elementos de teléfono
+     * @return
+     */
     @GetMapping(value = "/getAll")
     @ResponseBody
     public List<TelefonoDTO> getAll(){
@@ -40,6 +44,12 @@ public class TelefonoRestController {
         return listaF;
     }
 
+    /**
+     * Este método se usa para guardar los datos de un teléfono
+     * @param telefono
+     * @param idUsuario
+     * @return
+     */
     @PostMapping(value = "/saveTelefono/{idUsuario}")
     public HttpStatus save(@RequestParam("telefono") String telefono,
                            // @RequestParam("id") int  id,
@@ -56,6 +66,13 @@ public class TelefonoRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para actualizar los datos de un teléfono
+     * @param telefono
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @PutMapping(value = "/updateTelefono/{id}/{idUsuario}")
     public HttpStatus update(@RequestBody Telefono telefono, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
 
@@ -70,6 +87,13 @@ public class TelefonoRestController {
         }
         return HttpStatus.OK;
     }
+
+    /**
+     * Este método se usa para eliminar un teléfono
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/deleteTelefono/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         Telefono telefono = telefonoServiceAPI.get(id);

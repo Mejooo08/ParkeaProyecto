@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 public class TelefonoServiceImpl extends GenericServiceImpl<Telefono, Integer> implements TelefonoServiceAPI {
     @Autowired
     private TelefonoRepository telefonoDtoApi;
+
+    /**
+     * Este método se usa para generar el crud de teléfono
+     * @return
+     */
     @Override
     public CrudRepository<Telefono, Integer> getDto() {
         return telefonoDtoApi;

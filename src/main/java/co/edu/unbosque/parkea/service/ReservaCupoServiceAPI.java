@@ -11,7 +11,20 @@ public interface ReservaCupoServiceAPI extends GenericServiceAPI<ReservaCupo, In
 
     ArrayList<Integer> facturacion(int tarifa, String horaIngreso, String horaSalida, String fidelizacion);
 
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     byte[] exportPdf() throws JRException, FileNotFoundException;
+
+    /**
+     * Este método se usa para exportar el reporte EXCEL
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
 
     byte[] exportXls() throws JRException, FileNotFoundException;
 }

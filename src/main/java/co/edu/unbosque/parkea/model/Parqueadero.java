@@ -51,6 +51,9 @@ public class Parqueadero implements Serializable {
     @Getter @Setter
     private List<ReservaCupo> reservas;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public Parqueadero() {
     }
 }

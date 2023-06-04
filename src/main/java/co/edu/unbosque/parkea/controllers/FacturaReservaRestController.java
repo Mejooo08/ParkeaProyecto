@@ -31,6 +31,13 @@ public class FacturaReservaRestController {
     @Autowired
     private ParqueaderoServiceAPI parqueaderoServiceAPI;
 
+    /**
+     * Este método se usa para generar la factura de la reserva
+     * @param idParqueadero
+     * @param idReservaCupo
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/factura/{idUsuario}/{idParqueadero}/{idReservaCupo}")
     public HttpStatus factura(@PathVariable(value = "idParqueadero") int idParqueadero,
                               @PathVariable(value = "idReservaCupo") int idReservaCupo,

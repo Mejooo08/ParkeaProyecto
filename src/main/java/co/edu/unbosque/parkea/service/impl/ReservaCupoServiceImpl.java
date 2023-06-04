@@ -33,6 +33,14 @@ public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Inte
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Este método se usa para generar la facturación
+     * @param tarifa
+     * @param horaIngreso
+     * @param horaSalida
+     * @param fidelizacion
+     * @return
+     */
     @Override
     public ArrayList<Integer> facturacion(int tarifa, String horaIngreso, String horaSalida, String fidelizacion){
         ArrayList<Integer> numeros = new ArrayList<>();
@@ -55,11 +63,24 @@ public class ReservaCupoServiceImpl extends GenericServiceImpl<ReservaCupo, Inte
         }
         return numeros;
     }
+
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @Override
     public byte[] exportPdf() throws JRException, FileNotFoundException {
         return reservaReportGenerator.exportToPdf((List<ReservaCupo>) reservaDtoApi.findAll());
     }
 
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @Override
     public byte[] exportXls() throws JRException, FileNotFoundException {
         return reservaReportGenerator.exportToXls((List<ReservaCupo>) reservaDtoApi.findAll());

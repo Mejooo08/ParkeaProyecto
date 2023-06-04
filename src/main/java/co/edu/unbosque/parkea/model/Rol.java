@@ -31,6 +31,9 @@ public class Rol implements Serializable {
     @Getter @Setter @OneToMany(mappedBy="rol")
     private List<Usuario> usuarios;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public Rol() {
     }
 }

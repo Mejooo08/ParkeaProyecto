@@ -29,6 +29,9 @@ public class TipoDocumento implements Serializable {
     @Getter @Setter @OneToMany(mappedBy="idDocumento")
     private List<Usuario> usuarios;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public TipoDocumento() {
     }
 }

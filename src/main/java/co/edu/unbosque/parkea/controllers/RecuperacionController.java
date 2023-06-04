@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/recuperar")
 public class RecuperacionController {
+    /**
+     * Este método se usa para repurar la contraseña
+     * @return
+     */
     @GetMapping("/password")
     public String recuperar(){
 

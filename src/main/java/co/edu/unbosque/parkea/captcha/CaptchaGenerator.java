@@ -11,6 +11,12 @@ import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 
 public class CaptchaGenerator {
+    /**
+     * Este método es usado para generar el captcha
+     * @param width
+     * @param height
+     * @return
+     */
     public static Captcha generateCaptcha(Integer width, Integer height) {
 
         return new Captcha.Builder(width, height)
@@ -20,6 +26,11 @@ public class CaptchaGenerator {
                 .build();
     }
 
+    /**
+     * Este método es usado para pasar el captcha a binario
+     * @param captcha
+     * @return
+     */
     public static String encodeCaptchatoBinary(Captcha captcha) {
         String image = null;
         try {
