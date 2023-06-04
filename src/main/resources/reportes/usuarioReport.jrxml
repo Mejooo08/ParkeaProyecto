@@ -100,7 +100,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{rol}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{rol}.getTipoRol()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -163,7 +163,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{idDocumento}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{idDocumento}.getDescripcion()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
