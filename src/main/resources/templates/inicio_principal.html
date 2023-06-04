@@ -8,6 +8,7 @@
    <!-- mobile metas -->
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <link rel="icon" href="/Images/logo.ico">
    <!-- site metas -->
    <!-- bootstrap css -->
    <link rel="stylesheet" href="/CSS/bootstrap.min.css">
@@ -47,7 +48,9 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="/templates/inicio_principal.html"><img src="/Images/logo-parkea.png" alt="#" /></a>
+                           <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
+                           <a><img src="/Images/logo-parkea.png" alt="#" /></a>
+                           </form>
                         </div>
                      </div>
                   </div>
@@ -107,7 +110,7 @@
    <!-- end banner -->
    <!-- car -->
    <!-- AQUI ESTA EL FORM PARA EL LOGIN  -->
-   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST"> <!--th:object="${captcha}"-->
+   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
       <div id="frame_login" style="display: none !important;">
          <div id="cerrar" style="cursor: pointer;">
             <div class="center">
@@ -126,18 +129,15 @@
                      <input type="password" id="Contraseña" placeholder="Contraseña" name="password">
                   </div>
                   <div>
-                     <label for="image"> CAPTCHA</label>
-                     <input type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
-                     <!--<input type="hidden" th:field="*{hiddenCaptcha}"/><br>-->
-                     <lable for="captchatext"> Enter Captch text </lable>
-                     <!--<input type="text" id="captchatext" th:field="*{captcha}"/>-->
+                     <label style="color: black;" for="image"> CAPTCHA</label>
+                     <input style="color: black;" type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
+                     <!--<input type="hidden" th:field="*{hiddenCaptcha}"/>--><br>
+                     <lable style="color: black;" for="captchatext"> Enter Captch text </lable>
+                     <input type="text" id="captchatext" th:field="*{captcha}"/>
                   </div>
                   <div class="form-element">
                      <input type="submit" value="Entrar" class="decorative-button">
                   </div>
-                  <!--<div th:if="${message!=null}">
-                     <span style="color:red;" th:text="${message}"></span>
-                  </div>-->
                </div>
             </div>
          </div>
@@ -150,8 +150,8 @@
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2>Encuentranos en las principales ciudades del pais</h2>
-                  <span>Contamos con sedes en diversos puntos del pais, ya sean parquederos cubiertos y abiertos
+                  <h2>Encuéntranos en las principales ciudades del pais</h2>
+                  <span>Contamos con sedes en diversos puntos del pais, ya sean parquederos cubiertos, semicubiertos y descubiertos
                      conforme a tus preferencias. Encuentranos donde quiera que estes.</span>
                </div>
             </div>
@@ -254,7 +254,16 @@
                               </select>
                            </div>
                            <div class="col-sm-12">
-                              <button class="find_btn">Agregar metodo de pago</button>
+                              <form>
+                                 <script
+                                         src="https://checkout.wompi.co/widget.js"
+                                         data-render="button"
+                                         data-public-key="pub_test_JVH7cw0EWTNSWHA0U2Y5F1DXV3FHe08M"
+                                         data-currency="COP"
+                                         data-amount-in-cents="2000000"
+                                         data-reference="4XMPGKWWPKWQ">
+                                 </script>
+                              </form>
                            </div>
                            <div class="col-sm-12">
                               <button class="find_btn">Registrar</button>
@@ -409,7 +418,7 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="cont_call">
-                     <h3> <strong class="multi color_chang"> Contactanos</strong><br>
+                     <h3> <strong class="multi color_chang"> Contáctanos</strong><br>
                         Cel. 3222187202
                      </h3>
                   </div>

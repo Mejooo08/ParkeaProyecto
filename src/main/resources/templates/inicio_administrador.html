@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +7,24 @@
     <link rel="stylesheet" type="text/css" href="/CSS/inicio_admin.css">
     <link rel="stylesheet" type="text/css" href="/CSS/tablas.css">
     <link rel="stylesheet" type="text/css" href="/CSS/grafico.css">
+    <link rel="icon" href="/Images/logo.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <title>Administrador</title>
 </head>
-<body class="fondo_admin" style=" background-color: rgba(255,255,255,1);">
-    <p>Valor del dato1: <span th:text="${correo}"></span></p>
-    <p>Valor del dato2: <span th:text="${id}"></span></p>
-    <p>Valor del dato1: [[${correo}]]</p>
-    <p>Valor del dato2: [[${id}]]</p>
+<body class="fondo_admin" style="background-color: rgba(255,255,255,1);">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <aside id="sidebar">
     <header class="header">
         <div class="container">
             <div class="btn-menu">
                 <label for="btn-menu" class="icon-menu" style="cursor: pointer;">☰</label>
+                <div style="text-align: right; color: white" size="30%">
+                    <p style="display: inline-block; margin-left: 10px; font-size: 170%; color: white;">Correo Electronico: <span th:text="${correo}"></span></p>
+                    <br>
+                    <p style="display: inline-block; margin-left: 10px; font-size: 170%; color: white" size="30%">ID: <span th:text="${id}"></span></p>
+                </div>
             </div>
         </div>
     </header>
@@ -33,13 +38,17 @@
                     <a onclick="tipo_de_parqueadero()" style="cursor: pointer;">Informacion de parqueadero</a>
                     <a onclick="tipo_de_documento()" style="cursor: pointer;">Tipo de Documentos</a>
                     <a onclick="carros()">Informacion del vehiculo</a>
+                    <link rel="icon" href="/Images/logo.ico">
                     <a onclick="auditoria()">Auditoria</a>
                     <a onclick="reserva()">Reserva de cupo</a>
                     <a href="">Telefonos</a>
                     <a href="">Informacion de los usuarios</a>
-                    <a href="/HTML/Inicio.html" class="ultimo-elemento">Cerrar Sesion</a>
+                    <br><br><br><br><br>
+                    <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
+                        <input type="submit" value="Cerrar Sesion" class="decorative-button">
+                    </form>
                 </nav>
-                <label for="btn-menu">✖️</label>
+                <label for="btn-menu">✖</label>
             </div>
         </div>
     </div>
@@ -56,7 +65,15 @@
             <canvas id="torta"></canvas>
         </div>
         <div class="box">
-            <h2></h2>
+            <div class="contenedor-botones">
+            <h2 style="align-content: center">Para exportar algun documento selecciona el boton que deseas</h2>
+                <br>
+                <br>
+            <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
+            <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
+            <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
+            <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
+            </div>
         </div>
     </div>
     <div id="tipo_parqueadero" style="display: none;">
@@ -158,7 +175,6 @@
                     </tr>
                 </thead>
                 <tbody id = "tablaAuditoria">
-
                 </tbody>
             </table>
             <script>
