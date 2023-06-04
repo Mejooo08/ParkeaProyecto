@@ -24,6 +24,10 @@ public class CarroRestController {
     @Autowired
     private AuditoriaRestController audi;
 
+    /**
+     * Este método se usa para listar todos los carros
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<CarroDTO> getAll(){
         List<Carro> getall = carroServiceAPI.getAll();
@@ -35,6 +39,13 @@ public class CarroRestController {
         return listaN;
     }
 
+    /**
+     * Este método se usa para guardar los datos de un carro
+     * @param placa
+     * @param modelo
+     * @param idUsuario
+     * @return
+     */
     @PostMapping(value = "/saveCarro/{idUsuario}")
     public HttpStatus save2(@RequestParam("placa") String placa,
                            @RequestParam("modelo") String modelo,
@@ -52,6 +63,13 @@ public class CarroRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para actualizar los datos de un carro
+     * @param carro
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @PutMapping(value = "/updateCarro/{id}/{idUsuario}")
     public HttpStatus update(@RequestBody Carro carro, @PathVariable(value = "id") int id, @PathVariable(value = "idUsuario") int idUsuario){
 
@@ -68,6 +86,12 @@ public class CarroRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para eliminar un carro
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/deleteCarro/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         Carro carro = carroServiceAPI.get(id);

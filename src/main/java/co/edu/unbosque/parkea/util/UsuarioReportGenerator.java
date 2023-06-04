@@ -16,12 +16,24 @@ import java.util.List;
 import java.util.Map;
 @Service
 public class UsuarioReportGenerator {
-
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @param list
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     public byte[] exportToPdf(List<Usuario> list) throws JRException, FileNotFoundException {
         return JasperExportManager.exportReportToPdf(getReport(list));
     }
 
-
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @param list
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     public byte[] exportToXls(List<Usuario> list) throws JRException, FileNotFoundException {
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         SimpleOutputStreamExporterOutput output = new SimpleOutputStreamExporterOutput(byteArray);
@@ -33,6 +45,13 @@ public class UsuarioReportGenerator {
         return byteArray.toByteArray();
     }
 
+    /**
+     * Este método se usa para traer el reporte
+     * @param list
+     * @return
+     * @throws FileNotFoundException
+     * @throws JRException
+     */
     private JasperPrint getReport(List<Usuario> list) throws FileNotFoundException, JRException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("usuarioData", new JRBeanCollectionDataSource(list));

@@ -29,6 +29,9 @@ public class TipoParqueadero implements Serializable {
     @Getter @Setter @OneToMany(mappedBy="idTipoParq")
     private List<Parqueadero> parqueaderos;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public TipoParqueadero() {
     }
 }

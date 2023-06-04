@@ -23,11 +23,24 @@ public class AuthController {
 
     @Autowired
     private EnvioCorreoImpl correoService;
+
+    /**
+     * Este método se usa para enviar correos
+     */
     @EventListener(ApplicationReadyEvent.class)
     public void envioCorreo() {
         System.out.println("----- Iniciado");
     }
 
+    /**
+     * Este método se usa para redirigir la vista
+     * @param correo
+     * @param clave
+     * @param model
+     * @param session
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping(value = "/validarLogin")
     public RedirectView loginPRUEBA(@RequestParam("email") String correo,
                                     @RequestParam("password") String clave, Model model, HttpSession session, RedirectAttributes redirectAttributes){
@@ -72,6 +85,12 @@ public class AuthController {
                 return new RedirectView(r);
         }
     }
+
+    /**
+     * Este método se usa para comprobar la sesión del usuario
+     * @param u
+     * @return
+     */
     public int comprobacion(Usuario u){
         int valor = -1;
             if(usuarioServiceAPI.validarEstado(u) == 1){

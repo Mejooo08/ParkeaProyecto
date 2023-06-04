@@ -28,6 +28,9 @@ public class Telefono implements Serializable {
     @Getter @Setter @Column(name = "estado")
     private String estado;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public Telefono() {
     }
 }

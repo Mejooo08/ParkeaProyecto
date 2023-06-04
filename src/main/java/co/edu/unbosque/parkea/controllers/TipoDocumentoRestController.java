@@ -17,6 +17,10 @@ public class TipoDocumentoRestController {
     @Autowired
     private TipoDocumentoServiceAPI tipoDocumentoServiceAPI;
 
+    /**
+     * Este método se usa para listar todos los elementos de tipo de documento
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<TipoDocumentoDTO> getAll(){
         List<TipoDocumento> getall = tipoDocumentoServiceAPI.getAll();

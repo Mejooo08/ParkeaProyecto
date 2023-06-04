@@ -35,6 +35,11 @@ public class ReservaCupoRestController {
     @Autowired
     private AuditoriaRestController audi;
 
+    /**
+     * Este método se usa para listar todos los elementos de reseva
+     * @return
+     */
+
     @GetMapping(value = "/getAll")
     public List<ReservaCupoDTO> getAll(){
 
@@ -49,6 +54,13 @@ public class ReservaCupoRestController {
         return listaF;
     }
 
+    /**
+     * Este método se usa para guardar los datos de una reserva
+     * @param cupo
+     * @param idParqueadero
+     * @param idUsuario
+     * @return
+     */
     @PostMapping(value = "/saveCupo/{idReservaCupo}/{idParqueadero}/{idUsuario}")
     public HttpStatus save(@RequestBody ReservaCupo cupo,
                            @PathVariable(value = "idParqueadero") int idParqueadero,
@@ -66,6 +78,14 @@ public class ReservaCupoRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para actualizar los datos de una reserva
+     * @param cupo
+     * @param idParqueadero
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @PutMapping(value = "/updateCupo/{id}/{idParqueadero}/{idUsuario}")
     public HttpStatus update(@RequestBody ReservaCupo cupo,
                              @PathVariable(value = "idParqueadero") int idParqueadero,
@@ -90,6 +110,12 @@ public class ReservaCupoRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para eliminar una reserva
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/deleteCupo/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         ReservaCupo cupo = reservaCupoServiceAPI.get(id);
@@ -102,6 +128,13 @@ public class ReservaCupoRestController {
         }
         return HttpStatus.OK;
     }
+
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-pdf")
     public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();
@@ -110,6 +143,12 @@ public class ReservaCupoRestController {
         return ResponseEntity.ok().headers(headers).body(reservaCupoServiceAPI.exportPdf());
     }
 
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-xls")
     public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();

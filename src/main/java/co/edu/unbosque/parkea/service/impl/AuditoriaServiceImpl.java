@@ -26,16 +26,32 @@ public class AuditoriaServiceImpl extends GenericServiceImpl<Auditoria, Integer>
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Este método se usa para generar el crud de auditoría
+     * @return
+     */
     @Override
     public CrudRepository<Auditoria, Integer> getDto(){
         return auditoriaDtoAPI;
     }
 
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @Override
     public byte[] exportPdf() throws JRException, FileNotFoundException {
         return auditoriaReportGenerator.exportToPdf((List<Auditoria>) auditoriaDtoAPI.findAll());
     }
 
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @Override
     public byte[] exportXls() throws JRException, FileNotFoundException {
         return auditoriaReportGenerator.exportToXls((List<Auditoria>) auditoriaDtoAPI.findAll());

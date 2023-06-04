@@ -36,6 +36,9 @@ public class Auditoria implements Serializable {
     @Getter @Setter @Column(name = "ip_usuario")
     private String  ipUsuario;
 
+    /**
+     * Este método se usa como constructor de la clase
+     */
     public Auditoria() {
     }
 }

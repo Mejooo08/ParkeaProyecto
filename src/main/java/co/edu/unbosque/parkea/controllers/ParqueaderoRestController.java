@@ -33,6 +33,10 @@ public class ParqueaderoRestController {
     @Autowired
     private AuditoriaRestController audi;
 
+    /**
+     * Este método se usa para listar los elementos de parqueadero
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<ParqueaderoDTO> getAll(){
 
@@ -48,6 +52,13 @@ public class ParqueaderoRestController {
         return listaF;
     }
 
+    /**
+     * Este método se usa para guardar los datos de un parqueadero
+     * @param parq
+     * @param idTipoParq
+     * @param idUsuario
+     * @return
+     */
     @PostMapping(value = "/saveParq/{idParqueadero}/{idTipoParq}/{idUsuario}")
     public HttpStatus save(@RequestBody Parqueadero parq,
                            @PathVariable(value = "idTipoParq") int idTipoParq,
@@ -60,6 +71,14 @@ public class ParqueaderoRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para actualizar los datos de un parqueadero
+     * @param parq
+     * @param idTipoParq
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @PutMapping(value = "/updateParq/{id}/{idTipoParq}/{idUsuario}")
     public HttpStatus update(@RequestBody Parqueadero parq,
                              @PathVariable(value = "idTipoParq") int idTipoParq,
@@ -85,6 +104,12 @@ public class ParqueaderoRestController {
         return HttpStatus.OK;
     }
 
+    /**
+     * Este método se usa para eliminar un parqueadero
+     * @param id
+     * @param idUsuario
+     * @return
+     */
     @GetMapping(value = "/deleteParq/{id}/{idUsuario}")
     public HttpStatus delete(@PathVariable int id, @PathVariable(value = "idUsuario") int idUsuario){
         Parqueadero parqueadero = parqueaderoServiceAPI.get(id);
@@ -97,6 +122,13 @@ public class ParqueaderoRestController {
         }
         return HttpStatus.OK;
     }
+
+    /**
+     * Este método se usa para exportar el repote PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-pdf")
     public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();
@@ -105,6 +137,12 @@ public class ParqueaderoRestController {
         return ResponseEntity.ok().headers(headers).body(parqueaderoServiceAPI.exportPdf());
     }
 
+    /**
+     * Este método se usa para epxortar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @GetMapping("/export-xls")
     public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();

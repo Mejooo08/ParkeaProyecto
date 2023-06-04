@@ -32,10 +32,21 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Este método se usa para generar el crud de usuario
+     * @return
+     */
     @Override
     public CrudRepository<Usuario, Integer> getDto(){
         return usuarioDtoAPI;
     }
+
+    /**
+     * Este método se usa para hacer el login de un usuario
+     * @param correo
+     * @param clave
+     * @return
+     */
     @Override
     public Usuario login(String correo, String clave){
         String query = "FROM Usuario WHERE login = :login";
@@ -58,6 +69,13 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
             return null;
         }
     }
+
+    /**
+     * Este método se usa para validar la contraseña de un usuario
+     * @param contraValidar
+     * @param u
+     * @return
+     */
     public boolean validarContra(String contraValidar, Usuario u){
         String contraHash = hashearContra(contraValidar);
         if(contraHash.equals(u.getClave())){
@@ -74,6 +92,12 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         validarIntentos(u);
         return false;
     }
+
+    /**
+     * Este método se usa para validar el estado en el que se encuentra un usuario
+     * @param u
+     * @return
+     */
     @Override
     public int validarEstado(Usuario u){
         if(u.getEstado().equals("A")){
@@ -89,6 +113,11 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         }
     }
 
+    /**
+     * Este método se usa para validar los intentos de inicio de sesión de un usuario
+     * @param u
+     */
+
     public void validarIntentos(Usuario u){
         if(u.getIntentos() >= 3){
             System.out.println("Usuario con mas de tres intentos bloquear");
@@ -99,6 +128,11 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         }
     }
 
+    /**
+     * Este método se usa para hashear la contraseña del usuario
+     * @param contra
+     * @return
+     */
     @Override
     public String hashearContra(String contra){
         MessageDigest md = null;
@@ -120,6 +154,12 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         return sb.toString();
     }
 
+    /**
+     * Este método se usa para generar la contraseña del usuario la primera vez
+     * @param longitud
+     * @return
+     */
+
     public String generarContrasena(int longitud) {
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*-#";
         Random random = new Random();
@@ -133,10 +173,23 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
         return contraseña.toString();
     }
 
+    /**
+     * Este método se usa para exportar el reporte PDF generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
     @Override
     public byte[] exportPdf() throws JRException, FileNotFoundException {
         return usuarioReportGenerator.exportToPdf((List<Usuario>) usuarioDtoAPI.findAll());
     }
+
+    /**
+     * Este método se usa para exportar el reporte EXCEL generado
+     * @return
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
 
     @Override
     public byte[] exportXls() throws JRException, FileNotFoundException {

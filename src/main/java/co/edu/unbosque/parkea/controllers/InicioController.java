@@ -13,11 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/pagina_principal")
 public class InicioController {
+    /**
+     * Este método se usa para registrar un usuario
+     * @param model
+     * @return
+     */
     @GetMapping("/inicio_principal")
     public String register(Model model) {
         model.addAttribute("captcha", genCaptcha());
         return "inicio_principal";
     }
+
+    /**
+     * Este método se usa para verificar los datos del registro
+     * @param captchaSettings
+     * @param model
+     * @return
+     */
     @PostMapping("/verify")
     public String verify(@ModelAttribute CaptchaSettings captchaSettings, Model model) {
         if(captchaSettings.getCaptcha().equals(captchaSettings.getHiddenCaptcha())){
@@ -30,6 +42,11 @@ public class InicioController {
         }
         return "inicio_principal";
     }
+
+    /**
+     * Este método se usa para generar el captcha
+     * @return
+     */
     private CaptchaSettings genCaptcha() {
         CaptchaSettings captchaSettings = new CaptchaSettings();
         Captcha captcha = CaptchaGenerator.generateCaptcha(260, 80);

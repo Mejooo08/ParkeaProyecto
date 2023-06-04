@@ -18,6 +18,10 @@ public class TipoParqueaderoRestController {
     @Autowired
      private TipoParqueaderoServiceAPI tipoParqueaderoServiceAPI;
 
+    /**
+     * Este método se usa para listar todos los elementos de tipo de parqueadero
+     * @return
+     */
     @GetMapping(value = "/getAll")
     public List<TipoParqueaderoDTO> getAll(){
         List<TipoParqueadero> getall = tipoParqueaderoServiceAPI.getAll();

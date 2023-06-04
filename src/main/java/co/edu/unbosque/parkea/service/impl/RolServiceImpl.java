@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 public class RolServiceImpl extends GenericServiceImpl<Rol, Integer> implements RolServiceAPI {
     @Autowired
     private RolRepository rolDtoApi;
+
+    /**
+     * Este método se usa para generar el crud de rol
+     * @return
+     */
     @Override
     public CrudRepository<Rol, Integer> getDto() {
         return rolDtoApi;
