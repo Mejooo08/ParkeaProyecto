@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <title>Administrador</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script> </script>
 </head>
 <body class="fondo_admin" style="background-color: rgba(255,255,255,1);">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
@@ -177,37 +178,8 @@
                 </thead>
                 <tbody id = "tablaAuditoria">
                 </tbody>
+
             </table>
-            <script>
-                function traerDatosAuditoria(){
-                    $.ajax({
-                        type:"GET",
-                        url: "http://localhost:8080/api/Auditoria/getAll",
-                        success:function(data){
-                            var res;
-
-                            for (let item of data.results) {
-                                res += "<tr><td>" + item.idInforme +
-                                    "</td><td>" + item.usuario + "</td><td>" +
-                                    item.fechaHora + "</td><td>" +
-                                    item.evento + "</td><td>" +
-                                    item.tabla + "</td><td>" +
-                                    item.ipUsuario + "</td></tr>";
-                            }
-
-                            $("#tablaAuditoria").empty(res);
-
-                            $("#tablaAuditoria").append(res);
-
-                        },error:function(e){
-                            alert("No hay información");
-                        }
-                    });
-                    return false;
-                    alert("Acabo la función");
-                }
-
-            </script>
         </section>
     </main>
 </div>
