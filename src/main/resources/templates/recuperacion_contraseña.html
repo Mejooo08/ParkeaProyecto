@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/CSS/inicio_admin.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/tablas.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/grafico.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/botones.css">
+    <link rel="icon" href="/Images/logo.ico">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="/Images/logo.ico">
+    <link rel="shortcut icon" href="/Images/logo-parkea.ico"/>
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/croquis.css"/>
+    <!-- style css -->
+    <link rel="stylesheet" href="/CSS/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="/CSS/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="/Images/fevicon.png" type="Images/gif"/>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="/CSS/jquery.mCustomScrollbar.min.css"/>
+    <link rel="stylesheet" href="/CSS/tablas.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen"/>
+     <title>Recuperacion de contraseña</title>
+ </head>
+ <body class="fondo_admin" style="background-color: rgba(255,255,255,1);">
+ <div id="contact" class="bestCar">
+     <div class="container">
+         <div class="mapadiv">
+             <img src="/Images/logo-parkea.png" style="margin-top: 24%; padding-left: 30%; width: 80%;">
+         </div>
+     </div>
+     <div class="row">
+         <div class="col-sm-12">
+             <div class="row">
+                 <div class="col-md-6 offset-md-3">
+
+                     <!--AQUI ESTA EL FORMULARIO-->
+
+                     <form class="main_form" th:action="@{/recuperar/password}" method="put">
+                         <div class="titlepage">
+                             <h2>RECUPERACION DE CONTRASEÑA</h2>
+                             <h2>Señor usuario, pro favor ingresa los siguientes datos en los campos</h2>
+                             <h2 id="campo-ciudad"></h2>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-10">
+                                     <div class="form-element">
+                                         <input type="text" placeholder="Email" name="correo_recuperacion" style="width: 100%;">
+                                     </div>
+                                     <div class="form-element">
+                                         <input type="password" placeholder="contraseña_vieja" name="contraseña_vieja" style="width: 100%;">
+                                     </div>
+                                     <div class="form-element">
+                                         <input type="password" placeholder="contraseña_nueva" name="contraseña_nueva" style="width: 100%;">
+                                     </div>
+                             </div>
+                             <div class="col-sm-12">
+                                 <input type="submit" value="Recuperar" class="find_btn" style="cursor: pointer;">
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+ </body>
+ </html>

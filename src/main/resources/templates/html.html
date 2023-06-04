@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tabla de Teléfonos</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<table id="tablaTelefonos">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Número de Teléfono</th>
+    <th>Estado</th>
+    <th>Usuario</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    $.get("/api/Telefono/getAll", function(data) {
+      var tabla = $("#tablaTelefonos tbody");
+
+      data.forEach(function(telefono) {
+        var fila = "<tr>" +
+                "<td>" + telefono.idTelefono + "</td>" +
+                "<td>" + telefono.numTelefono + "</td>" +
+                "<td>" + telefono.estado + "</td>" +
+                "<td>" + telefono.usuario + "</td>" +
+                "</tr>";
+
+        tabla.append(fila);
+      });
+    });
+  });
+</script>
+</body>
+</html>
