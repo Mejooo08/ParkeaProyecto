@@ -16,6 +16,8 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.*;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.io.FileNotFoundException;
 
 @RestController
@@ -60,7 +62,6 @@ public class UsuarioRestController {
                            @PathVariable(value = "idIdentificacion") int idIdentificacion,
                            @PathVariable(value = "idRol") int idRol,
                            @PathVariable(value = "idUsuario") int idUsuario){
-
         TipoDocumento identificacion = tipoDocumentoServiceAPI.get(idIdentificacion);
         Rol rol = rolServiceAPI.get(idRol);
         usuario.setIdDocumento(identificacion);
@@ -83,11 +84,11 @@ public class UsuarioRestController {
     }
 
     @PostMapping(value = "/saveUsuario")
-    public HttpStatus save2(@RequestParam("correo") String correo,
-                            @RequestParam("direccion") String direccion,
-                            @RequestParam("tarjeta") String tarjeta,
-                            @RequestParam("cedula") int tipoDoc,
-                            @RequestParam("documento") String numDoc){
+    public RedirectView save2(@RequestParam("correo") String correo,
+                              @RequestParam("direccion") String direccion,
+                              @RequestParam("tarjeta") String tarjeta,
+                              @RequestParam("cedula") int tipoDoc,
+                              @RequestParam("documento") String numDoc){
         Usuario usuario = new Usuario();
         TipoDocumento tipoDocumento = tipoDocumentoServiceAPI.get(tipoDoc);
         usuario.setIdDocumento(tipoDocumento);
@@ -103,15 +104,22 @@ public class UsuarioRestController {
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
         usuario.setEstado("N");
+        System.out.println();
+        System.out.println(correo);
+        System.out.println(direccion);
+        System.out.println(tarjeta);
+        System.out.println(tipoDoc);
+        System.out.println(numDoc);
+
         try{
             correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
                     ", su clave de accesso es: " +contra);
             usuarioServiceAPI.save(usuario);
             audi.saveAuditoria("Guardar", "Usuario",usuario.getIdUsuario());
         }catch (Exception e){
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+            return new RedirectView("/pagina_principal/inicio_principal");
         }
-        return HttpStatus.OK;
+        return new RedirectView("/pagina_principal/inicio_principal");
     }
 
     @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idRol}/{idUsuario}")
