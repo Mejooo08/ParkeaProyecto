@@ -82,6 +82,38 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
+    @PostMapping(value = "/saveUsuario")
+    public HttpStatus save2(@RequestParam("correo") String correo,
+                            @RequestParam("direccion") String direccion,
+                            @RequestParam("tarjeta") String tarjeta,
+                            @RequestParam("cedula") int tipoDoc,
+                            @RequestParam("documento") String numDoc){
+        Usuario usuario = new Usuario();
+        TipoDocumento tipoDocumento = tipoDocumentoServiceAPI.get(tipoDoc);
+        usuario.setIdDocumento(tipoDocumento);
+        usuario.setNumeroDoc(numDoc);
+        usuario.setLogin(correo);
+        usuario.setDireccion(direccion);
+        usuario.setTarjetaCredito(tarjeta);
+        Rol rol = rolServiceAPI.get(2);
+        usuario.setRol(rol);
+        String contra = usuarioServiceAPI.generarContrasena(8);
+        System.out.println("Contrasena:" + contra);
+        usuario.setClave(usuarioServiceAPI.hashearContra(contra));
+        usuario.setNumeroDoc(usuario.getNumeroDoc());
+        usuario.setIntentos(0);
+        usuario.setEstado("N");
+        try{
+            correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
+                    ", su clave de accesso es: " +contra);
+            usuarioServiceAPI.save(usuario);
+            audi.saveAuditoria("Guardar", "Usuario",usuario.getIdUsuario());
+        }catch (Exception e){
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.OK;
+    }
+
     @PutMapping(value = "/updateUsuario/{id}/{idIdentificacion}/{idRol}/{idUsuario}")
     public HttpStatus update(@RequestBody Usuario usuario,
                                           @PathVariable(value = "id") int id,

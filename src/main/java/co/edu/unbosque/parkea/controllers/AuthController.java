@@ -28,39 +28,6 @@ public class AuthController {
         System.out.println("----- Iniciado");
     }
 
-    @PostMapping(value = "/validarLogin/{correo}/{clave}")
-    public UsuarioDTO login(@PathVariable(value = "correo") String correo,
-                            @PathVariable(value = "clave") String clave){
-       Usuario u =  usuarioServiceAPI.login(correo, clave);
-       UsuarioDTO objeto = new UsuarioDTO();
-       if(u != null){
-           objeto = new UsuarioDTO(u.getIdUsuario(),u.getRol().getTipoRol(),u.getLogin(), u.getDireccion(),u.getIdDocumento().getDescripcion(),u.getNumeroDoc(), u.getPuntosFidelizacion(),u.getTarjetaCredito(), u.getIntentos(),u.getEstado());
-       }else{
-           System.out.println("Usuario Correo o contraseña mal");
-           return  null;
-       }
-       int val = comprobacion(u);
-        switch(val) {
-            case 0:
-                System.out.println("Usuario bloqueado");
-                correoService.enviarCorreo(u.getLogin(),"Usuario Bloqueado", "Su usuario esta bloqueado," +
-                        "contacte a un administrador para poder acceder a ParkeaColombia");
-                correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
-                        "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
-                return null;
-            case 1:
-                return objeto;
-            case 2:
-                correoService.enviarCorreo(u.getLogin(),"Inicio de Sesion", "Para iniciar sesión es necesario" +
-                        " que cambies la contraseña proporcionada por default");
-                System.out.println("Usuario cambio contraseña necesario");
-                return null;
-            default:
-                System.out.println("Se peto");
-                return null;
-        }
-    }
-
     @PostMapping(value = "/validarLogin")
     public RedirectView loginPRUEBA(@RequestParam("email") String correo,
                                     @RequestParam("password") String clave, Model model, HttpSession session, RedirectAttributes redirectAttributes){
