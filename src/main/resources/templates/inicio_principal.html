@@ -110,7 +110,7 @@
    <!-- end banner -->
    <!-- car -->
    <!-- AQUI ESTA EL FORM PARA EL LOGIN  -->
-   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
+   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST" th:object="${captcha}">
       <div id="frame_login" style="display: none !important;">
          <div id="cerrar" style="cursor: pointer;">
             <div class="center">
@@ -131,7 +131,7 @@
                   <div>
                      <label style="color: black;" for="image"> CAPTCHA</label>
                      <input style="color: black;" type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
-                     <!--<input type="hidden" th:field="*{hiddenCaptcha}"/>--><br>
+                     <input type="hidden" th:field="*{hiddenCaptcha}"/><br>
                      <lable style="color: black;" for="captchatext"> Enter Captch text </lable>
                      <input type="text" id="captchatext" th:field="*{captcha}"/>
                   </div>
