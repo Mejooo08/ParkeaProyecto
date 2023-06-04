@@ -25,6 +25,7 @@ public class TelefonoRestController {
     private AuditoriaRestController audi;
 
     @GetMapping(value = "/getAll")
+    @ResponseBody
     public List<TelefonoDTO> getAll(){
 
         List<Telefono> getall = telefonoServiceAPI.getAll();

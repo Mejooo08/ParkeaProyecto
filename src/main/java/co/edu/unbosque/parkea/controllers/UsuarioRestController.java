@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping(value = "/api/Usuario")
+@RequestMapping(value = "pagina_principal/api/Usuario")
 public class UsuarioRestController {
 
     public UsuarioRestController(){
@@ -57,32 +57,6 @@ public class UsuarioRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveUsuario/{idIdentificacion}/{idRol}/{idUsuario}")
-    public HttpStatus save(@RequestBody Usuario usuario,
-                           @PathVariable(value = "idIdentificacion") int idIdentificacion,
-                           @PathVariable(value = "idRol") int idRol,
-                           @PathVariable(value = "idUsuario") int idUsuario){
-        TipoDocumento identificacion = tipoDocumentoServiceAPI.get(idIdentificacion);
-        Rol rol = rolServiceAPI.get(idRol);
-        usuario.setIdDocumento(identificacion);
-        usuario.setRol(rol);
-        String contra = usuarioServiceAPI.generarContrasena(8);
-        System.out.println("Contrasena:" + contra);
-        usuario.setClave(usuarioServiceAPI.hashearContra(contra));
-        usuario.setNumeroDoc(usuario.getNumeroDoc());
-        usuario.setIntentos(0);
-        usuario.setEstado("N");
-        try{
-            correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                    ", su clave de accesso es: " +contra);
-            usuarioServiceAPI.save(usuario);
-            audi.saveAuditoria("Guardar", "Usuario",idUsuario);
-        }catch (Exception e){
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.OK;
-    }
-
     @PostMapping(value = "/saveUsuario")
     public RedirectView save2(@RequestParam("correo") String correo,
                               @RequestParam("direccion") String direccion,
@@ -104,12 +78,6 @@ public class UsuarioRestController {
         usuario.setNumeroDoc(usuario.getNumeroDoc());
         usuario.setIntentos(0);
         usuario.setEstado("N");
-        System.out.println();
-        System.out.println(correo);
-        System.out.println(direccion);
-        System.out.println(tarjeta);
-        System.out.println(tipoDoc);
-        System.out.println(numDoc);
 
         try{
             correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
@@ -119,6 +87,8 @@ public class UsuarioRestController {
         }catch (Exception e){
             return new RedirectView("/pagina_principal/inicio_principal");
         }
+        // vista de cambiar contraseñaaaaaaaaaaa
+        //aaaaaaaaaaaaa
         return new RedirectView("/pagina_principal/inicio_principal");
     }
 
@@ -151,11 +121,11 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/cambiarContrasenia/{correo}/{contraVieja}/{contraNueva}")
-    public HttpStatus cambiarContra(
-                                    @PathVariable(value = "correo") String correo,
-                                    @PathVariable(value = "contraVieja") String contraVieja,
-                                    @PathVariable(value = "contraNueva") String contraNueva){
+    @PutMapping(value = "/cambiarContrasenia")
+    public RedirectView cambiarContra(
+            @RequestParam("correo") String correo,
+            @RequestParam("contraVieja") String contraVieja,
+            @RequestParam("contraNueva") String contraNueva){
         Usuario u = usuarioServiceAPI.login(correo, contraVieja);
         if(u != null){
             int id = u.getIdUsuario();
@@ -168,9 +138,11 @@ public class UsuarioRestController {
                 usuario.setEstado("A");
                 usuarioServiceAPI.save(usuario);
             }
-            return HttpStatus.OK;
+            return new RedirectView("/pagina_principal/inicio_principal");
         }else{
-            return  HttpStatus.INTERNAL_SERVER_ERROR;
+            // vista de cambiar contraseñaaaaaaaaaaa
+            //aaaaaaaaaaaaa
+            return new RedirectView("/pagina_principal/inicio_principal");
         }
     }
 
