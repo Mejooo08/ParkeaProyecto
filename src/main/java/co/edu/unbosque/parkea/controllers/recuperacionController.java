@@ -10,6 +10,6 @@ public class recuperacionController {
     @GetMapping("/password")
     public String recuperar(){
 
-        return "recuperacion_contraseña";
+        return "cambiar_contrasena";
     }
 }

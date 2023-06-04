@@ -21,7 +21,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping(value = "pagina_principal/api/Usuario")
+@RequestMapping(value = "/api/Usuario")
+/*pagina_principal/api/Usuario
+* Si no llega a cargar como intento*/
 public class UsuarioRestController {
 
     public UsuarioRestController(){

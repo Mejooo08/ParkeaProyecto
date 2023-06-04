@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/CSS/inicio_admin.css">
     <link rel="stylesheet" type="text/css" href="/CSS/tablas.css">
     <link rel="stylesheet" type="text/css" href="/CSS/grafico.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/reportes.css">
     <link rel="icon" href="/Images/logo.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +16,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="fondo_admin" style="background-color: rgba(255,255,255,1);">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/JS/funciones_tablas.js"></script>
+<script src="/JS/reportes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <aside id="sidebar">
     <header class="header">
@@ -37,13 +41,11 @@
                     <img src="/Images/logo-parkea.png" style="width: 50%; height: 50%; margin-left: 20%;"/>
                     <br><br>
                     <a onclick="tipo_de_parqueadero()" style="cursor: pointer;">Informacion de parqueadero</a>
-                    <a onclick="tipo_de_documento()" style="cursor: pointer;">Tipo de Documentos</a>
                     <a onclick="carros()">Informacion del vehiculo</a>
                     <link rel="icon" href="/Images/logo.ico">
-                    <a onclick="auditoria()">Auditoria</a>
                     <a onclick="reserva()">Reserva de cupo</a>
-                    <a href="">Telefonos</a>
-                    <a href="">Informacion de los usuarios</a>
+                    <a onclick="telefono()">Telefonos</a>
+                    <a onclick="usuario()">Informacion de los usuarios</a>
                     <br><br><br><br><br>
                     <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
                         <input type="submit" value="Cerrar Sesion" class="decorative-button">
@@ -67,186 +69,284 @@
         </div>
         <div class="box">
             <div class="contenedor-botones">
-            <h2 style="align-content: center">Para exportar algun documento selecciona el boton que deseas</h2>
-                <br>
-                <br>
-            <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
-            <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
-            <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
-            <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
+                <h2 style="align-content: center">Para exportar selecciona el tipo de documento que deseas</h2>
+                <button class="boton cuatro" onclick="pdf()"><strong><span>PDF</span></strong></button>
+                <button class="boton cuatro" onclick="excel()"><strong><span>EXCEL</span></strong></button>
+            </div>
+        </div>
+        <!--Espacio de Excel-->
+        <div id="excel" style="display: none !important;">
+            <div id="cerrarexcel" style="cursor: pointer;">
+                <div class="popup">
+                    <div class="clos-btn" onclick="cerrarExcel()">&times;</div>
+                    <div class="form">
+                        <div class="contenedor-botones">
+                            <h3>Por favor selecciona el informe en excel que deseas</h3>
+                            <form method="GET" th:action="@{/api/Usuario/export-xls}">
+                            <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
+                            </form>
+                            <form method="GET" th:action="@{/api/Parqueadero/export-xls}">
+                            <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
+                            </form>
+                            <form method="GET" th:action="@{/api/Auditoria/export-xls}">
+                            <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
+                            </form>
+                            <form method="GET" th:action="@{/api/ReservaCupo/export-xls}">
+                            <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--Espacio de PDF-->
+    <div id="PDF" style="display: none !important;">
+        <div id="cerrarpdf" style="cursor: pointer;">
+            <div class="popup">
+                <div class="clos-btn" onclick="cerrarPDF()">&times;</div>
+                <div class="form">
+                    <div class="contenedor-botones">
+                        <h3>Por favor selecciona el informe en PDF que deseas</h3>
+                        <form method="GET" th:action="@{/api/Usuario/export-pdf}">
+                            <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
+                        </form>
+                        <form method="GET" th:action="@{/api/Parqueadero/export-pdf}">
+                            <button class="boton cuatro"><strong><span>Parqueaderos</span></strong></button>
+                        </form>
+                        <form method="GET" th:action="@{/api/Auditoria/export-pdf}">
+                            <button class="boton cuatro"><strong><span>Auditoria</span></strong></button>
+                        </form>
+                        <form method="GET" th:action="@{/api/ReservaCupo/export-pdf}">
+                            <button class="boton cuatro"><strong><span>Reservas</span></strong></button>
+                        </form>
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Parqueadero/getAll", function(data) {
+                var tabla = $("#tabla_parqueadero tbody");
+
+                data.forEach(function(parqueadero) {
+                    var fila = "<tr>" +
+                        "<td>" + parqueadero.idParqueadero + "</td>" +
+                        "<td>" + parqueadero.idTipoParq + "</td>" +
+                        "<td>" + parqueadero.ubicacion + "</td>" +
+                        "<td>" + parqueadero.horarioAtencion + "</td>" +
+                        "<td>" + parqueadero.tarifa + "</td>" +
+                        "<td>" + parqueadero.fidelizacion + "</td>" +
+                        "<td>" + parqueadero.ciudad + "</td>" +
+                        "<td>" + parqueadero.cuposTotales + "</td>" +
+                        "<td>" + parqueadero.cuposOcupados + "</td>" +
+                        "<td>" + parqueadero.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
     <div id="tipo_parqueadero" style="display: none;">
     <main class="table_parqueadero" >
         <section class="table_header">
             <h1>Informacion de tipo de Parqueadero</h1>
         </section>
         <section class="table_body">
-            <table>
+            <table id="tabla_parqueadero">
                 <thead>
                     <tr>
-                        <th>ID_TipoParqueadero</th>
-                        <th>Descripcion</th>
+                        <th>ID_Parqueadero</th>
+                        <th>Tipo_parqueadero</th>
+                        <th>Ubicación</th>
+                        <th>Horario de atencion</th>
+                        <th>Tarifa</th>
+                        <th>Fidelización</th>
+                        <th>Ciudad</th>
+                        <th>Cupos Totales</th>
+                        <th>Cupos Ocupados</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Cubierto</td>
-                        <td><strong>A</strong></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
     </main>
 </div>
-    <div id="tipo_Documento" style="display: none">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Informacion de tipo de Documento</h1>
-        </section>
-        <section class="table_body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID_Documento</th>
-                        <th>Descripcion</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Cedula</td>
-                        <td><strong>A</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
-</div>
+    <script>
+        $(document).ready(function() {
+            $.get("/pagina_principal/api/Carro/getAll", function(data) {
+                var tabla = $("#tabla_carro tbody");
+
+                data.forEach(function(carros) {
+                    var fila = "<tr>" +
+                        "<td>" + carros.idCarro + "</td>" +
+                        "<td>" + carros.usuario + "</td>" +
+                        "<td>" + carros.placa + "</td>" +
+                        "<td>" + carros.modelo + "</td>" +
+                        "<td>" + carros.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
     <div id="carros" style="display: none">
     <main class="table_parqueadero" >
         <section class="table_header">
             <h1>Informacion de los vehiculos</h1>
         </section>
         <section class="table_body">
-            <table>
+            <table id="tabla_carro">
                 <thead>
                     <tr>
-                        <th>ID_Documento</th>
+                        <th>ID de vehiculo</th>
                         <th>Usuario</th>
                         <th>Placa</th>
                         <th>Modelo</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                <form action="/info_vehiculos" method="GET">
-                    <tr>
-                        <td>1</td>
-                        <td>danielfmr88@gmail.com</td>
-                        <td>123BND</td>
-                        <td>2016</td>
-                        <td><strong>A</strong></td>
-                    </tr>
-                </form>
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
     </main>
 </div>
-    <div id="Auditoria" style="display: none">
-    <main class="table_parqueadero" >
-        <section class="table_header">
-            <h1>Información de la auditoria</h1>
-        </section>
-        <section class="table_body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID Informe</th>
-                        <th>Usuario</th>
-                        <th>Fecha y Hora</th>
-                        <th>Evento</th>
-                        <th>Tabla</th>
-                        <th>Ip del Usuario</th>
-                    </tr>
-                </thead>
-                <tbody id = "tablaAuditoria">
-                </tbody>
-            </table>
-            <script>
-                function traerDatosAuditoria(){
-                    $.ajax({
-                        type:"GET",
-                        url: "http://localhost:8080/api/Auditoria/getAll",
-                        success:function(data){
-                            var res;
+    <script>
+        $(document).ready(function() {
+            $.get("/api/ReservaCupo/getAll", function(data) {
+                var tabla = $("#tabla_reserva tbody");
 
-                            for (let item of data.results) {
-                                res += "<tr><td>" + item.idInforme +
-                                    "</td><td>" + item.usuario + "</td><td>" +
-                                    item.fechaHora + "</td><td>" +
-                                    item.evento + "</td><td>" +
-                                    item.tabla + "</td><td>" +
-                                    item.ipUsuario + "</td></tr>";
-                            }
-
-                            $("#tablaAuditoria").empty(res);
-
-                            $("#tablaAuditoria").append(res);
-
-                        },error:function(e){
-                            alert("No hay información");
-                        }
-                    });
-                    return false;
-                    alert("Acabo la función");
-                }
-
-            </script>
-        </section>
-    </main>
-</div>
-</div>
+                data.forEach(function(reserva) {
+                    var fila = "<tr>" +
+                        "<td>" + reserva.idFactura + "</td>" +
+                        "<td>" + reserva.momentoReserva + "</td>" +
+                        "<td>" + reserva.horaIngreso + "</td>" +
+                        "<td>" + reserva.horaSalida + "</td>" +
+                        "<td>" + reserva.usuario + "</td>" +
+                        "<td>" + reserva.idParqueadero + "</td>" +
+                        "<td>" + reserva.placaCarro + "</td>" +
+                        "<td>" + reserva.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
     <div id="Reserva" style="display: none">
     <main class="table_parqueadero" >
         <section class="table_header">
             <h1>Informacion de reservas</h1>
         </section>
         <section class="table_body">
-            <table>
+            <table id="tabla_reserva">
                 <thead>
                     <tr>
                         <th>ID Factura</th>
-                        <th>Momento Reserva</th>
-                        <th>Ingreso</th>
-                        <th>Salida</th>
+                        <th>Momento reserva</th>
+                        <th>Hora de ingreso</th>
+                        <th>Hora de salida</th>
                         <th>Usuario</th>
-                        <th>Ip del Parqueadero</th>
+                        <th>Id del parqueadero</th>
                         <th>Placa del vehiculo</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2023-05-22 18:46:34</td>
-                        <td>2021-04-20 22:31:51</td>
-                        <td>2021-04-20 22:31:51</td>
-                        <td>danielfmr88@gmail.com</td>
-                        <td>Calle 45</td>
-                        <td>123BND</td>
-                        <td><strong>A</strong></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
     </main>
 </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Telefono/getAll", function(data) {
+                var tabla = $("#tablaTelefonos tbody");
+
+                data.forEach(function(telefono) {
+                    var fila = "<tr>" +
+                        "<td>" + telefono.idTelefono + "</td>" +
+                        "<td>" + telefono.numTelefono + "</td>" +
+                        "<td>" + telefono.estado + "</td>" +
+                        "<td>" + telefono.usuario + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
+    <div id="Telefono" style="display: none">
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1>Informacion de Telefonos</h1>
+            </section>
+            <section class="table_body">
+                <table id="tablaTelefonos">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Número de Teléfono</th>
+                        <th>Estado</th>
+                        <th>Usuario</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Usuario/getAll", function(data) {
+                var tabla = $("#tablausuarios tbody");
+
+                data.forEach(function(usuario) {
+                    var fila = "<tr>" +
+                        "<td>" + usuario.idUsuario + "</td>" +
+                        "<td>" + usuario.rol + "</td>" +
+                        "<td>" + usuario.login + "</td>" +
+                        "<td>" + usuario.direccion + "</td>" +
+                        "<td>" + usuario.idDocumento + "</td>" +
+                        "<td>" + usuario.numeroDoc + "</td>" +
+                        "<td>" + usuario.puntosFidelizacion + "</td>" +
+                        "<td>" + usuario.tarjetaCredito + "</td>" +
+                        "<td>" + usuario.intentos + "</td>" +
+                        "<td>" + usuario.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
+    <div id="usuarios" style="display: none">
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1>Informacion de Usuarios</h1>
+            </section>
+            <section class="table_body">
+                <table id="tablausuarios">
+                    <thead>
+                    <tr>
+                        <th>ID de usuario</th>
+                        <th>Rol</th>
+                        <th>login</th>
+                        <th>direccion</th>
+                        <th>ID del documento</th>
+                        <th>Numero de documento</th>
+                        <th>Puntos de Fidelizacion</th>
+                        <th>Tarjeta de Credito</th>
+                        <th>Intentos</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
 </main>
 <script src="/JS/funcion_admin.js"></script>
 <script src="/JS/graficas.js"></script>
