@@ -107,7 +107,7 @@ public class ReservaCupoRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("reservaReport", "reservaReport.pdf");
-        return ResponseEntity.ok().headers(headers).body(usuarioServiceAPI.exportPdf());
+        return ResponseEntity.ok().headers(headers).body(reservaCupoServiceAPI.exportPdf());
     }
 
     @GetMapping("/export-xls")
@@ -119,7 +119,7 @@ public class ReservaCupoRestController {
         headers.setContentDisposition(contentDisposition);
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(usuarioServiceAPI.exportXls());
+                .body(reservaCupoServiceAPI.exportXls());
     }
     
 }

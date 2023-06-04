@@ -32,7 +32,7 @@
 	<subDataset name="parqueaderoDataSet" uuid="b93e8799-f7aa-4d00-842a-c4e2a600bc8c">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<field name="idParqueadero" class="java.lang.Integer"/>
-		<field name="idTipoParq" class="co.edu.unbosque.parkea.model.tipoParqueadero"/>
+		<field name="idTipoParq" class="co.edu.unbosque.parkea.model.TipoParqueadero"/>
 		<field name="ubicacion" class="java.lang.String"/>
 		<field name="horarioAtencion" class="java.lang.String"/>
 		<field name="tarifa" class="java.lang.Integer"/>
@@ -66,7 +66,7 @@
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="usuarioDataSet" uuid="eb6d77e7-0137-4151-b4ab-b4316afe36af">
+					<datasetRun subDataset="parqueaderoDataSet" uuid="eb6d77e7-0137-4151-b4ab-b4316afe36af">
 						<dataSourceExpression><![CDATA[$P{parqueaderoData}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="139" uuid="355b0a62-48d2-47e9-b8cc-32f7c7dea431">
@@ -110,7 +110,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{idTipoParq}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{idTipoParq}.getDescripcion()]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
