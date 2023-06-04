@@ -161,16 +161,16 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Integer> imp
      */
 
     public String generarContrasena(int longitud) {
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*-#";
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789*#";
         Random random = new Random();
-        StringBuilder contraseña = new StringBuilder();
+        StringBuilder contrasena = new StringBuilder();
 
         for (int i = 0; i < longitud; i++) {
             int indice = random.nextInt(caracteres.length());
-            contraseña.append(caracteres.charAt(indice));
+            contrasena.append(caracteres.charAt(indice));
         }
-
-        return contraseña.toString();
+        System.out.println("Contrasenia"+contrasena.toString());
+        return contrasena.toString();
     }
 
     /**
