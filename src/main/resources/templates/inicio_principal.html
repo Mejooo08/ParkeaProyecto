@@ -48,9 +48,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
                            <a><img src="/Images/logo-parkea.png" alt="#" /></a>
-                           </form>
                         </div>
                      </div>
                   </div>
@@ -64,7 +62,9 @@
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item">
-                              <a class="nav-link" href="inicio_principal.html"> Inicio </a>
+                              <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
+                                 <a type="submit" class="nav-link">Inicio</a>
+                              </form>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link-2" onclick="movimiento_de_div()" style="cursor: pointer;">Registrate</a>
@@ -110,7 +110,6 @@
    <!-- end banner -->
    <!-- car -->
    <!-- AQUI ESTA EL FORM PARA EL LOGIN  -->
-   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
       <div id="frame_login" style="display: none !important;">
          <div id="cerrar" style="cursor: pointer;">
             <div class="center">
@@ -119,6 +118,7 @@
             <div class="popup">
                <div class="clos-btn" onclick="cerrarModal()">&times;</div>
                <div class="form">
+                  <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
                   <h2>Log in</h2>
                   <div class="form-element">
                      <label for="email">Correo Electronico</label>
@@ -129,20 +129,21 @@
                      <input type="password" id="Contraseña" placeholder="Contraseña" name="password">
                   </div>
                   <div>
+                     <form th:action="@{/pagina_principal/verify}" method="POST" th:object="${captcha}">
                      <label style="color: black;" for="image"> CAPTCHA</label>
                      <input style="color: black;" type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
-                     <!--<input type="hidden" th:field="*{hiddenCaptcha}"/>--><br>
+                     <input type="hidden" th:field="*{hiddenCaptcha}"/><br>
                      <lable style="color: black;" for="captchatext"> Enter Captch text </lable>
                      <input type="text" id="captchatext" th:field="*{captcha}"/>
+                        <input type="submit" id="verificar" onclick="habilitar()" value="verificar" class="decorative-button">
+                     </form>
                   </div>
-                  <div class="form-element">
-                     <input type="submit" value="Entrar" class="decorative-button">
-                  </div>
+                  </form>
                </div>
             </div>
          </div>
       </div>
-   </form>
+
    <!-- end banner -->
    <!-- car -->
    <div class="car" >
@@ -190,25 +191,25 @@
             <div class="col-sm-12">
                <div class="row">
                   <div class="col-md-6 offset-md-6">
-                     <form class="main_form">
+                     <form class="main_form" th:action="@{api/Usuario/saveUsuario}" method="post">
                         <div class="titlepage">
                            <h2>Registrate ingresando tus datos</h2>
                         </div>
                         <div class="row">
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Nombre" type="Search" name="Search">
+                              <input class="contactus" placeholder="correo Electronico" type="Search" name="correo">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Apellido" type="Search" name="Search">
+                              <input class="contactus" placeholder="direccion" type="Search" name="direccion">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Numero telefonico" type="Search" name="Search">
+                              <input class="contactus" placeholder="Numero documento" type="Search" name="documento">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Direccion" type="Search" name="Search">
+                              <input class="contactus" placeholder="Tarjeta de credito" type="Search" name="tarjeta">
                            </div>
                            <div class="col-md-12 ">
-                              <select>
+                              <select name="departamento">
                                  <option value="0">Amazonas</option>
                                  <option value="1">Antioquia</option>
                                  <option value="2">Arauca</option>
@@ -245,14 +246,15 @@
                               </select>
                            </div>
                            <div class="col-md-12">
-                              <select>
-                                 <option value="0">Tipo de Documento</option>
+                              <select name="cedula">
                                  <option value="1">Cédula de ciudadanía</option>
                                  <option value="2">Cédula de extranjería</option>
-                                 <option value="2">Pasaporte</option>
-                                 <option value="2">Tarjeta de identidad</option>
+                                 <option value="3">Pasaporte</option>
+                                 <option value="4">Documento Extranjero</option>
+                                 <option value="4">Tarjeta de identidad</option>
                               </select>
                            </div>
+                           <input type="submit"  value="Registrar" class="decorative-button">
                            <br><br>
                            <div class="col-sm-12">
                               <form>
@@ -264,11 +266,6 @@
                                          data-amount-in-cents="2000000"
                                          data-reference="4XMPGKWWPKWQ">
                                  </script>
-                              </form>
-                           </div>
-                           <div class="col-sm-12">
-                              <form action="">
-                              <button class="find_btn">Registrar</button>
                               </form>
                            </div>
                         </div>

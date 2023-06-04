@@ -229,11 +229,6 @@ function cerrarModal(){
       div.style.filter = "brightness(100%)";    
 }
 
-function administrador(){
-   window.location.href = "inicio_administrador.html";
-}
-
-
-function mapa(){
-    window.location.href = "croquis-client.html";
+function habilitar(){
+    document.getElementById("entrar").disabled = false;
 }
