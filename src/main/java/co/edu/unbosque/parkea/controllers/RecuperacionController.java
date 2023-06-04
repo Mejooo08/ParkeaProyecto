@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/recuperar")
-public class recuperacionController {
+public class RecuperacionController {
     @GetMapping("/password")
     public String recuperar(){
 

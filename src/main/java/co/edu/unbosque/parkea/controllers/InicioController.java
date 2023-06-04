@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/pagina_principal")
-public class    inicioController {
+public class InicioController {
     @GetMapping("/inicio_principal")
     public String register(Model model) {
         model.addAttribute("captcha", genCaptcha());

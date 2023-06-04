@@ -35,11 +35,16 @@ public class CarroRestController {
         return listaN;
     }
 
-
-    @PostMapping(value = "/saveCarro/{idCarro}/{idUsuario}")
-    public HttpStatus save(@RequestBody Carro carro,
+    @PostMapping(value = "/saveCarro/{idUsuario}")
+    public HttpStatus save2(@RequestParam("placa") String placa,
+                           @RequestParam("modelo") String modelo,
+                           //@RequestParam("id") int id,
                            @PathVariable(value = "idUsuario") int idUsuario){
+        //Usuario user = usuarioServiceAPI.get(id);
         Usuario user = usuarioServiceAPI.get(idUsuario);
+        Carro carro = new Carro();
+        carro.setModelo(modelo);
+        carro.setPlaca(placa);
         carro.setUsuario(user);
         carro.setEstado("A");
         carroServiceAPI.save(carro);

@@ -40,13 +40,18 @@ public class TelefonoRestController {
         return listaF;
     }
 
-    @PostMapping(value = "/saveTelefono/{idTelefono}/{idUsuario}")
-    public HttpStatus save(@RequestBody Telefono telefono,
+    @PostMapping(value = "/saveTelefono/{idUsuario}")
+    public HttpStatus save(@RequestParam("telefono") String telefono,
+                           // @RequestParam("id") int  id,
                            @PathVariable(value = "idUsuario") int idUsuario){
+
+
+        //Usuario user2 = usuarioServiceAPI.get(id);
         Usuario user = usuarioServiceAPI.get(idUsuario);
-        telefono.setUsuario(user);
-        telefono.setEstado("A");
-        telefonoServiceAPI.save(telefono);
+        Telefono telefono1 = new Telefono();
+        telefono1.setUsuario(user);
+        telefono1.setEstado("A");
+        telefonoServiceAPI.save(telefono1);
         audi.saveAuditoria("Guardar", "Telefono",idUsuario);
         return HttpStatus.OK;
     }

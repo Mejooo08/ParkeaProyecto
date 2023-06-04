@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/mapa")
-public class croquisController {
+public class CroquisController {
     @GetMapping("/mapa_de_parqueaderos")
     public String Mapa_de_parqueaderos(){
         return "croquis-client";
