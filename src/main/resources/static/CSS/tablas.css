@@ -1,7 +1,7 @@
 main.table_parqueadero{
     margin-left: 10%;
-    width: 50vw;
-    height: 85vh;
+    width: 55vw;
+    height: 40vh;
     background-color: #fff5;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
@@ -36,7 +36,7 @@ main.table_parqueadero{
 }
 
 .table_parqueadero{
-    width: auto;
+    width: 30%;
 }
 
 .table_parqueadero, th, td{
