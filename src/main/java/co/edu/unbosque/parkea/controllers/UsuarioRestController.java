@@ -87,7 +87,7 @@ public class UsuarioRestController {
             usuarioServiceAPI.save(usuario);
             audi.saveAuditoria("Guardar", "Usuario",usuario.getIdUsuario());
         }catch (Exception e){
-            return new RedirectView("/pagina_principal/inicio_principal");
+            return new RedirectView("/pagina_principal/api/Usuario/cambiarContrasenia");
         }
         // vista de cambiar contraseñaaaaaaaaaaa
         //aaaaaaaaaaaaa
@@ -123,11 +123,15 @@ public class UsuarioRestController {
         return HttpStatus.OK;
     }
 
-    @PutMapping(value = "/cambiarContrasenia")
+    @PostMapping(value = "/cambiarContra")
     public RedirectView cambiarContra(
             @RequestParam("correo") String correo,
             @RequestParam("contraVieja") String contraVieja,
             @RequestParam("contraNueva") String contraNueva){
+        System.out.println("Contrasenia");
+        System.out.println(correo);
+        System.out.println(contraVieja);
+        System.out.println(contraNueva);
         Usuario u = usuarioServiceAPI.login(correo, contraVieja);
         if(u != null){
             int id = u.getIdUsuario();
@@ -142,9 +146,7 @@ public class UsuarioRestController {
             }
             return new RedirectView("/pagina_principal/inicio_principal");
         }else{
-            // vista de cambiar contraseñaaaaaaaaaaa
-            //aaaaaaaaaaaaa
-            return new RedirectView("/pagina_principal/inicio_principal");
+            return new RedirectView("/pagina_principal/api/Usuario/cambiarContra");
         }
     }
 
