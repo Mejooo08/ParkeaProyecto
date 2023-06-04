@@ -6,10 +6,12 @@ import co.edu.unbosque.parkea.model.TipoParqueadero;
 import co.edu.unbosque.parkea.model.dto.ParqueaderoDTO;
 import co.edu.unbosque.parkea.model.dto.ReservaCupoDTO;
 import co.edu.unbosque.parkea.service.*;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +101,25 @@ public class ReservaCupoRestController {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return HttpStatus.OK;
+    }
+    @GetMapping("/export-pdf")
+    public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("reservaReport", "reservaReport.pdf");
+        return ResponseEntity.ok().headers(headers).body(usuarioServiceAPI.exportPdf());
+    }
+
+    @GetMapping("/export-xls")
+    public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8");
+        var contentDisposition = ContentDisposition.builder("attachment")
+                .filename("reservaReport" + ".xls").build();
+        headers.setContentDisposition(contentDisposition);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(usuarioServiceAPI.exportXls());
     }
     
 }
