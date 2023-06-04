@@ -110,11 +110,6 @@
    <!-- end banner -->
    <!-- car -->
    <!-- AQUI ESTA EL FORM PARA EL LOGIN  -->
-<<<<<<< HEAD
-
-=======
-   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST" th:object="${captcha}">
->>>>>>> cd1e763ca7b3319901ec61c4a3a86d2daad3c427
       <div id="frame_login" style="display: none !important;">
          <div id="cerrar" style="cursor: pointer;">
             <div class="center">
@@ -148,6 +143,7 @@
             </div>
          </div>
       </div>
+
    <!-- end banner -->
    <!-- car -->
    <div class="car" >
@@ -195,7 +191,7 @@
             <div class="col-sm-12">
                <div class="row">
                   <div class="col-md-6 offset-md-6">
-                     <form class="main_form" th:action="" method="post">
+                     <form class="main_form" th:action="@{api/Usuario/saveUsuario}" method="post">
                         <div class="titlepage">
                            <h2>Registrate ingresando tus datos</h2>
                         </div>
