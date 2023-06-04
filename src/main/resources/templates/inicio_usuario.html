@@ -33,6 +33,8 @@
                     <br><br>
                     <a onclick="carros()">TUS VEHICULOS</a>
                     <a onclick="reserva()">RESERVA TU CUPO</a>
+                    <a onclick="tipo_de_parqueadero()">PARQUEADEROS</a>
+                    <a onclick="telefono()">TUS TELÉFONOS</a>
                     <a href="/HTML/Inicio.html" class="ultimo-elemento">CERRAR SESIÓN</a>
                 </nav>
                 <label for="btn-menu">✖️</label>
@@ -118,7 +120,7 @@
             </section>
         </main>
     </div>
-    <div id="Auditoria" style="display: none">
+    <div id="Reservas" style="display: none">
         <main class="table_parqueadero" >
         </main>
     </div>
@@ -132,15 +134,13 @@
                 <table id = "tablaReserva">
                     <thead>
                     <tr>
-                        <th>ID_Parqueadero</th>
-                        <th>Tipo_parqueadero</th>
-                        <th>Ubicación</th>
-                        <th>Horario de atencion</th>
-                        <th>Tarifa</th>
-                        <th>Fidelización</th>
-                        <th>Ciudad</th>
-                        <th>Cupos Totales</th>
-                        <th>Cupos Ocupados</th>
+                        <th>ID Factura</th>
+                        <th>Momento reserva</th>
+                        <th>Hora de ingreso</th>
+                        <th>Hora de salida</th>
+                        <th>Usuario</th>
+                        <th>Id del parqueadero</th>
+                        <th>Placa del vehiculo</th>
                         <th>Estado</th>
                         <th class="Reserv_btn">
                             <button id = "Reserva_parq">
@@ -156,28 +156,25 @@
     </div>
     <script>
         $(document).ready(function() {
-            $.get("/api/Parqueadero/getAll", function(data) {
+            $.get("/api/ReservaCupo/getAll", function(data) {
                 var tabla = $("#tablaReserva tbody");
 
-                data.forEach(function(parqueaderoUs) {
+                data.forEach(function(reserva) {
                     var fila = "<tr>" +
-                        "<td>" + parqueaderoUs.idParqueadero + "</td>" +
-                        "<td>" + parqueaderoUs.idTipoParq + "</td>" +
-                        "<td>" + parqueaderoUs.ubicacion + "</td>" +
-                        "<td>" + parqueaderoUs.horarioAtencion + "</td>" +
-                        "<td>" + parqueaderoUs.tarifa + "</td>" +
-                        "<td>" + parqueaderoUs.fidelizacion + "</td>" +
-                        "<td>" + parqueaderoUs.ciudad + "</td>" +
-                        "<td>" + parqueaderoUs.cuposTotales + "</td>" +
-                        "<td>" + parqueaderoUs.cuposOcupados + "</td>" +
-                        "<td>" + parqueaderoUs.estado + "</td>" +
+                        "<td>" + reserva.idFactura + "</td>" +
+                        "<td>" + reserva.momentoReserva + "</td>" +
+                        "<td>" + reserva.horaIngreso + "</td>" +
+                        "<td>" + reserva.horaSalida + "</td>" +
+                        "<td>" + reserva.usuario + "</td>" +
+                        "<td>" + reserva.idParqueadero + "</td>" +
+                        "<td>" + reserva.placaCarro + "</td>" +
+                        "<td>" + reserva.estado + "</td>" +
                         "</tr>";
                     tabla.append(fila);
                 });
             });
         });
     </script>
-
     <div>
         <form th:action="@{/api/Autenticacion/validarLogin}" method="POST"> <!--th:object="${captcha}"-->
             <div id="frame_login" style="display: none !important;">
@@ -200,12 +197,12 @@
 
                             <div class="form-element">
                                 <label >Hora entrada</label>
-                                <input type="datetime-local" min="2023-06-01">
+                                <input type="datetime-local" min="2023-06-01" max="2099-12-31">
                             </div>
 
                             <div class="form-element">
                                 <label >Hora salida</label>
-                                <input type="datetime-local" min="2023-06-01">
+                                <input type="datetime-local" min="2023-06-01" max="2099-12-31">
                             </div>
                             <div class="form-element">
                                 <input type="submit" value="Reservar" class="decorative-button">
@@ -219,7 +216,43 @@
             </div>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Telefono/getAll", function(data) {
+                var tabla = $("#tabla_telefonos tbody");
+
+                data.forEach(function(telefono) {
+                    var fila = "<tr>" +
+                        "<td>" + telefono.idTelefono + "</td>" +
+                        "<td>" + telefono.numTelefono + "</td>" +
+                        "<td>" + telefono.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
+    <div id="Telefono" style="display: none">
+        <main class="table_parqueadero" >
+            <section class="table_header">
+                <h1>Informacion de Telefonos</h1>
+            </section>
+            <section class="table_body">
+                <table id="tabla_telefonos">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Número de Teléfono</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
 </main>
+
 <script src="/JS/funcion_admin.js"></script>
 <script src="/JS/graficas.js"></script>
 <script src="/JS/popper.min.js"></script>

@@ -41,6 +41,7 @@ public class ReservaCupoRestController {
      */
 
     @GetMapping(value = "/getAll")
+    @ResponseBody
     public List<ReservaCupoDTO> getAll(){
 
         List<ReservaCupo> getall = reservaCupoServiceAPI.getAll();
