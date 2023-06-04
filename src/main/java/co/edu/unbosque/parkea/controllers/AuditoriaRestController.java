@@ -93,7 +93,7 @@ public class AuditoriaRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("auditoriaReport", "auditoriaReport.pdf");
-        return ResponseEntity.ok().headers(headers).body(usuarioServiceAPI.exportPdf());
+        return ResponseEntity.ok().headers(headers).body(auditoriaServiceAPI.exportPdf());
     }
 
     @GetMapping("/export-xls")
@@ -105,7 +105,7 @@ public class AuditoriaRestController {
         headers.setContentDisposition(contentDisposition);
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(usuarioServiceAPI.exportXls());
+                .body(auditoriaServiceAPI.exportXls());
     }
 
 }
