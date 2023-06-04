@@ -15,6 +15,7 @@
 <Script src="/JS/funcionalidad.js"></Script>
 <!-- loader  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <aside id="sidebar">
     <header class="header">
         <div class="container">
@@ -78,34 +79,41 @@
 
         </main>
     </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/pagina_principal/api/Carro/getAll", function(data) {
+                var tabla = $("#tablaVehiculos tbody");
+
+                data.forEach(function(carros) {
+                    var fila = "<tr>" +
+                        "<td>" + carros.idCarro + "</td>" +
+                        "<td>" + carros.usuario + "</td>" +
+                        "<td>" + carros.placa + "</td>" +
+                        "<td>" + carros.modelo + "</td>" +
+                        "<td>" + carros.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
     <div id="carros" style="display: none">
         <main class="table_parqueadero" >
             <section class="table_header">
                 <h1>Informacion de los vehiculos</h1>
             </section>
             <section class="table_body">
-                <table>
+                <table id="tablaVehiculos">
                     <thead>
                     <tr>
-                        <th>Documento</th>
+                        <th>Id vehículo</th>
                         <th>Usuario</th>
                         <th>Placa</th>
                         <th>Modelo</th>
-                        <th>tipo de vehiculo</th>
                         <th>Estado</th>
-
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>danielfmr88@gmail.com</td>
-                        <td>123BND</td>
-                        <td>2016</td>
-                        <td>sedan</td>
-                        <td><strong>A</strong></td>
-                    </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </section>
         </main>
@@ -124,34 +132,52 @@
                 <table id = "tablaReserva">
                     <thead>
                     <tr>
-                        <th>departamento</th>
-                        <th>Dirección del Parqueadero</th>
+                        <th>ID_Parqueadero</th>
+                        <th>Tipo_parqueadero</th>
+                        <th>Ubicación</th>
+                        <th>Horario de atencion</th>
+                        <th>Tarifa</th>
+                        <th>Fidelización</th>
+                        <th>Ciudad</th>
+                        <th>Cupos Totales</th>
+                        <th>Cupos Ocupados</th>
+                        <th>Estado</th>
                         <th class="Reserv_btn">
                             <button id = "Reserva_parq">
                                 <a onclick="mostrarModal()" style="cursor: pointer;">Reservar</a>
                             </button>
-
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>Cundinamarca</td>
-                        <td>Calle 45</td>
-                    </tr>
-                    <tr>
-                        <td>Cundinamarca</td>
-                        <td>Calle 45</td>
-                    </tr>
-                    <tr>
-                        <td>Cundinamarca</td>
-                        <td>Calle 45</td>
-                    </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </section>
         </main>
     </div>
+    <script>
+        $(document).ready(function() {
+            $.get("/api/Parqueadero/getAll", function(data) {
+                var tabla = $("#tablaReserva tbody");
+
+                data.forEach(function(parqueaderoUs) {
+                    var fila = "<tr>" +
+                        "<td>" + parqueaderoUs.idParqueadero + "</td>" +
+                        "<td>" + parqueaderoUs.idTipoParq + "</td>" +
+                        "<td>" + parqueaderoUs.ubicacion + "</td>" +
+                        "<td>" + parqueaderoUs.horarioAtencion + "</td>" +
+                        "<td>" + parqueaderoUs.tarifa + "</td>" +
+                        "<td>" + parqueaderoUs.fidelizacion + "</td>" +
+                        "<td>" + parqueaderoUs.ciudad + "</td>" +
+                        "<td>" + parqueaderoUs.cuposTotales + "</td>" +
+                        "<td>" + parqueaderoUs.cuposOcupados + "</td>" +
+                        "<td>" + parqueaderoUs.estado + "</td>" +
+                        "</tr>";
+                    tabla.append(fila);
+                });
+            });
+        });
+    </script>
+
     <div>
         <form th:action="@{/api/Autenticacion/validarLogin}" method="POST"> <!--th:object="${captcha}"-->
             <div id="frame_login" style="display: none !important;">
