@@ -10,6 +10,7 @@ import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
@@ -64,11 +65,12 @@ public class ReservaCupoRestController {
      * @return
      */
     @PostMapping(value = "/saveCupo")
-    public HttpStatus save2(@RequestParam("idUsuario") int idUsuario,
+    public RedirectView save2(@RequestParam("idUsuario") int idUsuario,
                            @RequestParam("idParqueadero") int idParqueadero,
                            @RequestParam("entrada") String hora_ingreso,
                             @RequestParam("salida") String hora_salida,
                             @RequestParam("placa") String placa){
+
         System.out.println("Id usuario: "+idUsuario);
         Usuario user = usuarioServiceAPI.get(idUsuario);
         Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
@@ -82,7 +84,7 @@ public class ReservaCupoRestController {
         cupo.setMomentoReserva(timestamp+"");
         reservaCupoServiceAPI.save(cupo);
         audi.saveAuditoria("Guardar", "Reserva Cupo",idUsuario);
-        return HttpStatus.OK;
+        return new RedirectView("/usuario/inicio_usuario");
     }
 
     /**

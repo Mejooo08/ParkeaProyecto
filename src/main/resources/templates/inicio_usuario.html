@@ -226,7 +226,7 @@
         });
     </script>
     <div>
-        <form method="POST"> <!--th:object="${captcha}"-->
+         <!--th:object="${captcha}"-->
             <div id="frame_login" style="display: none !important;">
                 <div id="cerrar" style="cursor: pointer;">
                     <div class="center">
@@ -235,10 +235,13 @@
                     <div class="popup">
                         <div class="clos-btn" onclick="cerrarModal()">&times;</div>
                         <div class="form">
+
                             <h2>Reservar</h2>
                             <div class="form-element">
-                                <label >Id Usuario <span th:text="${id}" name = "idUsuario"></span></label>
+                                <label >Confirme su id de Usuario <span th:text="${id}"></span></label>
+                                <input type="text" id="usuario" placeholder="nombre de reserva" name="idUsuario">
                             </div>
+                            <form th:action="@{/api/ReservaCupo/saveCupo}" method="POST">
                             <div class="form-element">
                                 <label>Id parqueadero</label>
                                 <input type="text" id="NombreReservar" placeholder="nombre de reserva" name="idParqueadero">
@@ -260,6 +263,7 @@
                             <div class="form-element">
                                 <input type="submit" value="Reservar" class="decorative-button">
                             </div>
+                            </form>
                             <!--<div th:if="${message!=null}">
                                <span style="color:red;" th:text="${message}"></span>
                             </div>-->
@@ -267,7 +271,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </div>
     <script>
         $(document).ready(function() {
