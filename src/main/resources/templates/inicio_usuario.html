@@ -43,8 +43,28 @@
     </div>
 </aside>
 
+<script>
+    $(document).ready(function() {
+        $.get("/api/Parqueadero/getAll", function(data) {
+            var tabla = $("#tablaParqUsuario tbody");
 
-
+            data.forEach(function(parqueadero) {
+                var fila = "<tr>" +
+                    "<td>" + parqueadero.idParqueadero + "</td>" +
+                    "<td>" + parqueadero.idTipoParq + "</td>" +
+                    "<td>" + parqueadero.ubicacion + "</td>" +
+                    "<td>" + parqueadero.horarioAtencion + "</td>" +
+                    "<td>" + parqueadero.tarifa + "</td>" +
+                    "<td>" + parqueadero.ciudad + "</td>" +
+                    "<td>" + parqueadero.cuposTotales + "</td>" +
+                    "<td>" + parqueadero.cuposOcupados + "</td>" +
+                    "<td>" + parqueadero.estado + "</td>" +
+                    "</tr>";
+                tabla.append(fila);
+            });
+        });
+    });
+</script>
 <main id="content">
     <div class="grafica" id="grafica">
     </div>
@@ -54,20 +74,21 @@
                 <h1>Informacion de tipo de Parqueadero</h1>
             </section>
             <section class="table_body">
-                <table>
+                <table id="tablaParqUsuario">
                     <thead>
                     <tr>
-                        <th>ID_TipoParqueadero</th>
-                        <th>Descripcion</th>
+                        <th>Id Parqueadero</th>
+                        <th>Tipo parqueadero</th>
+                        <th>Ubicación</th>
+                        <th>Horario de atencion</th>
+                        <th>Tarifa</th>
+                        <th>Ciudad</th>
+                        <th>Cupos Totales</th>
+                        <th>Cupos Ocupados</th>
                         <th>Estado</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Cubierto</td>
-                        <td><strong>A</strong></td>
-                    </tr>
                     </tbody>
                 </table>
             </section>
@@ -115,7 +136,7 @@
                         <th>Estado</th>
                         <th class="vehiculo_btn">
                             <button id = "Agregar_veh">
-                                <a onclick="mostrarModal()" style="cursor: pointer;">Reservar</a>
+                                <a onclick="mostrarModal2()" style="cursor: pointer;">Agregar</a>
                             </button>
                         </th>
                     </tr>
@@ -124,6 +145,37 @@
                 </table>
             </section>
         </main>
+    </div>
+    <div>
+        <form> <!--th:object="${captcha}"-->
+            <div id="frame_agr_vh" style="display: none !important;">
+                <div id="cerrarVh" style="cursor: pointer;">
+                    <div class="center">
+                        <button id="show-vehiculo">Agregar vehículo</button>
+                    </div>
+                    <div class="popup">
+                        <div class="clos-btn" onclick="cerrarModal2()">&times;</div>
+                        <div class="form">
+                            <h2>Agregar</h2>
+                            <div class="form-element">
+                                <label>modelo</label>
+                                <input type="text" id="modeloVh" placeholder="modeloVh" name="modelo">
+                            </div>
+                            <div class="form-element">
+                                <label for="Placa">Placa</label>
+                                <input type="Placa" id="PlacaVh" placeholder="Placa" name="Placa">
+                            </div>
+                            <div class="form-element">
+                                <input type="submit" value="agregarVh" class="decorative-button">
+                            </div>
+                            <!--<div th:if="${message!=null}">
+                               <span style="color:red;" th:text="${message}"></span>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div id="Reservas" style="display: none">
         <main class="table_parqueadero" >
@@ -249,12 +301,36 @@
                         <th>ID</th>
                         <th>Número de Teléfono</th>
                         <th>Estado</th>
+                        <th class="agrTlf_btn">
+                            <button id = "agrTelefonoBtn">
+                                <a onclick="mostrarModal3()" style="cursor: pointer;">Agregar</a>
+                            </button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </section>
         </main>
+        <div id="Frame_telefono" style="display: none !important;">
+            <div id="cerrartlf" style="cursor: pointer;">
+                <div class="center">
+                    <button id="show-telefono">Teléfono</button>
+                </div>
+                <div class="popup">
+                    <div class="clos-btn" onclick="cerrarModal3()">&times;</div>
+                    <div class="form">
+                        <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
+                            <h2>Teléfono</h2>
+                            <div class="form-element">
+                                <label>Teléfono</label>
+                                <input type="text" id="agrTelefono" placeholder="Telefono" name="agrTelefono">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
