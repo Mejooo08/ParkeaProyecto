@@ -1,7 +1,3 @@
-function registrar(){
-    location.href = "register.html";
-};
-
 function amazonas(){
     var mensaje;
     mensaje = document.getElementById("campo-ciudad");
@@ -231,4 +227,33 @@ function cerrarModal(){
 
 function habilitar(){
     document.getElementById("entrar").disabled = false;
+}
+function checkInputs(){
+    var email = document.getElementById('email').value;
+    var contraseña = document.getElementById('contraseña').value;
+    var boton = document.getElementById('verificar');
+
+    if (email !== '' && contraseña !== ''){
+        boton.classList.remove('disabled');
+        boton.disabled = false;
+    }else{
+        boton.classList.add('disabled');
+        boton.disabled = true;
+    }
+};
+
+function check(){
+    var correo = document.getElementById("correo");
+    var password = document.getElementById("password");
+    var documento = document.getElementById("documento_id");
+    var tarjeta = document.getElementById("tarjeta_pago");
+    var registro = document.getElementById("registrar");
+
+    if (correo !== '' && password !== '' && documento !== '' && tarjeta !== ''){
+        registro.classList.remove("disabled");
+        registro.disabled = false;
+    }else{
+        registro.classList.add("disabled");
+        registro.disabled = true;
+    }
 }

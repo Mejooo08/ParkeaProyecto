@@ -48,7 +48,7 @@ body{
     width: 380px;
     padding: 20px 30px;
     background: #fff;
-    box-shadow: 2px 2 px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
     transition: all 400ms ease;
 }
 
@@ -92,7 +92,7 @@ body{
     border-radius: 5px;
 }
 .popup .form .form-element input[type="checkbox"]{
-    margin-right: -auto;
+    margin-right: auto;
 }
 
 .popup .form .form-element button{
@@ -119,6 +119,20 @@ body{
     filter: brightness(0.5);
   }
   .decorative-button {
+    background-color: #fff200; /* Color de fondo */
+    border: none; /* Elimina el borde */
+    color: rgb(0, 0, 0); /* Color del texto */
+    padding: 10px 20px; /* Espacio interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Elimina la decoración del texto */
+    display: inline-block; /* Muestra el botón en línea */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px; /* Márgenes exteriores */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    border-radius: 8px; /* Borde redondeado */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+decorative-button_login {
     background-color: #fff200; /* Color de fondo */
     border: none; /* Elimina el borde */
     color: rgb(0, 0, 0); /* Color del texto */
