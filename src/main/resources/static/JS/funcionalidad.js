@@ -215,39 +215,30 @@ function movimiento_de_div(){
 
 function mostrarModal(){
     document.getElementById("frame_login").style.display = "block";
-    var elemento = document.getElementById("miElemento");
-    elemento.style.filter = "brightness(50%)"
 }
 
 function cerrarModal(){
     document.getElementById("frame_login").style.display = "none";
-    var div = document.getElementById("miElemento");
-      div.style.filter = "brightness(100%)";    
+
 }
 function mostrarModal2(){
     document.getElementById("frame_agr_vh").style.display = "block";
-    var elemento = document.getElementById("miElemento");
-    elemento.style.filter = "brightness(50%)"
+
 }
 
 function cerrarModal2(){
     document.getElementById("frame_agr_vh").style.display = "none";
-    var div = document.getElementById("miElemento");
-    div.style.filter = "brightness(100%)";
+
 }
 function mostrarModal3(){
     document.getElementById("Frame_telefono").style.display = "block";
-    var elemento = document.getElementById("miElemento");
-    elemento.style.filter = "brightness(50%)"
+
 }
 
 function cerrarModal3(){
     document.getElementById("Frame_telefono").style.display = "none";
-    var div = document.getElementById("miElemento");
-    div.style.filter = "brightness(100%)";
+
 }
-
-
 function habilitar(){
     document.getElementById("entrar").disabled = false;
 }

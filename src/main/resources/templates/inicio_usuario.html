@@ -11,7 +11,7 @@
     <title>Sesión de Usuario</title>
 </head>
 <body class="fondo_admin" style=" background-color: rgba(255,255,255,1);">
-
+<script src="/JS/funcion_cliente.js"></script>
 <Script src="/JS/funcionalidad.js"></Script>
 <!-- loader  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
@@ -35,9 +35,11 @@
                     <a onclick="reserva()">RESERVA TU CUPO</a>
                     <a onclick="tipo_de_parqueadero()">PARQUEADEROS</a>
                     <a onclick="telefono()">TUS TELÉFONOS</a>
-                    <a href="/HTML/Inicio.html" class="ultimo-elemento">CERRAR SESIÓN</a>
+                    <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
+                        <input type="submit" value="Cerrar Sesion" class="decorative-button">
+                    </form>
                 </nav>
-                <label for="btn-menu">✖️</label>
+                <label for="btn-menu">✖</label>
             </div>
         </div>
     </div>
@@ -47,7 +49,6 @@
     $(document).ready(function() {
         $.get("/api/Parqueadero/getAll", function(data) {
             var tabla = $("#tablaParqUsuario tbody");
-
             data.forEach(function(parqueadero) {
                 var fila = "<tr>" +
                     "<td>" + parqueadero.idParqueadero + "</td>" +
@@ -66,12 +67,10 @@
     });
 </script>
 <main id="content">
-    <div class="grafica" id="grafica">
-    </div>
     <div id="tipo_parqueadero" style="display: none;">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>Informacion de tipo de Parqueadero</h1>
+                <h1 style="margin-top: -1.2%">Informacion de tipo de Parqueadero</h1>
             </section>
             <section class="table_body">
                 <table id="tablaParqUsuario">
@@ -94,17 +93,9 @@
             </section>
         </main>
     </div>
-    <div id="tipo_Documento" style="display: none">
-        <main class="table_parqueadero" >
-            <section class="table_header">
-                <h1>Informacion de tipo de Documento</h1>
-            </section>
-
-        </main>
-    </div>
     <script>
         $(document).ready(function() {
-            $.get("/pagina_principal/api/Carro/getAll", function(data) {
+            $.get("/api/Carro/getAll", function(data) {
                 var tabla = $("#tablaVehiculos tbody");
 
                 data.forEach(function(carros) {
@@ -123,7 +114,7 @@
     <div id="carros" style="display: none">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>Informacion de los vehiculos</h1>
+                <h1 style="margin-top: -1.2%">Informacion de los vehiculos</h1>
             </section>
             <section class="table_body">
                 <table id="tablaVehiculos">
@@ -147,7 +138,7 @@
         </main>
     </div>
     <div>
-        <form> <!--th:object="${captcha}"-->
+        <form>
             <div id="frame_agr_vh" style="display: none !important;">
                 <div id="cerrarVh" style="cursor: pointer;">
                     <div class="center">
@@ -168,9 +159,6 @@
                             <div class="form-element">
                                 <input type="submit" value="agregarVh" class="decorative-button">
                             </div>
-                            <!--<div th:if="${message!=null}">
-                               <span style="color:red;" th:text="${message}"></span>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -185,7 +173,7 @@
     <div id="Reserva" style="display: none">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>reservas parqueadero</h1>
+                <h1 style="margin-top: -1.2%">reservas parqueadero</h1>
             </section>
             <section class="table_body">
                 <table id = "tablaReserva">
@@ -233,7 +221,7 @@
         });
     </script>
     <div>
-        <form th:action="@{/api/Autenticacion/validarLogin}" method="POST"> <!--th:object="${captcha}"-->
+        <form method="POST"> <!--th:object="${captcha}"-->
             <div id="frame_login" style="display: none !important;">
                 <div id="cerrar" style="cursor: pointer;">
                     <div class="center">
@@ -277,7 +265,6 @@
         $(document).ready(function() {
             $.get("/api/Telefono/getAll", function(data) {
                 var tabla = $("#tabla_telefonos tbody");
-
                 data.forEach(function(telefono) {
                     var fila = "<tr>" +
                         "<td>" + telefono.idTelefono + "</td>" +
@@ -292,7 +279,7 @@
     <div id="Telefono" style="display: none">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1>Informacion de Telefonos</h1>
+                <h1 style="margin-top: -1.2%">Informacion de Telefonos</h1>
             </section>
             <section class="table_body">
                 <table id="tabla_telefonos">
@@ -320,11 +307,14 @@
                 <div class="popup">
                     <div class="clos-btn" onclick="cerrarModal3()">&times;</div>
                     <div class="form">
-                        <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
+                        <form  method="POST">
                             <h2>Teléfono</h2>
                             <div class="form-element">
                                 <label>Teléfono</label>
                                 <input type="text" id="agrTelefono" placeholder="Telefono" name="agrTelefono">
+                            </div>
+                            <div class="form-element">
+                                <input type="submit" value="Reservar" class="decorative-button">
                             </div>
                         </form>
                     </div>
@@ -333,9 +323,6 @@
         </div>
     </div>
 </main>
-
-<script src="/JS/funcion_admin.js"></script>
-<script src="/JS/graficas.js"></script>
 <script src="/JS/popper.min.js"></script>
 <script src="/JS/bootstrap.bundle.min.js"></script>
 <script src="/JS/jquery-3.0.0.min.js"></script>
