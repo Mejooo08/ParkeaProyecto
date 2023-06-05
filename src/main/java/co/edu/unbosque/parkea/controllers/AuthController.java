@@ -60,7 +60,7 @@ public class AuthController {
                 System.out.println("Usuario bloqueado");
                 correoService.enviarCorreo(u.getLogin(),"Usuario Bloqueado", "Su usuario esta bloqueado," +
                         "contacte a un administrador para poder acceder a ParkeaColombia");
-                correoService.enviarCorreo("dfmejiar@unbosque.edu.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
+                correoService.enviarCorreo("dfmejiar@unbosque.edu.co","Usuario Bloqueado", "El usuario: "+u.getIdUsuario()+" ha sido bloqueado por " +
                         "intentar más de 3 veces acceder a la cuenta de manera incorrecta");
                 model.addAttribute("error", "Credenciales inválidas");
                 return new RedirectView("/pagina_principal/inicio_principal");

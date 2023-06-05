@@ -59,6 +59,7 @@ public class TelefonoRestController {
         //Usuario user2 = usuarioServiceAPI.get(id);
         Usuario user = usuarioServiceAPI.get(idUsuario);
         Telefono telefono1 = new Telefono();
+        telefono1.setNumTelefono(telefono);
         telefono1.setUsuario(user);
         telefono1.setEstado("A");
         telefonoServiceAPI.save(telefono1);

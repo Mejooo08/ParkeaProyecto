@@ -57,23 +57,28 @@ public class ReservaCupoRestController {
 
     /**
      * Este método se usa para guardar los datos de una reserva
-     * @param cupo
-     * @param idParqueadero
      * @param idUsuario
+     * @param idParqueadero
+     * @param hora_ingreso
+     * @param hora_salida
      * @return
      */
-    @PostMapping(value = "/saveCupo/{idReservaCupo}/{idParqueadero}/{idUsuario}")
-    public HttpStatus save(@RequestBody ReservaCupo cupo,
-                           @PathVariable(value = "idParqueadero") int idParqueadero,
-                           @PathVariable(value = "idUsuario") int idUsuario){
+    @PostMapping(value = "/saveCupo")
+    public HttpStatus save2(@RequestParam("idUsuario") int idUsuario,
+                           @RequestParam("idParqueadero") int idParqueadero,
+                           @RequestParam("hora_ingreso") String hora_ingreso,
+                            @RequestParam("hora_salida") String hora_salida){
         Usuario user = usuarioServiceAPI.get(idUsuario);
         Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
-        Carro carro = user.getCarros().get(0);
+        ReservaCupo cupo = new ReservaCupo();
+        cupo.setUsuario(user);
         cupo.setIdParqueadero(parq);
+        cupo.setHoraIngreso(hora_ingreso);
+        cupo.setHoraSalida(hora_salida);
+        Carro carro = user.getCarros().get(0);
         cupo.setPlacaCarro(carro.getPlaca());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         cupo.setMomentoReserva(timestamp+"");
-        cupo.setUsuario(user);
         reservaCupoServiceAPI.save(cupo);
         audi.saveAuditoria("Guardar", "Reserva Cupo",idUsuario);
         return HttpStatus.OK;
@@ -127,6 +132,20 @@ public class ReservaCupoRestController {
         }else{
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
+        return HttpStatus.OK;
+    }
+    @GetMapping(value = "/factura/{idUsuario}/{idParqueadero}/{idReservaCupo}")
+    public HttpStatus factura(@PathVariable(value = "idParqueadero") int idParqueadero,
+                              @PathVariable(value = "idReservaCupo") int idReservaCupo,
+                              @PathVariable(value = "idUsuario") int idUsuario){
+        Usuario usuario = usuarioServiceAPI.get(idUsuario);
+        ReservaCupo cupo = reservaCupoServiceAPI.get(idReservaCupo);
+        Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
+        ArrayList<Integer> valores = reservaCupoServiceAPI.facturacion(parq.getTarifa(), cupo.getHoraIngreso(), cupo.getHoraSalida(), parq.getFidelizacion());
+        int puntos = valores.get(0);
+        int precio = valores.get(1);
+        usuario.setPuntosFidelizacion(usuario.getPuntosFidelizacion()+puntos);
+        audi.saveAuditoria("Pago Reserva", "Reserva Cupo", idUsuario);
         return HttpStatus.OK;
     }
 
