@@ -237,12 +237,15 @@
                         <div class="form">
                             <h2>Reservar</h2>
                             <div class="form-element">
-                                <label>Id parqueadero</label>
-                                <input type="text" id="NombreReservar" placeholder="nombre de reserva" name="Nombre">
+                                <label >Id Usuario <span th:text="${id}" name = "idUsuario"></span></label>
                             </div>
                             <div class="form-element">
-                                <label for="Placa">Placa</label>
-                                <input type="Placa" id="Placa" placeholder="Placa" name="Placa">
+                                <label>Id parqueadero</label>
+                                <input type="text" id="NombreReservar" placeholder="nombre de reserva" name="idParqueadero">
+                            </div>
+                            <div class="form-element">
+                                <label for="Placa">Placa </label>
+                                <input type="Placa" id="Placa" placeholder="Placa" name="placa">
                             </div>
 
                             <div class="form-element">

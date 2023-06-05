@@ -66,9 +66,10 @@ public class ReservaCupoRestController {
     @PostMapping(value = "/saveCupo")
     public HttpStatus save2(@RequestParam("idUsuario") int idUsuario,
                            @RequestParam("idParqueadero") int idParqueadero,
-                           @RequestParam("hora_ingreso") String hora_ingreso,
-                            @RequestParam("hora_salida") String hora_salida,
+                           @RequestParam("entrada") String hora_ingreso,
+                            @RequestParam("salida") String hora_salida,
                             @RequestParam("placa") String placa){
+        System.out.println("Id usuario: "+idUsuario);
         Usuario user = usuarioServiceAPI.get(idUsuario);
         Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
         ReservaCupo cupo = new ReservaCupo();
