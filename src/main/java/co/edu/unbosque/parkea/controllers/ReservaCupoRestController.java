@@ -67,7 +67,8 @@ public class ReservaCupoRestController {
     public HttpStatus save2(@RequestParam("idUsuario") int idUsuario,
                            @RequestParam("idParqueadero") int idParqueadero,
                            @RequestParam("hora_ingreso") String hora_ingreso,
-                            @RequestParam("hora_salida") String hora_salida){
+                            @RequestParam("hora_salida") String hora_salida,
+                            @RequestParam("placa") String placa){
         Usuario user = usuarioServiceAPI.get(idUsuario);
         Parqueadero parq = parqueaderoServiceAPI.get(idParqueadero);
         ReservaCupo cupo = new ReservaCupo();
@@ -75,8 +76,7 @@ public class ReservaCupoRestController {
         cupo.setIdParqueadero(parq);
         cupo.setHoraIngreso(hora_ingreso);
         cupo.setHoraSalida(hora_salida);
-        Carro carro = user.getCarros().get(0);
-        cupo.setPlacaCarro(carro.getPlaca());
+        cupo.setPlacaCarro(placa);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         cupo.setMomentoReserva(timestamp+"");
         reservaCupoServiceAPI.save(cupo);
