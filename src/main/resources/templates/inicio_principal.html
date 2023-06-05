@@ -123,11 +123,11 @@
                   <h2>Log in</h2>
                   <div class="form-element">
                      <label for="email">Correo Electronico</label>
-                     <input type="text" id="email" placeholder="Email" name="email">
+                     <input type="text" id="email" placeholder="Email" name="email" oninput="checkInputs()">
                   </div>
                   <div class="form-element">
                      <label for="Contraseña">Contraseña</label>
-                     <input type="password" id="Contraseña" placeholder="Contraseña" name="password">
+                     <input type="password" id="contraseña" placeholder="Contraseña" name="password" oninput="checkInputs()">
                   </div>
                   <div>
                      <form th:action="@{/pagina_principal/verify}" method="POST" th:object="${captcha}">
@@ -136,7 +136,7 @@
                      <input type="hidden" th:field="*{hiddenCaptcha}"/><br>
                      <lable style="color: black;" for="captchatext"> Enter Captch text </lable>
                      <input type="text" id="captchatext" th:field="*{captcha}"/>
-                        <input type="submit" id="verificar" onclick="habilitar()" value="verificar" class="decorative-button">
+                        <input type="submit" id="verificar" onclick="habilitar()" value="verificar" class="decorative-button_login" disabled>
                      </form>
                   </div>
                   </form>
@@ -198,16 +198,16 @@
                         </div>
                         <div class="row">
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="correo Electronico" type="Search" name="correo">
+                              <input class="contactus" id="correo" placeholder="correo Electronico" type="Search" name="correo" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="direccion" type="Search" name="direccion">
+                              <input class="contactus" id="password" placeholder="direccion" type="Search" name="direccion" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Numero documento" type="Search" name="documento">
+                              <input class="contactus" id="documento_id" placeholder="Numero documento" type="Search" name="documento" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" placeholder="Tarjeta de credito" type="Search" name="tarjeta">
+                              <input class="contactus" id="tarjeta_pago" placeholder="Tarjeta de credito" type="Search" name="tarjeta" oninput="check()">
                            </div>
                            <!--<div class="col-md-12 ">
                               <select name="departamento">
@@ -255,7 +255,7 @@
                                  <option value="4">Tarjeta de identidad</option>
                               </select>
                            </div>
-                           <input type="submit" value="Registrar" class="decorative-button">
+                           <input type="submit" value="Registrar" id="registrar" class="decorative-button_login" disabled>
                            <br><br>
                            <div class="col-sm-12">
                               <form>

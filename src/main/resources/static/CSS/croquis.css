@@ -1,6 +1,6 @@
 .mapadiv{
  width: 500px;
- margin: -80px;
+ margin: -100px;
  float: left;
  cursor: pointer;
 }
@@ -14,7 +14,7 @@
     fill: #ff0000;
 }
 .card-body{
-    margin: 11.6%;
+    margin: 9%;
 }
 .gradient-custom-2 {
     /* fallback for old browsers */
