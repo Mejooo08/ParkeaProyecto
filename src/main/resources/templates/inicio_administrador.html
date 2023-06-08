@@ -27,7 +27,7 @@
             <div class="btn-menu">
                 <label for="btn-menu" class="icon-menu" style="cursor: pointer;">☰</label>
                 <div style="text-align: right; color: white" size="30%">
-                    <p style="display: inline-block; margin-left: 10px; font-size: 170%; color: white;">Correo Electronico: <span th:text="${correo}"></span></p>
+                    <p style="display: inline-block; margin-left: 10px; font-size: 170%; color: white;">Correo Electrónico: <span th:text="${correo}"></span></p>
                     <br>
                     <p style="display: inline-block; margin-left: 10px; font-size: 170%; color: white" size="30%">ID: <span th:text="${id}"></span></p>
                 </div>
@@ -41,16 +41,16 @@
                 <nav class="navbar">
                     <img src="/Images/logo-parkea.png" style="width: 50%; height: 50%; margin-left: 20%;"/>
                     <br><br>
-                    <a onclick="tipo_de_parqueadero()" style="cursor: pointer;">Informacion de parqueadero</a>
-                    <a onclick="carros()">Informacion del vehiculo</a>
+                    <a onclick="tipo_de_parqueadero()" style="cursor: pointer;">Información de parqueadero</a>
+                    <a onclick="carros()">Información del vehículo</a>
                     <link rel="icon" href="/Images/logo.ico">
                     <a onclick="reserva()">Reserva de cupo</a>
-                    <a onclick="telefono()">Telefonos</a>
-                    <a onclick="usuario()">Informacion de los usuarios</a>
-                    <a onclick="auditoria()">Informacion de Auditoria</a>
+                    <a onclick="telefono()">Teléfonos</a>
+                    <a onclick="usuario()">Información de los usuarios</a>
+                    <a onclick="auditoria()">Información de Auditoria</a>
                     <br><br><br><br><br>
                     <form method="GET" th:action="@{/pagina_principal/inicio_principal}">
-                        <input type="submit" value="Cerrar Sesion" class="decorative-button">
+                        <input type="submit" value="Cerrar Sesión" class="decorative-button">
                     </form>
                 </nav>
                 <label for="btn-menu">✖</label>
@@ -83,7 +83,7 @@
                     <div class="clos-btn" onclick="cerrarExcel()">&times;</div>
                     <div class="form">
                         <div class="contenedor-botones">
-                            <h3>Por favor selecciona el informe en excel que deseas</h3>
+                            <h3>Por favor selecciona el informe en Excel que deseas</h3>
                             <form method="GET" th:action="@{/pagina_principal/api/Usuario/export-xls}">
                                 <button class="boton cuatro"><strong><span>Usuarios</span></strong></button>
                             </form>
@@ -140,7 +140,7 @@
                         "<td>" + parqueadero.idParqueadero + "</td>" +
                         "<td>" + parqueadero.idTipoParq + "</td>" +
                         "<td>" + parqueadero.ubicacion + "</td>" +
-                        "<td>" + parqueadero.horarioAtencion + "</td>" +
+                        "<td>" + parqueadero.horarioAtención + "</td>" +
                         "<td>" + parqueadero.tarifa + "</td>" +
                         "<td>" + parqueadero.fidelizacion + "</td>" +
                         "<td>" + parqueadero.ciudad + "</td>" +
@@ -165,7 +165,7 @@
                         <th>ID_Parqueadero</th>
                         <th>Tipo_parqueadero</th>
                         <th>Ubicación</th>
-                        <th>Horario de atencion</th>
+                        <th>Horario de atención</th>
                         <th>Tarifa</th>
                         <th>Fidelización</th>
                         <th>Ciudad</th>
@@ -199,7 +199,7 @@
     <div id="carros" style="display: none;">
         <main class="table_parqueadero" >
             <section class="table_header">
-                <h1 style="margin-top: -1.2%">Informacion de los vehiculos</h1>
+                <h1 style="margin-top: -1.2%">Información de los vehículos</h1>
             </section>
             <section class="table_body">
                 <table id="tabla_carro">
@@ -254,7 +254,7 @@
                         <th>Hora de salida</th>
                         <th>Usuario</th>
                         <th>Id del parqueadero</th>
-                        <th>Placa del vehiculo</th>
+                        <th>Placa del vehículo</th>
                         <th>Estado</th>
                     </tr>
                     </thead>
@@ -335,10 +335,10 @@
                         <th>ID de usuario</th>
                         <th>Rol</th>
                         <th>login</th>
-                        <th>direccion</th>
+                        <th>dirección</th>
                         <th>ID del documento</th>
                         <th>Numero de documento</th>
-                        <th>Puntos de Fidelizacion</th>
+                        <th>Puntos de Fidelización</th>
                         <th>Tarjeta de Credito</th>
                         <th>Intentos</th>
                         <th>Estado</th>
