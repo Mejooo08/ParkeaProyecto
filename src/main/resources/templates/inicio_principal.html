@@ -73,7 +73,7 @@
                               </div>
                            </li>
                            <li class="nav-item">
-                                 <a th:href="@{/recuperar/password}" style="cursor: pointer;" class="nav-link-2">Recuperar Contraseña</a>
+                                 <a th:href="@{/recuperar/password}" style="cursor: pointer;" class="nav-link-2">Cambiar Contraseña</a>
                            </li>
                         </ul>
                      </div>
@@ -120,9 +120,9 @@
                <div class="clos-btn" onclick="cerrarModal()">&times;</div>
                <div class="form">
                   <form th:action="@{/api/Autenticacion/validarLogin}" method="POST">
-                  <h2>Log in</h2>
+                  <h2>Inicio de Sesión</h2>
                   <div class="form-element">
-                     <label for="email">Correo Electronico</label>
+                     <label for="email">Correo Electrónico</label>
                      <input type="text" id="email" placeholder="Email" name="email" oninput="checkInputs()">
                   </div>
                   <div class="form-element">
@@ -134,7 +134,7 @@
                      <label style="color: black;" for="image"> CAPTCHA</label>
                      <input style="color: black;" type="image" id="image" th:src="*{'data:realCaptcha/jpg;base64,'+realCaptcha}">
                      <input type="hidden" th:field="*{hiddenCaptcha}"/><br>
-                     <lable style="color: black;" for="captchatext"> Enter Captch text </lable>
+                     <lable style="color: black;" for="captchatext"> Ingrese el Captcha </lable>
                      <input type="text" id="captchatext" th:field="*{captcha}"/>
                         <input type="submit" id="verificar" onclick="habilitar()" value="verificar" class="decorative-button_login" disabled>
                      </form>
@@ -153,8 +153,8 @@
             <div class="col-md-12">
                <div class="titlepage">
                   <h2>Encuéntranos en las principales ciudades del pais</h2>
-                  <span>Contamos con sedes en diversos puntos del pais, ya sean parquederos cubiertos, semicubiertos y descubiertos
-                     conforme a tus preferencias. Encuentranos donde quiera que estes.</span>
+                  <span>Contamos con sedes en diversos puntos del país, ya sean parqueaderos cubiertos, semicubiertos y descubiertos
+                     conforme a tus preferencias. Encuéntranos en tú ciudad.</span>
                </div>
             </div>
          </div>
@@ -162,7 +162,7 @@
             <div class="col-md-4 padding_leri">
                <div class="car_box">
                   <figure><img src="/Images/medellin.jpg" alt="#" /></figure>
-                  <h3>Medellin</h3>
+                  <h3>Medellín</h3>
                </div>
             </div>
             <div class="col-md-4 padding_leri">
@@ -198,54 +198,17 @@
                         </div>
                         <div class="row">
                            <div class="col-md-12">
-                              <input class="contactus" id="correo" placeholder="correo Electronico" type="Search" name="correo" oninput="check()">
+                              <input class="contactus" id="correo" placeholder="Correo Electrónico" type="Search" name="correo" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" id="password" placeholder="direccion" type="Search" name="direccion" oninput="check()">
+                              <input class="contactus" id="password" placeholder="Dirección" type="Search" name="direccion" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" id="documento_id" placeholder="Numero documento" type="Search" name="documento" oninput="check()">
+                              <input class="contactus" id="documento_id" placeholder="Número de documento" type="Search" name="documento" oninput="check()">
                            </div>
                            <div class="col-md-12">
-                              <input class="contactus" id="tarjeta_pago" placeholder="Tarjeta de credito" type="Search" name="tarjeta" oninput="check()">
+                              <input class="contactus" id="tarjeta_pago" placeholder="Tarjeta de crédito" type="Search" name="tarjeta" oninput="check()">
                            </div>
-                           <!--<div class="col-md-12 ">
-                              <select name="departamento">
-                                 <option value="0">Amazonas</option>
-                                 <option value="1">Antioquia</option>
-                                 <option value="2">Arauca</option>
-                                 <option value="3">Atlántico</option>
-                                 <option value="4">Bolívar</option>
-                                 <option value="5">Boyacá</option>
-                                 <option value="6">Caldas</option>
-                                 <option value="7">Caquetá</option>
-                                 <option value="8">Casanare</option>
-                                 <option value="9">Cauca</option>
-                                 <option value="10">Cesar</option>
-                                 <option value="11">Cesar</option>
-                                 <option value="12">Córdoba</option>
-                                 <option value="13">Cundinamarca</option>
-                                 <option value="14">Guainía</option>
-                                 <option value="15">Guaviare</option>
-                                 <option value="16">Huila</option>
-                                 <option value="17">La Guajira</option>
-                                 <option value="18">Magdalena</option>
-                                 <option value="19">Meta</option>
-                                 <option value="10">Nariño</option>
-                                 <option value="21">Norte de Santander</option>
-                                 <option value="22">Putumayo</option>
-                                 <option value="23">Quindío</option>
-                                 <option value="24">Risaralda</option>
-                                 <option value="25">San Andrés y Providencia</option>
-                                 <option value="26">Santander</option>
-                                 <option value="27">Sucre</option>
-                                 <option value="28">Tolima</option>
-                                 <option value="29">Valle del Cauca</option>
-                                 <option value="30">Vaupés</option>
-                                 <option value="31">Vichada</option>
-                                 <option value="32">Risaralda</option>
-                              </select>
-                           </div>-->
                            <div class="col-md-12">
                               <select name="cedula">
                                  <option value="1">Cédula de ciudadanía</option>
@@ -337,7 +300,7 @@
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2>CONOCE NUESTROS ESTABLECIMIENTOS EN NUESTRA GALERIA</h2>
+                  <h2>CONOCE NUESTROS ESTABLECIMIENTOS EN NUESTRA GALERÍA</h2>
                </div>
             </div>
          </div>
@@ -435,7 +398,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-12">
-                     <p>© 2023 Proyecto ingenierÍa de software II. <a href="https://html.design/"> Corte 3</a></p>
+                     <p>© 2023 Proyecto ingeniería de software II. <a href="https://html.design/"> Corte 3</a></p>
                   </div>
                </div>
             </div>

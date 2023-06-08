@@ -49,24 +49,24 @@
                      <!--AQUI ESTA EL FORMULARIO-->
                      <form class="main_form" th:action="@{/pagina_principal/api/Usuario/cambiarContra}" method="POST">
                          <div class="titlepage">
-                             <h2>RECUPERACIÓN DE CONTRASEÑA</h2>
+                             <h2>CAMBIO DE CONTRASEÑA</h2>
                              <h2>Señor usuario, por favor ingresa los siguientes datos en los campos</h2>
                              <h2 id="campo-ciudad"></h2>
                          </div>
                          <div class="row">
                              <div class="col-md-10">
                                      <div class="form-element">
-                                         <input type="text" placeholder="Email" name="correo" style="width: 100%;">
+                                         <input type="text" placeholder="Email o Correo" name="correo" style="width: 100%;">
                                      </div>
                                      <div class="form-element">
-                                         <input type="password" placeholder="contraseña vieja" name="contraVieja" style="width: 100%;">
+                                         <input type="password" placeholder="Contraseña vieja" name="contraVieja" style="width: 100%;">
                                      </div>
                                      <div class="form-element">
-                                         <input type="password" placeholder="contraseña nueva" name="contraNueva" style="width: 100%;">
+                                         <input type="password" placeholder="Contraseña nueva" name="contraNueva" style="width: 100%;">
                                      </div>
                              </div>
                              <div class="col-sm-12">
-                                 <input type="submit" value="Recuperar" class="find_btn" style="cursor: pointer;">
+                                 <input type="submit" value="Cambiar" class="find_btn" style="cursor: pointer;">
                              </div>
                          </div>
                      </form>
