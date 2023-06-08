@@ -95,7 +95,7 @@ public class UsuarioRestController {
 
         try{
             correoService.enviarCorreo(usuario.getLogin(), "Registro exitoso", "Bienvenido usuario "+usuario.getLogin()+":\nUsted ha sido registrado" +
-                    ", su clave de accesso es: " +contra);
+                    ", su clave de acceso es: " +contra);
             usuarioServiceAPI.save(usuario);
             audi.saveAuditoria("Guardar", "Usuario",usuario.getIdUsuario());
         }catch (Exception e){
@@ -156,7 +156,6 @@ public class UsuarioRestController {
             @RequestParam("correo") String correo,
             @RequestParam("contraVieja") String contraVieja,
             @RequestParam("contraNueva") String contraNueva){
-        System.out.println("Contrasenia");
         System.out.println(correo);
         System.out.println(contraVieja);
         System.out.println(contraNueva);
